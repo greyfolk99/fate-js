@@ -1,0 +1,12 @@
+{
+  "name": "fate-js",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.0"
+  }
+}
