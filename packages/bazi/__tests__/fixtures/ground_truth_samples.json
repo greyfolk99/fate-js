@@ -1,0 +1,8002 @@
+[
+  {
+    "year": 1855,
+    "month": 10,
+    "day": 1,
+    "hour": 11,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 1,
+      "monthZhi": 9,
+      "dayGan": 7,
+      "dayZhi": 11,
+      "hourGan": 0,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2122,
+    "month": 11,
+    "day": 11,
+    "hour": 17,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 6,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 8,
+      "dayZhi": 0,
+      "hourGan": 5,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2038,
+    "month": 5,
+    "day": 13,
+    "hour": 15,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 6,
+      "monthGan": 3,
+      "monthZhi": 5,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 0,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2053,
+    "month": 3,
+    "day": 30,
+    "hour": 11,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 1,
+      "monthZhi": 3,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1917,
+    "month": 2,
+    "day": 28,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 5,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 7,
+      "dayZhi": 1,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2106,
+    "month": 1,
+    "day": 14,
+    "hour": 1,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 3,
+      "dayZhi": 11,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2184,
+    "month": 11,
+    "day": 8,
+    "hour": 21,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 8,
+      "monthGan": 1,
+      "monthZhi": 11,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1802,
+    "month": 8,
+    "day": 10,
+    "hour": 19,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 4,
+      "monthZhi": 8,
+      "dayGan": 7,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1906,
+    "month": 8,
+    "day": 22,
+    "hour": 11,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2136,
+    "month": 3,
+    "day": 22,
+    "hour": 15,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 8,
+      "dayZhi": 8,
+      "hourGan": 4,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2018,
+    "month": 5,
+    "day": 11,
+    "hour": 11,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 10,
+      "monthGan": 3,
+      "monthZhi": 5,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2020,
+    "month": 11,
+    "day": 15,
+    "hour": 5,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 0,
+      "monthGan": 3,
+      "monthZhi": 11,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2175,
+    "month": 1,
+    "day": 16,
+    "hour": 17,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 3,
+      "monthZhi": 1,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1843,
+    "month": 5,
+    "day": 17,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 3,
+      "monthGan": 3,
+      "monthZhi": 5,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 6,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2001,
+    "month": 9,
+    "day": 16,
+    "hour": 5,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 5,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2022,
+    "month": 1,
+    "day": 5,
+    "hour": 11,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 6,
+      "monthZhi": 0,
+      "dayGan": 4,
+      "dayZhi": 6,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1998,
+    "month": 7,
+    "day": 2,
+    "hour": 19,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 2,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 6,
+      "dayZhi": 10,
+      "hourGan": 2,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2132,
+    "month": 3,
+    "day": 9,
+    "hour": 7,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 9,
+      "monthZhi": 3,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1872,
+    "month": 10,
+    "day": 12,
+    "hour": 9,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 6,
+      "monthZhi": 10,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 1,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2025,
+    "month": 7,
+    "day": 7,
+    "hour": 23,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1808,
+    "month": 11,
+    "day": 2,
+    "hour": 1,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1866,
+    "month": 5,
+    "day": 6,
+    "hour": 23,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 9,
+      "monthZhi": 5,
+      "dayGan": 7,
+      "dayZhi": 5,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2140,
+    "month": 7,
+    "day": 14,
+    "hour": 23,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 0,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 3,
+      "dayZhi": 11,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2065,
+    "month": 2,
+    "day": 9,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 4,
+      "monthZhi": 2,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1857,
+    "month": 9,
+    "day": 18,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 5,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 5,
+      "dayZhi": 9,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1879,
+    "month": 11,
+    "day": 14,
+    "hour": 17,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 3,
+      "monthGan": 1,
+      "monthZhi": 11,
+      "dayGan": 7,
+      "dayZhi": 1,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2111,
+    "month": 4,
+    "day": 23,
+    "hour": 23,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2103,
+    "month": 6,
+    "day": 12,
+    "hour": 23,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 11,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2093,
+    "month": 4,
+    "day": 26,
+    "hour": 5,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 2,
+      "monthZhi": 4,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1997,
+    "month": 4,
+    "day": 6,
+    "hour": 11,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 4,
+      "dayZhi": 2,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2198,
+    "month": 12,
+    "day": 10,
+    "hour": 7,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 10,
+      "monthGan": 0,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 8,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2156,
+    "month": 2,
+    "day": 22,
+    "hour": 9,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 3,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2016,
+    "month": 8,
+    "day": 1,
+    "hour": 3,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 1,
+      "monthZhi": 7,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2094,
+    "month": 5,
+    "day": 25,
+    "hour": 15,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 2,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1926,
+    "month": 4,
+    "day": 5,
+    "hour": 5,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1988,
+    "month": 2,
+    "day": 15,
+    "hour": 23,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 0,
+      "monthZhi": 2,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1973,
+    "month": 8,
+    "day": 7,
+    "hour": 15,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 0,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1935,
+    "month": 4,
+    "day": 20,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 11,
+      "monthGan": 6,
+      "monthZhi": 4,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2003,
+    "month": 4,
+    "day": 10,
+    "hour": 23,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 7,
+      "monthGan": 2,
+      "monthZhi": 4,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 0,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1998,
+    "month": 7,
+    "day": 6,
+    "hour": 9,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 2,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 0,
+      "dayZhi": 2,
+      "hourGan": 5,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2098,
+    "month": 6,
+    "day": 21,
+    "hour": 17,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 6,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 0,
+      "dayZhi": 8,
+      "hourGan": 9,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1851,
+    "month": 10,
+    "day": 26,
+    "hour": 15,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 11,
+      "monthGan": 4,
+      "monthZhi": 10,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 0,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2124,
+    "month": 11,
+    "day": 12,
+    "hour": 19,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 8,
+      "monthGan": 1,
+      "monthZhi": 11,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1978,
+    "month": 6,
+    "day": 20,
+    "hour": 7,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 6,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2051,
+    "month": 1,
+    "day": 22,
+    "hour": 7,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 3,
+      "dayZhi": 7,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2114,
+    "month": 3,
+    "day": 20,
+    "hour": 15,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 3,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 10,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1974,
+    "month": 5,
+    "day": 12,
+    "hour": 1,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1864,
+    "month": 2,
+    "day": 4,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 11,
+      "monthGan": 1,
+      "monthZhi": 1,
+      "dayGan": 5,
+      "dayZhi": 11,
+      "hourGan": 2,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1984,
+    "month": 12,
+    "day": 10,
+    "hour": 13,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 0,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 4,
+      "dayZhi": 2,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2053,
+    "month": 8,
+    "day": 27,
+    "hour": 15,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 6,
+      "monthZhi": 8,
+      "dayGan": 1,
+      "dayZhi": 7,
+      "hourGan": 0,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1912,
+    "month": 5,
+    "day": 9,
+    "hour": 1,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 3,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1920,
+    "month": 5,
+    "day": 2,
+    "hour": 11,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 8,
+      "monthGan": 6,
+      "monthZhi": 4,
+      "dayGan": 6,
+      "dayZhi": 8,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2032,
+    "month": 1,
+    "day": 20,
+    "hour": 7,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 11,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1861,
+    "month": 7,
+    "day": 13,
+    "hour": 11,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 9,
+      "monthGan": 1,
+      "monthZhi": 7,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1983,
+    "month": 1,
+    "day": 31,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 5,
+      "dayZhi": 7,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2088,
+    "month": 4,
+    "day": 19,
+    "hour": 23,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 8,
+      "monthGan": 2,
+      "monthZhi": 4,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 2,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2090,
+    "month": 6,
+    "day": 8,
+    "hour": 21,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1986,
+    "month": 12,
+    "day": 2,
+    "hour": 9,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 5,
+      "monthZhi": 11,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2165,
+    "month": 12,
+    "day": 18,
+    "hour": 17,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 1,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2073,
+    "month": 10,
+    "day": 16,
+    "hour": 9,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 5,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 6,
+      "dayZhi": 6,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1995,
+    "month": 5,
+    "day": 12,
+    "hour": 5,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 11,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1928,
+    "month": 2,
+    "day": 12,
+    "hour": 17,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 0,
+      "monthZhi": 2,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 5,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2089,
+    "month": 4,
+    "day": 2,
+    "hour": 15,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 9,
+      "monthGan": 3,
+      "monthZhi": 3,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 4,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2023,
+    "month": 2,
+    "day": 14,
+    "hour": 1,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 3,
+      "monthGan": 0,
+      "monthZhi": 2,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2097,
+    "month": 1,
+    "day": 4,
+    "hour": 15,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 6,
+      "monthZhi": 0,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 2,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1976,
+    "month": 10,
+    "day": 18,
+    "hour": 17,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 4,
+      "monthZhi": 10,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 7,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2175,
+    "month": 1,
+    "day": 15,
+    "hour": 7,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 3,
+      "monthZhi": 1,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1851,
+    "month": 1,
+    "day": 29,
+    "hour": 21,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2070,
+    "month": 5,
+    "day": 1,
+    "hour": 13,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 2,
+      "monthGan": 6,
+      "monthZhi": 4,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 1,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2130,
+    "month": 1,
+    "day": 3,
+    "hour": 7,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 1,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1809,
+    "month": 1,
+    "day": 24,
+    "hour": 23,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 1,
+      "monthZhi": 1,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1910,
+    "month": 7,
+    "day": 22,
+    "hour": 15,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 6,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1857,
+    "month": 7,
+    "day": 10,
+    "hour": 3,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 5,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 5,
+      "dayZhi": 11,
+      "hourGan": 2,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1910,
+    "month": 3,
+    "day": 6,
+    "hour": 17,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 4,
+      "monthZhi": 2,
+      "dayGan": 6,
+      "dayZhi": 6,
+      "hourGan": 1,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2174,
+    "month": 1,
+    "day": 10,
+    "hour": 11,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 1,
+      "monthZhi": 1,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2187,
+    "month": 5,
+    "day": 13,
+    "hour": 9,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1926,
+    "month": 9,
+    "day": 19,
+    "hour": 1,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 7,
+      "dayZhi": 11,
+      "hourGan": 5,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2101,
+    "month": 4,
+    "day": 30,
+    "hour": 15,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 3,
+      "dayZhi": 7,
+      "hourGan": 4,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2132,
+    "month": 2,
+    "day": 15,
+    "hour": 1,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 3,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2053,
+    "month": 7,
+    "day": 8,
+    "hour": 9,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1985,
+    "month": 3,
+    "day": 9,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 5,
+      "monthZhi": 3,
+      "dayGan": 3,
+      "dayZhi": 7,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2028,
+    "month": 5,
+    "day": 11,
+    "hour": 21,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 8,
+      "monthGan": 3,
+      "monthZhi": 5,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 5,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1929,
+    "month": 12,
+    "day": 11,
+    "hour": 21,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2187,
+    "month": 1,
+    "day": 27,
+    "hour": 21,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1861,
+    "month": 4,
+    "day": 8,
+    "hour": 11,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 3,
+      "dayZhi": 11,
+      "hourGan": 2,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2139,
+    "month": 6,
+    "day": 10,
+    "hour": 3,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 11,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 3,
+      "dayZhi": 7,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1895,
+    "month": 7,
+    "day": 24,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 7,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 8,
+      "dayZhi": 8,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1986,
+    "month": 7,
+    "day": 23,
+    "hour": 17,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 1,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 7,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2063,
+    "month": 10,
+    "day": 18,
+    "hour": 21,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 7,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2070,
+    "month": 8,
+    "day": 18,
+    "hour": 13,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 2,
+      "monthGan": 0,
+      "monthZhi": 8,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 9,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2131,
+    "month": 9,
+    "day": 25,
+    "hour": 1,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 8,
+      "dayZhi": 0,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2154,
+    "month": 1,
+    "day": 10,
+    "hour": 11,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 1,
+      "monthZhi": 1,
+      "dayGan": 1,
+      "dayZhi": 7,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1963,
+    "month": 12,
+    "day": 12,
+    "hour": 9,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 3,
+      "monthGan": 0,
+      "monthZhi": 0,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 5,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2042,
+    "month": 5,
+    "day": 23,
+    "hour": 19,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 7,
+      "dayZhi": 9,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1947,
+    "month": 10,
+    "day": 1,
+    "hour": 7,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1848,
+    "month": 9,
+    "day": 15,
+    "hour": 5,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 8,
+      "monthGan": 7,
+      "monthZhi": 9,
+      "dayGan": 5,
+      "dayZhi": 7,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1999,
+    "month": 8,
+    "day": 5,
+    "hour": 23,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 3,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 2,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2192,
+    "month": 2,
+    "day": 17,
+    "hour": 19,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1978,
+    "month": 7,
+    "day": 13,
+    "hour": 17,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 6,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 2,
+      "dayZhi": 0,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1913,
+    "month": 9,
+    "day": 2,
+    "hour": 23,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 6,
+      "monthZhi": 8,
+      "dayGan": 2,
+      "dayZhi": 10,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2077,
+    "month": 7,
+    "day": 22,
+    "hour": 9,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1809,
+    "month": 12,
+    "day": 10,
+    "hour": 9,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 8,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2000,
+    "month": 3,
+    "day": 2,
+    "hour": 9,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 4,
+      "monthZhi": 2,
+      "dayGan": 5,
+      "dayZhi": 7,
+      "hourGan": 5,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1855,
+    "month": 10,
+    "day": 10,
+    "hour": 21,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 2,
+      "monthZhi": 10,
+      "dayGan": 6,
+      "dayZhi": 8,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1963,
+    "month": 11,
+    "day": 8,
+    "hour": 1,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 3,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 3,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2021,
+    "month": 9,
+    "day": 6,
+    "hour": 5,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 3,
+      "dayZhi": 5,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1966,
+    "month": 9,
+    "day": 24,
+    "hour": 3,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 2,
+      "dayZhi": 10,
+      "hourGan": 6,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1970,
+    "month": 5,
+    "day": 10,
+    "hour": 3,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1849,
+    "month": 6,
+    "day": 25,
+    "hour": 19,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 9,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1918,
+    "month": 7,
+    "day": 20,
+    "hour": 21,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 6,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 9,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2099,
+    "month": 2,
+    "day": 26,
+    "hour": 23,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 2,
+      "monthZhi": 2,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 2,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1976,
+    "month": 3,
+    "day": 17,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1852,
+    "month": 9,
+    "day": 12,
+    "hour": 3,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1979,
+    "month": 5,
+    "day": 24,
+    "hour": 3,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 6,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2051,
+    "month": 3,
+    "day": 11,
+    "hour": 5,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 1,
+      "dayZhi": 7,
+      "hourGan": 5,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2117,
+    "month": 3,
+    "day": 4,
+    "hour": 3,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 0,
+      "dayZhi": 10,
+      "hourGan": 2,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2134,
+    "month": 10,
+    "day": 17,
+    "hour": 9,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 6,
+      "monthGan": 0,
+      "monthZhi": 10,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1945,
+    "month": 2,
+    "day": 12,
+    "hour": 21,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 4,
+      "monthZhi": 2,
+      "dayGan": 8,
+      "dayZhi": 0,
+      "hourGan": 7,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1879,
+    "month": 9,
+    "day": 30,
+    "hour": 13,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 3,
+      "monthGan": 9,
+      "monthZhi": 9,
+      "dayGan": 2,
+      "dayZhi": 4,
+      "hourGan": 1,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2009,
+    "month": 11,
+    "day": 20,
+    "hour": 15,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 1,
+      "monthGan": 1,
+      "monthZhi": 11,
+      "dayGan": 5,
+      "dayZhi": 5,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2180,
+    "month": 12,
+    "day": 19,
+    "hour": 9,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 1,
+      "dayZhi": 7,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1847,
+    "month": 6,
+    "day": 28,
+    "hour": 23,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 7,
+      "monthGan": 2,
+      "monthZhi": 6,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 2,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2186,
+    "month": 11,
+    "day": 23,
+    "hour": 1,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 5,
+      "monthZhi": 11,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 3,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2173,
+    "month": 2,
+    "day": 17,
+    "hour": 5,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 0,
+      "monthZhi": 2,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2162,
+    "month": 9,
+    "day": 10,
+    "hour": 3,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2041,
+    "month": 3,
+    "day": 26,
+    "hour": 19,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 9,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 4,
+      "dayZhi": 6,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2078,
+    "month": 2,
+    "day": 1,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2086,
+    "month": 1,
+    "day": 14,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1992,
+    "month": 8,
+    "day": 17,
+    "hour": 13,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 4,
+      "monthZhi": 8,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 9,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2072,
+    "month": 5,
+    "day": 24,
+    "hour": 11,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1808,
+    "month": 8,
+    "day": 20,
+    "hour": 13,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 6,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2096,
+    "month": 6,
+    "day": 14,
+    "hour": 7,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 0,
+      "monthZhi": 6,
+      "dayGan": 3,
+      "dayZhi": 3,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1983,
+    "month": 10,
+    "day": 22,
+    "hour": 15,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 11,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 6,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1817,
+    "month": 12,
+    "day": 12,
+    "hour": 17,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 9,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2149,
+    "month": 7,
+    "day": 29,
+    "hour": 17,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 9,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 9,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2008,
+    "month": 5,
+    "day": 3,
+    "hour": 13,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 0,
+      "monthGan": 2,
+      "monthZhi": 4,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2183,
+    "month": 12,
+    "day": 26,
+    "hour": 23,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 7,
+      "monthGan": 0,
+      "monthZhi": 0,
+      "dayGan": 3,
+      "dayZhi": 5,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2004,
+    "month": 8,
+    "day": 11,
+    "hour": 15,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 8,
+      "monthGan": 8,
+      "monthZhi": 8,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 4,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1871,
+    "month": 8,
+    "day": 28,
+    "hour": 7,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 7,
+      "dayZhi": 1,
+      "hourGan": 8,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1931,
+    "month": 9,
+    "day": 22,
+    "hour": 15,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 0,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2044,
+    "month": 8,
+    "day": 4,
+    "hour": 11,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 0,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1807,
+    "month": 3,
+    "day": 8,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 9,
+      "monthZhi": 3,
+      "dayGan": 8,
+      "dayZhi": 8,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1919,
+    "month": 5,
+    "day": 27,
+    "hour": 7,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 4,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2197,
+    "month": 7,
+    "day": 8,
+    "hour": 21,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1987,
+    "month": 12,
+    "day": 15,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2050,
+    "month": 6,
+    "day": 23,
+    "hour": 5,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 0,
+      "dayZhi": 10,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1825,
+    "month": 6,
+    "day": 12,
+    "hour": 9,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 3,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1925,
+    "month": 6,
+    "day": 14,
+    "hour": 11,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 5,
+      "dayZhi": 5,
+      "hourGan": 6,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1917,
+    "month": 9,
+    "day": 20,
+    "hour": 17,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 5,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 1,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1995,
+    "month": 12,
+    "day": 29,
+    "hour": 15,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 11,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1807,
+    "month": 2,
+    "day": 19,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 2,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2141,
+    "month": 2,
+    "day": 25,
+    "hour": 7,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 9,
+      "dayZhi": 9,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2116,
+    "month": 11,
+    "day": 15,
+    "hour": 11,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 0,
+      "monthGan": 5,
+      "monthZhi": 11,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1849,
+    "month": 1,
+    "day": 24,
+    "hour": 9,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 8,
+      "monthGan": 1,
+      "monthZhi": 1,
+      "dayGan": 6,
+      "dayZhi": 6,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2107,
+    "month": 12,
+    "day": 7,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 5,
+      "dayZhi": 7,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1835,
+    "month": 7,
+    "day": 31,
+    "hour": 5,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 7,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2142,
+    "month": 4,
+    "day": 12,
+    "hour": 13,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 7,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2169,
+    "month": 10,
+    "day": 20,
+    "hour": 1,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 0,
+      "monthZhi": 10,
+      "dayGan": 3,
+      "dayZhi": 9,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2117,
+    "month": 11,
+    "day": 16,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1977,
+    "month": 9,
+    "day": 21,
+    "hour": 7,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 5,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 7,
+      "dayZhi": 5,
+      "hourGan": 8,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1825,
+    "month": 12,
+    "day": 11,
+    "hour": 7,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2183,
+    "month": 12,
+    "day": 20,
+    "hour": 11,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 7,
+      "monthGan": 0,
+      "monthZhi": 0,
+      "dayGan": 7,
+      "dayZhi": 11,
+      "hourGan": 0,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1999,
+    "month": 8,
+    "day": 9,
+    "hour": 9,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 3,
+      "monthGan": 8,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 3,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1923,
+    "month": 4,
+    "day": 1,
+    "hour": 19,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 11,
+      "monthGan": 1,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1850,
+    "month": 12,
+    "day": 8,
+    "hour": 11,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1885,
+    "month": 8,
+    "day": 16,
+    "hour": 11,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 0,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2086,
+    "month": 1,
+    "day": 9,
+    "hour": 1,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1931,
+    "month": 9,
+    "day": 13,
+    "hour": 23,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 7,
+      "dayZhi": 7,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1911,
+    "month": 8,
+    "day": 28,
+    "hour": 7,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 11,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 6,
+      "dayZhi": 6,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2102,
+    "month": 4,
+    "day": 15,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 3,
+      "dayZhi": 9,
+      "hourGan": 7,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1973,
+    "month": 5,
+    "day": 15,
+    "hour": 21,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 3,
+      "monthZhi": 5,
+      "dayGan": 7,
+      "dayZhi": 11,
+      "hourGan": 5,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2127,
+    "month": 11,
+    "day": 18,
+    "hour": 13,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 9,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2064,
+    "month": 2,
+    "day": 22,
+    "hour": 13,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 8,
+      "monthGan": 2,
+      "monthZhi": 2,
+      "dayGan": 2,
+      "dayZhi": 10,
+      "hourGan": 1,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1897,
+    "month": 12,
+    "day": 8,
+    "hour": 7,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2130,
+    "month": 1,
+    "day": 26,
+    "hour": 3,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 1,
+      "monthGan": 3,
+      "monthZhi": 1,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2081,
+    "month": 4,
+    "day": 24,
+    "hour": 23,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 3,
+      "dayZhi": 5,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2087,
+    "month": 10,
+    "day": 6,
+    "hour": 7,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 7,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 9,
+      "dayZhi": 9,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1916,
+    "month": 3,
+    "day": 30,
+    "hour": 5,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 7,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1845,
+    "month": 9,
+    "day": 10,
+    "hour": 3,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 1,
+      "monthZhi": 9,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 0,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1972,
+    "month": 8,
+    "day": 14,
+    "hour": 5,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 4,
+      "monthZhi": 8,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2186,
+    "month": 5,
+    "day": 27,
+    "hour": 23,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 9,
+      "monthZhi": 5,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2066,
+    "month": 9,
+    "day": 2,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 5,
+      "dayZhi": 9,
+      "hourGan": 7,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1832,
+    "month": 5,
+    "day": 2,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2078,
+    "month": 1,
+    "day": 3,
+    "hour": 15,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 10,
+      "hourGan": 0,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1973,
+    "month": 4,
+    "day": 26,
+    "hour": 9,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 2,
+      "monthZhi": 4,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 1,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1834,
+    "month": 12,
+    "day": 27,
+    "hour": 9,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 6,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 3,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2063,
+    "month": 6,
+    "day": 9,
+    "hour": 5,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 7,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2029,
+    "month": 4,
+    "day": 4,
+    "hour": 1,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 9,
+      "monthGan": 3,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 1,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1933,
+    "month": 9,
+    "day": 8,
+    "hour": 13,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 7,
+      "monthZhi": 9,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 3,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1880,
+    "month": 4,
+    "day": 26,
+    "hour": 11,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 6,
+      "monthZhi": 4,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2072,
+    "month": 11,
+    "day": 25,
+    "hour": 23,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1989,
+    "month": 9,
+    "day": 24,
+    "hour": 7,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 9,
+      "monthZhi": 9,
+      "dayGan": 3,
+      "dayZhi": 11,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1966,
+    "month": 1,
+    "day": 14,
+    "hour": 5,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 9,
+      "dayZhi": 9,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2113,
+    "month": 12,
+    "day": 3,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 9,
+      "monthZhi": 11,
+      "dayGan": 3,
+      "dayZhi": 11,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2166,
+    "month": 3,
+    "day": 10,
+    "hour": 15,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 3,
+      "dayZhi": 9,
+      "hourGan": 4,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2196,
+    "month": 2,
+    "day": 7,
+    "hour": 11,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2156,
+    "month": 6,
+    "day": 29,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 0,
+      "monthZhi": 6,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 1,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2178,
+    "month": 10,
+    "day": 15,
+    "hour": 15,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 2,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1982,
+    "month": 8,
+    "day": 7,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 7,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1904,
+    "month": 4,
+    "day": 2,
+    "hour": 17,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 4,
+      "monthGan": 3,
+      "monthZhi": 3,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1906,
+    "month": 2,
+    "day": 19,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 7,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2185,
+    "month": 11,
+    "day": 6,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 2,
+      "monthZhi": 10,
+      "dayGan": 4,
+      "dayZhi": 2,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1837,
+    "month": 10,
+    "day": 24,
+    "hour": 9,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 6,
+      "monthZhi": 10,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1869,
+    "month": 12,
+    "day": 16,
+    "hour": 21,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 7,
+      "dayZhi": 5,
+      "hourGan": 5,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2065,
+    "month": 1,
+    "day": 17,
+    "hour": 17,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 8,
+      "monthGan": 3,
+      "monthZhi": 1,
+      "dayGan": 2,
+      "dayZhi": 4,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2106,
+    "month": 4,
+    "day": 11,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 0,
+      "dayZhi": 2,
+      "hourGan": 7,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1842,
+    "month": 5,
+    "day": 13,
+    "hour": 19,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2141,
+    "month": 6,
+    "day": 14,
+    "hour": 11,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 0,
+      "monthZhi": 6,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 2,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1880,
+    "month": 10,
+    "day": 16,
+    "hour": 15,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 2,
+      "monthZhi": 10,
+      "dayGan": 4,
+      "dayZhi": 2,
+      "hourGan": 6,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1999,
+    "month": 6,
+    "day": 27,
+    "hour": 5,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 3,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 6,
+      "dayZhi": 10,
+      "hourGan": 5,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1932,
+    "month": 6,
+    "day": 10,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 2,
+      "monthZhi": 6,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 7,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2026,
+    "month": 11,
+    "day": 24,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 5,
+      "monthZhi": 11,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 3,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1813,
+    "month": 11,
+    "day": 5,
+    "hour": 17,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1834,
+    "month": 4,
+    "day": 7,
+    "hour": 9,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 6,
+      "monthGan": 4,
+      "monthZhi": 4,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 5,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1949,
+    "month": 5,
+    "day": 3,
+    "hour": 19,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 1,
+      "monthGan": 4,
+      "monthZhi": 4,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1802,
+    "month": 12,
+    "day": 9,
+    "hour": 23,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2137,
+    "month": 12,
+    "day": 8,
+    "hour": 1,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2081,
+    "month": 1,
+    "day": 28,
+    "hour": 11,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 0,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 0,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2068,
+    "month": 1,
+    "day": 19,
+    "hour": 15,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 9,
+      "dayZhi": 9,
+      "hourGan": 6,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1868,
+    "month": 2,
+    "day": 16,
+    "hour": 17,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 0,
+      "monthZhi": 2,
+      "dayGan": 8,
+      "dayZhi": 8,
+      "hourGan": 5,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2182,
+    "month": 2,
+    "day": 10,
+    "hour": 9,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 6,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 3,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2180,
+    "month": 9,
+    "day": 28,
+    "hour": 13,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 1,
+      "monthZhi": 9,
+      "dayGan": 9,
+      "dayZhi": 9,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1960,
+    "month": 6,
+    "day": 12,
+    "hour": 11,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 0,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 7,
+      "dayZhi": 7,
+      "hourGan": 0,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2158,
+    "month": 3,
+    "day": 29,
+    "hour": 21,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 6,
+      "monthGan": 1,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 10,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2094,
+    "month": 3,
+    "day": 11,
+    "hour": 13,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 3,
+      "monthZhi": 3,
+      "dayGan": 7,
+      "dayZhi": 5,
+      "hourGan": 1,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1902,
+    "month": 4,
+    "day": 13,
+    "hour": 9,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1963,
+    "month": 4,
+    "day": 20,
+    "hour": 21,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 3,
+      "monthGan": 2,
+      "monthZhi": 4,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 9,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2108,
+    "month": 7,
+    "day": 12,
+    "hour": 1,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 3,
+      "dayZhi": 9,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1972,
+    "month": 7,
+    "day": 12,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1827,
+    "month": 1,
+    "day": 14,
+    "hour": 1,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 1,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1838,
+    "month": 10,
+    "day": 13,
+    "hour": 5,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 10,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2196,
+    "month": 7,
+    "day": 23,
+    "hour": 17,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 1,
+      "monthZhi": 7,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 1,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2111,
+    "month": 6,
+    "day": 19,
+    "hour": 15,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 0,
+      "monthZhi": 6,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1963,
+    "month": 1,
+    "day": 6,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 5,
+      "dayZhi": 9,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1891,
+    "month": 10,
+    "day": 22,
+    "hour": 15,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 4,
+      "monthZhi": 10,
+      "dayGan": 7,
+      "dayZhi": 5,
+      "hourGan": 2,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2157,
+    "month": 1,
+    "day": 17,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 4,
+      "dayZhi": 6,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2106,
+    "month": 4,
+    "day": 25,
+    "hour": 7,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1922,
+    "month": 2,
+    "day": 26,
+    "hour": 23,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1809,
+    "month": 2,
+    "day": 9,
+    "hour": 1,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 2,
+      "monthZhi": 2,
+      "dayGan": 2,
+      "dayZhi": 4,
+      "hourGan": 5,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2170,
+    "month": 10,
+    "day": 20,
+    "hour": 5,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 2,
+      "monthZhi": 10,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1984,
+    "month": 5,
+    "day": 5,
+    "hour": 23,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 0,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 5,
+      "dayZhi": 11,
+      "hourGan": 2,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1979,
+    "month": 8,
+    "day": 10,
+    "hour": 11,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 8,
+      "monthZhi": 8,
+      "dayGan": 5,
+      "dayZhi": 9,
+      "hourGan": 6,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1954,
+    "month": 7,
+    "day": 25,
+    "hour": 17,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 6,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 5,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1999,
+    "month": 12,
+    "day": 24,
+    "hour": 21,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 3,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 10,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1889,
+    "month": 4,
+    "day": 14,
+    "hour": 9,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 1,
+      "monthGan": 4,
+      "monthZhi": 4,
+      "dayGan": 6,
+      "dayZhi": 8,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2040,
+    "month": 7,
+    "day": 15,
+    "hour": 19,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 8,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2107,
+    "month": 1,
+    "day": 30,
+    "hour": 21,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 4,
+      "dayZhi": 8,
+      "hourGan": 9,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2187,
+    "month": 7,
+    "day": 3,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 2,
+      "monthZhi": 6,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2142,
+    "month": 3,
+    "day": 25,
+    "hour": 9,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 9,
+      "monthZhi": 3,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1855,
+    "month": 12,
+    "day": 29,
+    "hour": 5,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 5,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2002,
+    "month": 6,
+    "day": 3,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 6,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 7,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2025,
+    "month": 2,
+    "day": 24,
+    "hour": 3,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 4,
+      "monthZhi": 2,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 2,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2026,
+    "month": 10,
+    "day": 25,
+    "hour": 7,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 4,
+      "monthZhi": 10,
+      "dayGan": 8,
+      "dayZhi": 8,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1920,
+    "month": 9,
+    "day": 18,
+    "hour": 23,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 8,
+      "monthGan": 1,
+      "monthZhi": 9,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 2,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2135,
+    "month": 9,
+    "day": 28,
+    "hour": 17,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 7,
+      "monthGan": 1,
+      "monthZhi": 9,
+      "dayGan": 2,
+      "dayZhi": 0,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2079,
+    "month": 4,
+    "day": 25,
+    "hour": 13,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 11,
+      "monthGan": 4,
+      "monthZhi": 4,
+      "dayGan": 3,
+      "dayZhi": 7,
+      "hourGan": 3,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1987,
+    "month": 4,
+    "day": 9,
+    "hour": 1,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1973,
+    "month": 11,
+    "day": 12,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 9,
+      "monthZhi": 11,
+      "dayGan": 8,
+      "dayZhi": 0,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2182,
+    "month": 10,
+    "day": 30,
+    "hour": 11,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 6,
+      "monthGan": 6,
+      "monthZhi": 10,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2114,
+    "month": 12,
+    "day": 26,
+    "hour": 11,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1847,
+    "month": 7,
+    "day": 23,
+    "hour": 17,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 7,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 5,
+      "dayZhi": 7,
+      "hourGan": 9,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1944,
+    "month": 6,
+    "day": 4,
+    "hour": 5,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 8,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 5,
+      "dayZhi": 11,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2154,
+    "month": 3,
+    "day": 20,
+    "hour": 21,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 3,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2042,
+    "month": 5,
+    "day": 15,
+    "hour": 9,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 3,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1864,
+    "month": 5,
+    "day": 14,
+    "hour": 17,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 0,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 9,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1817,
+    "month": 6,
+    "day": 21,
+    "hour": 3,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 2,
+      "monthZhi": 6,
+      "dayGan": 6,
+      "dayZhi": 10,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2105,
+    "month": 1,
+    "day": 29,
+    "hour": 23,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 0,
+      "monthGan": 3,
+      "monthZhi": 1,
+      "dayGan": 3,
+      "dayZhi": 9,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1812,
+    "month": 10,
+    "day": 3,
+    "hour": 23,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 0,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2021,
+    "month": 9,
+    "day": 2,
+    "hour": 7,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1989,
+    "month": 2,
+    "day": 14,
+    "hour": 21,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 2,
+      "monthZhi": 2,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1803,
+    "month": 12,
+    "day": 18,
+    "hour": 23,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 11,
+      "monthGan": 0,
+      "monthZhi": 0,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1893,
+    "month": 1,
+    "day": 17,
+    "hour": 7,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 0,
+      "dayZhi": 2,
+      "hourGan": 4,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2174,
+    "month": 6,
+    "day": 4,
+    "hour": 1,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 3,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1847,
+    "month": 2,
+    "day": 8,
+    "hour": 21,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 7,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 0,
+      "dayZhi": 10,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1900,
+    "month": 3,
+    "day": 12,
+    "hour": 15,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 0,
+      "monthGan": 5,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 8,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1831,
+    "month": 8,
+    "day": 23,
+    "hour": 17,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2021,
+    "month": 2,
+    "day": 15,
+    "hour": 15,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2188,
+    "month": 6,
+    "day": 22,
+    "hour": 13,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 0,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 3,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2034,
+    "month": 9,
+    "day": 3,
+    "hour": 17,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 8,
+      "monthZhi": 8,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 5,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2007,
+    "month": 12,
+    "day": 24,
+    "hour": 23,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1843,
+    "month": 1,
+    "day": 17,
+    "hour": 19,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2007,
+    "month": 5,
+    "day": 10,
+    "hour": 15,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1987,
+    "month": 8,
+    "day": 25,
+    "hour": 15,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 4,
+      "monthZhi": 8,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 2,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2053,
+    "month": 9,
+    "day": 4,
+    "hour": 7,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 6,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1872,
+    "month": 3,
+    "day": 16,
+    "hour": 17,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 9,
+      "monthZhi": 3,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 5,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2005,
+    "month": 10,
+    "day": 20,
+    "hour": 7,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 2,
+      "monthZhi": 10,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2091,
+    "month": 10,
+    "day": 2,
+    "hour": 23,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 11,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2110,
+    "month": 11,
+    "day": 19,
+    "hour": 19,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 3,
+      "monthZhi": 11,
+      "dayGan": 3,
+      "dayZhi": 5,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2113,
+    "month": 11,
+    "day": 8,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 9,
+      "monthZhi": 11,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1936,
+    "month": 10,
+    "day": 2,
+    "hour": 1,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 0,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 3,
+      "dayZhi": 5,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1934,
+    "month": 2,
+    "day": 12,
+    "hour": 13,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 2,
+      "monthZhi": 2,
+      "dayGan": 0,
+      "dayZhi": 2,
+      "hourGan": 7,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2068,
+    "month": 7,
+    "day": 19,
+    "hour": 3,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 0,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1866,
+    "month": 8,
+    "day": 21,
+    "hour": 19,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2060,
+    "month": 12,
+    "day": 8,
+    "hour": 9,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1928,
+    "month": 3,
+    "day": 12,
+    "hour": 23,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 1,
+      "monthZhi": 3,
+      "dayGan": 7,
+      "dayZhi": 11,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1910,
+    "month": 5,
+    "day": 11,
+    "hour": 21,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 2,
+      "dayZhi": 0,
+      "hourGan": 5,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2103,
+    "month": 1,
+    "day": 10,
+    "hour": 11,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 3,
+      "dayZhi": 3,
+      "hourGan": 2,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2110,
+    "month": 5,
+    "day": 25,
+    "hour": 5,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 5,
+      "dayZhi": 7,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1997,
+    "month": 10,
+    "day": 28,
+    "hour": 15,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 6,
+      "monthZhi": 10,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 6,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1850,
+    "month": 5,
+    "day": 24,
+    "hour": 11,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2017,
+    "month": 6,
+    "day": 20,
+    "hour": 23,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 2,
+      "monthZhi": 6,
+      "dayGan": 4,
+      "dayZhi": 2,
+      "hourGan": 0,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2113,
+    "month": 5,
+    "day": 21,
+    "hour": 17,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 3,
+      "monthZhi": 5,
+      "dayGan": 7,
+      "dayZhi": 7,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1810,
+    "month": 1,
+    "day": 14,
+    "hour": 7,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 3,
+      "monthZhi": 1,
+      "dayGan": 1,
+      "dayZhi": 7,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2160,
+    "month": 5,
+    "day": 7,
+    "hour": 15,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 8,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1872,
+    "month": 7,
+    "day": 28,
+    "hour": 19,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 2,
+      "dayZhi": 0,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2045,
+    "month": 7,
+    "day": 23,
+    "hour": 13,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 2,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2122,
+    "month": 7,
+    "day": 30,
+    "hour": 15,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 6,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 6,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1923,
+    "month": 11,
+    "day": 4,
+    "hour": 5,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 11,
+      "monthGan": 8,
+      "monthZhi": 10,
+      "dayGan": 7,
+      "dayZhi": 5,
+      "hourGan": 7,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1833,
+    "month": 9,
+    "day": 20,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 5,
+      "monthGan": 7,
+      "monthZhi": 9,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1926,
+    "month": 2,
+    "day": 11,
+    "hour": 7,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 7,
+      "dayZhi": 7,
+      "hourGan": 8,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2059,
+    "month": 6,
+    "day": 26,
+    "hour": 19,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 3,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1938,
+    "month": 8,
+    "day": 29,
+    "hour": 11,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 2,
+      "monthGan": 6,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1978,
+    "month": 1,
+    "day": 30,
+    "hour": 7,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 5,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2138,
+    "month": 9,
+    "day": 27,
+    "hour": 17,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 9,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 3,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2110,
+    "month": 10,
+    "day": 3,
+    "hour": 19,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 1,
+      "monthZhi": 9,
+      "dayGan": 6,
+      "dayZhi": 6,
+      "hourGan": 2,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1802,
+    "month": 2,
+    "day": 14,
+    "hour": 19,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 0,
+      "dayZhi": 8,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2157,
+    "month": 12,
+    "day": 25,
+    "hour": 5,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 5,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 5,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1948,
+    "month": 3,
+    "day": 14,
+    "hour": 15,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 0,
+      "monthGan": 1,
+      "monthZhi": 3,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 6,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2018,
+    "month": 6,
+    "day": 20,
+    "hour": 13,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 10,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2142,
+    "month": 1,
+    "day": 7,
+    "hour": 9,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 5,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1945,
+    "month": 4,
+    "day": 10,
+    "hour": 7,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 6,
+      "monthZhi": 4,
+      "dayGan": 5,
+      "dayZhi": 9,
+      "hourGan": 4,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2131,
+    "month": 7,
+    "day": 17,
+    "hour": 1,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 1,
+      "monthZhi": 7,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2128,
+    "month": 1,
+    "day": 16,
+    "hour": 5,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 0,
+      "dayZhi": 8,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1895,
+    "month": 4,
+    "day": 21,
+    "hour": 11,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 7,
+      "monthGan": 6,
+      "monthZhi": 4,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2087,
+    "month": 4,
+    "day": 7,
+    "hour": 19,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 7,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 7,
+      "dayZhi": 7,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1836,
+    "month": 5,
+    "day": 3,
+    "hour": 19,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 7,
+      "dayZhi": 1,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1890,
+    "month": 8,
+    "day": 9,
+    "hour": 3,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 2,
+      "monthGan": 0,
+      "monthZhi": 8,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1905,
+    "month": 3,
+    "day": 15,
+    "hour": 15,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 5,
+      "monthZhi": 3,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 6,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2032,
+    "month": 4,
+    "day": 29,
+    "hour": 1,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 3,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1928,
+    "month": 1,
+    "day": 31,
+    "hour": 15,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 6,
+      "dayZhi": 6,
+      "hourGan": 0,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1941,
+    "month": 5,
+    "day": 15,
+    "hour": 7,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 5,
+      "monthGan": 9,
+      "monthZhi": 5,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 2,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2156,
+    "month": 4,
+    "day": 28,
+    "hour": 9,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 5,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1914,
+    "month": 7,
+    "day": 17,
+    "hour": 15,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2070,
+    "month": 11,
+    "day": 27,
+    "hour": 9,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 2,
+      "monthGan": 3,
+      "monthZhi": 11,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1807,
+    "month": 10,
+    "day": 19,
+    "hour": 17,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 6,
+      "monthZhi": 10,
+      "dayGan": 3,
+      "dayZhi": 5,
+      "hourGan": 5,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1946,
+    "month": 3,
+    "day": 17,
+    "hour": 11,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1972,
+    "month": 10,
+    "day": 19,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 6,
+      "monthZhi": 10,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 9,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2188,
+    "month": 12,
+    "day": 11,
+    "hour": 13,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 0,
+      "monthGan": 0,
+      "monthZhi": 0,
+      "dayGan": 5,
+      "dayZhi": 5,
+      "hourGan": 7,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1856,
+    "month": 2,
+    "day": 14,
+    "hour": 5,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 3,
+      "dayZhi": 3,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2167,
+    "month": 11,
+    "day": 26,
+    "hour": 17,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 3,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 7,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2095,
+    "month": 4,
+    "day": 9,
+    "hour": 7,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 6,
+      "monthZhi": 4,
+      "dayGan": 1,
+      "dayZhi": 3,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2038,
+    "month": 9,
+    "day": 13,
+    "hour": 11,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 6,
+      "monthGan": 7,
+      "monthZhi": 9,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1838,
+    "month": 6,
+    "day": 26,
+    "hour": 1,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 10,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 3,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2169,
+    "month": 6,
+    "day": 13,
+    "hour": 1,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2077,
+    "month": 12,
+    "day": 4,
+    "hour": 11,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2051,
+    "month": 8,
+    "day": 1,
+    "hour": 3,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 1,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 6,
+      "hourGan": 0,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1833,
+    "month": 1,
+    "day": 16,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 9,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2065,
+    "month": 5,
+    "day": 21,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 6,
+      "dayZhi": 8,
+      "hourGan": 2,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2189,
+    "month": 2,
+    "day": 2,
+    "hour": 15,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 0,
+      "monthGan": 1,
+      "monthZhi": 1,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 4,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1860,
+    "month": 7,
+    "day": 22,
+    "hour": 15,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 8,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 3,
+      "dayZhi": 3,
+      "hourGan": 4,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1975,
+    "month": 4,
+    "day": 28,
+    "hour": 13,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 6,
+      "monthZhi": 4,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 7,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1881,
+    "month": 1,
+    "day": 2,
+    "hour": 23,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1920,
+    "month": 5,
+    "day": 8,
+    "hour": 7,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 8,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 8,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1962,
+    "month": 3,
+    "day": 8,
+    "hour": 9,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 9,
+      "monthZhi": 3,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2173,
+    "month": 4,
+    "day": 7,
+    "hour": 19,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 2,
+      "monthZhi": 4,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1967,
+    "month": 1,
+    "day": 3,
+    "hour": 3,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 6,
+      "monthZhi": 0,
+      "dayGan": 3,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1949,
+    "month": 9,
+    "day": 3,
+    "hour": 9,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 1,
+      "monthGan": 8,
+      "monthZhi": 8,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1856,
+    "month": 1,
+    "day": 10,
+    "hour": 7,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1805,
+    "month": 7,
+    "day": 28,
+    "hour": 1,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 0,
+      "dayZhi": 8,
+      "hourGan": 1,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2033,
+    "month": 3,
+    "day": 24,
+    "hour": 1,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 1,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 10,
+      "hourGan": 1,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2048,
+    "month": 6,
+    "day": 23,
+    "hour": 7,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 0,
+      "dayZhi": 0,
+      "hourGan": 4,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1864,
+    "month": 4,
+    "day": 25,
+    "hour": 23,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 0,
+      "monthGan": 4,
+      "monthZhi": 4,
+      "dayGan": 6,
+      "dayZhi": 8,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2121,
+    "month": 9,
+    "day": 7,
+    "hour": 23,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 5,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2079,
+    "month": 4,
+    "day": 24,
+    "hour": 7,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 11,
+      "monthGan": 4,
+      "monthZhi": 4,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 8,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1871,
+    "month": 8,
+    "day": 30,
+    "hour": 3,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 0,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2161,
+    "month": 2,
+    "day": 20,
+    "hour": 11,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 9,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1974,
+    "month": 4,
+    "day": 4,
+    "hour": 23,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 3,
+      "monthZhi": 3,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2112,
+    "month": 10,
+    "day": 30,
+    "hour": 5,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 6,
+      "monthZhi": 10,
+      "dayGan": 4,
+      "dayZhi": 8,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2121,
+    "month": 6,
+    "day": 29,
+    "hour": 9,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 5,
+      "monthGan": 0,
+      "monthZhi": 6,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 1,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1860,
+    "month": 7,
+    "day": 4,
+    "hour": 21,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 8,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 5,
+      "dayZhi": 9,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1965,
+    "month": 1,
+    "day": 9,
+    "hour": 13,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 4,
+      "monthGan": 3,
+      "monthZhi": 1,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1952,
+    "month": 2,
+    "day": 1,
+    "hour": 19,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1812,
+    "month": 4,
+    "day": 19,
+    "hour": 7,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 7,
+      "dayZhi": 5,
+      "hourGan": 8,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1831,
+    "month": 8,
+    "day": 7,
+    "hour": 9,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 1,
+      "monthZhi": 7,
+      "dayGan": 6,
+      "dayZhi": 10,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1924,
+    "month": 8,
+    "day": 6,
+    "hour": 9,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 0,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 3,
+      "dayZhi": 5,
+      "hourGan": 1,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2031,
+    "month": 4,
+    "day": 4,
+    "hour": 19,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 11,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 10,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2022,
+    "month": 4,
+    "day": 17,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1946,
+    "month": 3,
+    "day": 22,
+    "hour": 21,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 1,
+      "dayZhi": 7,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1860,
+    "month": 10,
+    "day": 16,
+    "hour": 17,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 8,
+      "monthGan": 2,
+      "monthZhi": 10,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 7,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1966,
+    "month": 10,
+    "day": 20,
+    "hour": 11,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 4,
+      "monthZhi": 10,
+      "dayGan": 8,
+      "dayZhi": 0,
+      "hourGan": 2,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1817,
+    "month": 11,
+    "day": 26,
+    "hour": 11,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2169,
+    "month": 7,
+    "day": 1,
+    "hour": 21,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 5,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1973,
+    "month": 6,
+    "day": 16,
+    "hour": 5,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 1,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1915,
+    "month": 1,
+    "day": 6,
+    "hour": 7,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 3,
+      "dayZhi": 9,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1924,
+    "month": 1,
+    "day": 18,
+    "hour": 19,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 11,
+      "monthGan": 1,
+      "monthZhi": 1,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 4,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2195,
+    "month": 3,
+    "day": 28,
+    "hour": 7,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 7,
+      "monthGan": 5,
+      "monthZhi": 3,
+      "dayGan": 3,
+      "dayZhi": 11,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1823,
+    "month": 4,
+    "day": 8,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 7,
+      "monthGan": 2,
+      "monthZhi": 4,
+      "dayGan": 3,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2016,
+    "month": 11,
+    "day": 3,
+    "hour": 11,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 4,
+      "monthZhi": 10,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 6,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2174,
+    "month": 5,
+    "day": 27,
+    "hour": 5,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 3,
+      "dayZhi": 9,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2170,
+    "month": 8,
+    "day": 2,
+    "hour": 19,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2122,
+    "month": 12,
+    "day": 9,
+    "hour": 19,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 6,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 2,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1904,
+    "month": 11,
+    "day": 25,
+    "hour": 5,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 4,
+      "monthGan": 1,
+      "monthZhi": 11,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1997,
+    "month": 8,
+    "day": 16,
+    "hour": 11,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 4,
+      "monthZhi": 8,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 8,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2105,
+    "month": 3,
+    "day": 22,
+    "hour": 21,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 5,
+      "monthZhi": 3,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1967,
+    "month": 8,
+    "day": 10,
+    "hour": 15,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 7,
+      "monthGan": 4,
+      "monthZhi": 8,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 2,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1814,
+    "month": 12,
+    "day": 13,
+    "hour": 3,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 2,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2099,
+    "month": 6,
+    "day": 15,
+    "hour": 13,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2017,
+    "month": 9,
+    "day": 11,
+    "hour": 13,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 7,
+      "dayZhi": 1,
+      "hourGan": 1,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2066,
+    "month": 1,
+    "day": 19,
+    "hour": 13,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1833,
+    "month": 9,
+    "day": 28,
+    "hour": 23,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 5,
+      "monthGan": 7,
+      "monthZhi": 9,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 0,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1841,
+    "month": 4,
+    "day": 17,
+    "hour": 5,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 7,
+      "dayZhi": 11,
+      "hourGan": 7,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1875,
+    "month": 3,
+    "day": 1,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 11,
+      "monthGan": 4,
+      "monthZhi": 2,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 6,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1897,
+    "month": 6,
+    "day": 5,
+    "hour": 3,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 2,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1996,
+    "month": 9,
+    "day": 30,
+    "hour": 5,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 0,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 6,
+      "dayZhi": 6,
+      "hourGan": 5,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2189,
+    "month": 8,
+    "day": 5,
+    "hour": 5,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 1,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 7,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2025,
+    "month": 7,
+    "day": 30,
+    "hour": 3,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 6,
+      "dayZhi": 0,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1912,
+    "month": 2,
+    "day": 17,
+    "hour": 1,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2072,
+    "month": 3,
+    "day": 31,
+    "hour": 7,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 9,
+      "monthZhi": 3,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 8,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2108,
+    "month": 7,
+    "day": 13,
+    "hour": 19,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 4,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1856,
+    "month": 6,
+    "day": 9,
+    "hour": 23,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 4,
+      "monthGan": 0,
+      "monthZhi": 6,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 0,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2196,
+    "month": 2,
+    "day": 20,
+    "hour": 5,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 2,
+      "dayZhi": 4,
+      "hourGan": 7,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2161,
+    "month": 10,
+    "day": 30,
+    "hour": 23,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 9,
+      "monthGan": 4,
+      "monthZhi": 10,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1865,
+    "month": 11,
+    "day": 19,
+    "hour": 11,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 3,
+      "monthZhi": 11,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1915,
+    "month": 2,
+    "day": 28,
+    "hour": 5,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 4,
+      "monthZhi": 2,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 5,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1896,
+    "month": 4,
+    "day": 24,
+    "hour": 17,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 3,
+      "dayZhi": 7,
+      "hourGan": 5,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1933,
+    "month": 6,
+    "day": 1,
+    "hour": 13,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 3,
+      "monthZhi": 5,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2118,
+    "month": 9,
+    "day": 10,
+    "hour": 17,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 2,
+      "monthGan": 7,
+      "monthZhi": 9,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 9,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1827,
+    "month": 2,
+    "day": 1,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 3,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1865,
+    "month": 10,
+    "day": 11,
+    "hour": 9,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 1,
+      "monthGan": 2,
+      "monthZhi": 10,
+      "dayGan": 0,
+      "dayZhi": 2,
+      "hourGan": 5,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2051,
+    "month": 11,
+    "day": 14,
+    "hour": 19,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 5,
+      "monthZhi": 11,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2079,
+    "month": 5,
+    "day": 2,
+    "hour": 9,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 11,
+      "monthGan": 4,
+      "monthZhi": 4,
+      "dayGan": 0,
+      "dayZhi": 2,
+      "hourGan": 5,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2098,
+    "month": 6,
+    "day": 19,
+    "hour": 21,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 6,
+      "monthGan": 4,
+      "monthZhi": 6,
+      "dayGan": 8,
+      "dayZhi": 6,
+      "hourGan": 7,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1981,
+    "month": 12,
+    "day": 18,
+    "hour": 21,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 9,
+      "monthGan": 6,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 6,
+      "hourGan": 3,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1946,
+    "month": 10,
+    "day": 11,
+    "hour": 13,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 10,
+      "monthGan": 4,
+      "monthZhi": 10,
+      "dayGan": 4,
+      "dayZhi": 6,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2001,
+    "month": 7,
+    "day": 15,
+    "hour": 15,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 5,
+      "monthGan": 1,
+      "monthZhi": 7,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 1974,
+    "month": 12,
+    "day": 16,
+    "hour": 5,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 2,
+      "monthGan": 2,
+      "monthZhi": 0,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 7,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1947,
+    "month": 11,
+    "day": 2,
+    "hour": 17,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 6,
+      "monthZhi": 10,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 1,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1975,
+    "month": 5,
+    "day": 23,
+    "hour": 15,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 5,
+      "dayZhi": 5,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2159,
+    "month": 6,
+    "day": 17,
+    "hour": 19,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 5,
+      "dayZhi": 11,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2173,
+    "month": 7,
+    "day": 7,
+    "hour": 5,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 9,
+      "dayZhi": 9,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2102,
+    "month": 6,
+    "day": 22,
+    "hour": 17,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 2,
+      "monthZhi": 6,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 1,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2112,
+    "month": 8,
+    "day": 14,
+    "hour": 9,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 8,
+      "monthGan": 4,
+      "monthZhi": 8,
+      "dayGan": 7,
+      "dayZhi": 3,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2065,
+    "month": 3,
+    "day": 24,
+    "hour": 3,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 9,
+      "monthGan": 5,
+      "monthZhi": 3,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 8,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2054,
+    "month": 1,
+    "day": 2,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 9,
+      "monthGan": 0,
+      "monthZhi": 0,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 0,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2121,
+    "month": 1,
+    "day": 31,
+    "hour": 11,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 5,
+      "monthZhi": 1,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1852,
+    "month": 11,
+    "day": 12,
+    "hour": 5,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 4,
+      "dayZhi": 2,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1859,
+    "month": 4,
+    "day": 8,
+    "hour": 1,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 4,
+      "monthZhi": 4,
+      "dayGan": 2,
+      "dayZhi": 0,
+      "hourGan": 5,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1908,
+    "month": 9,
+    "day": 8,
+    "hour": 9,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 8,
+      "monthGan": 6,
+      "monthZhi": 8,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1979,
+    "month": 7,
+    "day": 25,
+    "hour": 13,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 9,
+      "dayZhi": 5,
+      "hourGan": 5,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 2064,
+    "month": 11,
+    "day": 3,
+    "hour": 5,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 8,
+      "monthGan": 0,
+      "monthZhi": 10,
+      "dayGan": 7,
+      "dayZhi": 1,
+      "hourGan": 7,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1837,
+    "month": 10,
+    "day": 3,
+    "hour": 21,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 5,
+      "monthZhi": 9,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2013,
+    "month": 1,
+    "day": 17,
+    "hour": 17,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 7,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2132,
+    "month": 3,
+    "day": 10,
+    "hour": 11,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 9,
+      "monthZhi": 3,
+      "dayGan": 5,
+      "dayZhi": 11,
+      "hourGan": 6,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1842,
+    "month": 5,
+    "day": 8,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 2,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 7,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 1915,
+    "month": 12,
+    "day": 10,
+    "hour": 9,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1958,
+    "month": 12,
+    "day": 20,
+    "hour": 1,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 10,
+      "monthGan": 0,
+      "monthZhi": 0,
+      "dayGan": 7,
+      "dayZhi": 7,
+      "hourGan": 5,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1910,
+    "month": 5,
+    "day": 9,
+    "hour": 23,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 5,
+      "dayGan": 0,
+      "dayZhi": 10,
+      "hourGan": 2,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2064,
+    "month": 6,
+    "day": 7,
+    "hour": 21,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 8,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 8,
+      "dayZhi": 8,
+      "hourGan": 7,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2086,
+    "month": 3,
+    "day": 10,
+    "hour": 21,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 9,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2155,
+    "month": 12,
+    "day": 25,
+    "hour": 15,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 5,
+      "dayZhi": 1,
+      "hourGan": 8,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2021,
+    "month": 4,
+    "day": 28,
+    "hour": 1,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 1,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 5,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 2102,
+    "month": 11,
+    "day": 9,
+    "hour": 5,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 11,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 5,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1938,
+    "month": 7,
+    "day": 13,
+    "hour": 23,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 2,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2183,
+    "month": 1,
+    "day": 28,
+    "hour": 23,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 6,
+      "monthGan": 9,
+      "monthZhi": 1,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2111,
+    "month": 8,
+    "day": 12,
+    "hour": 3,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 7,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 0,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1951,
+    "month": 11,
+    "day": 15,
+    "hour": 11,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 5,
+      "monthZhi": 11,
+      "dayGan": 5,
+      "dayZhi": 7,
+      "hourGan": 6,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 2067,
+    "month": 2,
+    "day": 26,
+    "hour": 23,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 11,
+      "monthGan": 8,
+      "monthZhi": 2,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2131,
+    "month": 12,
+    "day": 21,
+    "hour": 21,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 6,
+      "monthZhi": 0,
+      "dayGan": 5,
+      "dayZhi": 3,
+      "hourGan": 1,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2056,
+    "month": 9,
+    "day": 16,
+    "hour": 9,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 0,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 7,
+      "dayZhi": 7,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1894,
+    "month": 6,
+    "day": 21,
+    "hour": 5,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 6,
+      "monthGan": 6,
+      "monthZhi": 6,
+      "dayGan": 0,
+      "dayZhi": 6,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1837,
+    "month": 7,
+    "day": 18,
+    "hour": 11,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 3,
+      "monthZhi": 7,
+      "dayGan": 8,
+      "dayZhi": 10,
+      "hourGan": 2,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1816,
+    "month": 8,
+    "day": 14,
+    "hour": 17,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 0,
+      "monthGan": 2,
+      "monthZhi": 8,
+      "dayGan": 5,
+      "dayZhi": 11,
+      "hourGan": 9,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1986,
+    "month": 2,
+    "day": 13,
+    "hour": 5,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2086,
+    "month": 3,
+    "day": 11,
+    "hour": 23,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 7,
+      "monthZhi": 3,
+      "dayGan": 5,
+      "dayZhi": 11,
+      "hourGan": 2,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 1875,
+    "month": 7,
+    "day": 27,
+    "hour": 23,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 11,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 6,
+      "dayZhi": 2,
+      "hourGan": 4,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2035,
+    "month": 12,
+    "day": 30,
+    "hour": 19,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 1,
+      "dayZhi": 1,
+      "hourGan": 2,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 2147,
+    "month": 1,
+    "day": 29,
+    "hour": 1,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 7,
+      "monthZhi": 1,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1984,
+    "month": 8,
+    "day": 20,
+    "hour": 13,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 0,
+      "monthGan": 8,
+      "monthZhi": 8,
+      "dayGan": 2,
+      "dayZhi": 10,
+      "hourGan": 1,
+      "hourZhi": 7
+    }
+  },
+  {
+    "year": 1890,
+    "month": 7,
+    "day": 3,
+    "hour": 7,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 2,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 1,
+      "dayZhi": 9,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1994,
+    "month": 5,
+    "day": 17,
+    "hour": 17,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 5,
+      "monthZhi": 5,
+      "dayGan": 9,
+      "dayZhi": 3,
+      "hourGan": 7,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 1852,
+    "month": 5,
+    "day": 26,
+    "hour": 23,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 1,
+      "monthZhi": 5,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 0,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2130,
+    "month": 3,
+    "day": 26,
+    "hour": 19,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 2,
+      "monthGan": 5,
+      "monthZhi": 3,
+      "dayGan": 0,
+      "dayZhi": 4,
+      "hourGan": 0,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1830,
+    "month": 6,
+    "day": 13,
+    "hour": 15,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 2,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 6,
+      "dayZhi": 10,
+      "hourGan": 0,
+      "hourZhi": 8
+    }
+  },
+  {
+    "year": 2170,
+    "month": 11,
+    "day": 13,
+    "hour": 9,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 3,
+      "monthZhi": 11,
+      "dayGan": 2,
+      "dayZhi": 2,
+      "hourGan": 9,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1893,
+    "month": 5,
+    "day": 8,
+    "hour": 3,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 5,
+      "monthGan": 3,
+      "monthZhi": 5,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 4,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 1912,
+    "month": 4,
+    "day": 15,
+    "hour": 21,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 0,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 7,
+      "dayZhi": 9,
+      "hourGan": 5,
+      "hourZhi": 11
+    }
+  },
+  {
+    "year": 2039,
+    "month": 7,
+    "day": 31,
+    "hour": 5,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 0,
+      "dayZhi": 2,
+      "hourGan": 3,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2121,
+    "month": 1,
+    "day": 3,
+    "hour": 9,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 4,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 1,
+      "dayZhi": 7,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 2117,
+    "month": 5,
+    "day": 4,
+    "hour": 7,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 1,
+      "dayZhi": 11,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1835,
+    "month": 12,
+    "day": 10,
+    "hour": 3,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 7,
+      "monthGan": 4,
+      "monthZhi": 0,
+      "dayGan": 2,
+      "dayZhi": 0,
+      "hourGan": 6,
+      "hourZhi": 2
+    }
+  },
+  {
+    "year": 2174,
+    "month": 7,
+    "day": 31,
+    "hour": 7,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 7,
+      "monthZhi": 7,
+      "dayGan": 8,
+      "dayZhi": 2,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1870,
+    "month": 7,
+    "day": 31,
+    "hour": 1,
+    "expected": {
+      "yearGan": 6,
+      "yearZhi": 6,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 4,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1836,
+    "month": 9,
+    "day": 26,
+    "hour": 23,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 3,
+      "monthZhi": 9,
+      "dayGan": 3,
+      "dayZhi": 3,
+      "hourGan": 8,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2145,
+    "month": 7,
+    "day": 21,
+    "hour": 5,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 5,
+      "monthGan": 9,
+      "monthZhi": 7,
+      "dayGan": 6,
+      "dayZhi": 8,
+      "hourGan": 5,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1877,
+    "month": 8,
+    "day": 13,
+    "hour": 1,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 1,
+      "monthGan": 4,
+      "monthZhi": 8,
+      "dayGan": 4,
+      "dayZhi": 6,
+      "hourGan": 9,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1866,
+    "month": 5,
+    "day": 17,
+    "hour": 7,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 2,
+      "monthGan": 9,
+      "monthZhi": 5,
+      "dayGan": 8,
+      "dayZhi": 4,
+      "hourGan": 0,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 1878,
+    "month": 7,
+    "day": 9,
+    "hour": 19,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 2,
+      "monthGan": 5,
+      "monthZhi": 7,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 8,
+      "hourZhi": 10
+    }
+  },
+  {
+    "year": 1869,
+    "month": 9,
+    "day": 2,
+    "hour": 1,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 5,
+      "monthGan": 8,
+      "monthZhi": 8,
+      "dayGan": 2,
+      "dayZhi": 8,
+      "hourGan": 5,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1846,
+    "month": 5,
+    "day": 8,
+    "hour": 23,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 6,
+      "monthGan": 9,
+      "monthZhi": 5,
+      "dayGan": 4,
+      "dayZhi": 10,
+      "hourGan": 0,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2012,
+    "month": 4,
+    "day": 16,
+    "hour": 1,
+    "expected": {
+      "yearGan": 8,
+      "yearZhi": 4,
+      "monthGan": 0,
+      "monthZhi": 4,
+      "dayGan": 3,
+      "dayZhi": 7,
+      "hourGan": 7,
+      "hourZhi": 1
+    }
+  },
+  {
+    "year": 1814,
+    "month": 11,
+    "day": 13,
+    "hour": 11,
+    "expected": {
+      "yearGan": 0,
+      "yearZhi": 10,
+      "monthGan": 1,
+      "monthZhi": 11,
+      "dayGan": 5,
+      "dayZhi": 7,
+      "hourGan": 6,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1836,
+    "month": 2,
+    "day": 20,
+    "hour": 5,
+    "expected": {
+      "yearGan": 2,
+      "yearZhi": 8,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 4,
+      "dayZhi": 0,
+      "hourGan": 1,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 2061,
+    "month": 2,
+    "day": 4,
+    "hour": 9,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 5,
+      "monthGan": 6,
+      "monthZhi": 2,
+      "dayGan": 9,
+      "dayZhi": 1,
+      "hourGan": 3,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1919,
+    "month": 10,
+    "day": 21,
+    "hour": 23,
+    "expected": {
+      "yearGan": 5,
+      "yearZhi": 7,
+      "monthGan": 0,
+      "monthZhi": 10,
+      "dayGan": 2,
+      "dayZhi": 6,
+      "hourGan": 6,
+      "hourZhi": 0
+    }
+  },
+  {
+    "year": 2088,
+    "month": 2,
+    "day": 7,
+    "hour": 5,
+    "expected": {
+      "yearGan": 4,
+      "yearZhi": 8,
+      "monthGan": 0,
+      "monthZhi": 2,
+      "dayGan": 3,
+      "dayZhi": 1,
+      "hourGan": 9,
+      "hourZhi": 3
+    }
+  },
+  {
+    "year": 1921,
+    "month": 4,
+    "day": 12,
+    "hour": 7,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 4,
+      "dayGan": 1,
+      "dayZhi": 5,
+      "hourGan": 6,
+      "hourZhi": 4
+    }
+  },
+  {
+    "year": 2095,
+    "month": 6,
+    "day": 16,
+    "hour": 9,
+    "expected": {
+      "yearGan": 1,
+      "yearZhi": 3,
+      "monthGan": 8,
+      "monthZhi": 6,
+      "dayGan": 9,
+      "dayZhi": 11,
+      "hourGan": 3,
+      "hourZhi": 5
+    }
+  },
+  {
+    "year": 1843,
+    "month": 8,
+    "day": 27,
+    "hour": 11,
+    "expected": {
+      "yearGan": 9,
+      "yearZhi": 3,
+      "monthGan": 6,
+      "monthZhi": 8,
+      "dayGan": 9,
+      "dayZhi": 9,
+      "hourGan": 4,
+      "hourZhi": 6
+    }
+  },
+  {
+    "year": 1891,
+    "month": 12,
+    "day": 23,
+    "hour": 17,
+    "expected": {
+      "yearGan": 7,
+      "yearZhi": 3,
+      "monthGan": 6,
+      "monthZhi": 0,
+      "dayGan": 9,
+      "dayZhi": 7,
+      "hourGan": 7,
+      "hourZhi": 9
+    }
+  },
+  {
+    "year": 2017,
+    "month": 12,
+    "day": 19,
+    "hour": 9,
+    "expected": {
+      "yearGan": 3,
+      "yearZhi": 9,
+      "monthGan": 8,
+      "monthZhi": 0,
+      "dayGan": 6,
+      "dayZhi": 4,
+      "hourGan": 7,
+      "hourZhi": 5
+    }
+  }
+]
