@@ -3,7 +3,7 @@
  * Python python-bazi/_engine.py 의 `bazi_vectorized()` 로직을 TypeScript로 포팅.
  */
 
-import jieqiData from "./_jieqi.json"
+import jieqiData from "./_jieqi.json" with { type: "json" }
 
 // ── 상수 ──────────────────────────────────────────────────────────────────────
 // date(1900, 1, 31).toordinal() = 693626  (甲辰日 기준일)

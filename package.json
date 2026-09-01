@@ -1,9 +1,29 @@
 {
-  "name": "fate-js",
-  "private": true,
+  "name": "@fate/bazi",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "사주팔자(Bazi) 계산 엔진 — 절기 기반 동적 계산 (TypeScript)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greyfolk99/fate-js.git"
+  },
+  "keywords": ["bazi", "saju", "사주", "팔자", "만세력", "절기", "fortune"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["src", "dist"],
   "scripts": {
-    "build": "pnpm -r build",
-    "test": "pnpm -r test"
+    "build": "tsc -p tsconfig.json",
+    "prepare": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "^5.5.4",
