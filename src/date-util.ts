@@ -1,16 +1,8 @@
 /**
- * Python `datetime.date.toordinal()` 대응 함수.
- * Proleptic Gregorian Calendar 기준. 1년 1월 1일 = 1.
+ * ordinal 날짜 유틸리티.
+ * Proleptic Gregorian Calendar 기준. 1년 1월 1일 = ordinal 1.
  */
 
-/**
- * Python `date(year, month, day).toordinal()`과 동일한 결과를 반환한다.
- *
- * 알고리즘: Python CPython 구현 (Modules/_datetimemodule.c) 포팅.
- * https://github.com/python/cpython/blob/main/Lib/datetime.py
- *   ymd_to_ord = _ord2ymd inverse
- *   days_before_year(y) = y*365 + (y-1)//4 - (y-1)//100 + (y-1)//400
- */
 function daysBeforeYear(y: number): number {
   const ym1 = y - 1
   return (
@@ -33,19 +25,16 @@ function daysBeforeMonth(year: number, month: number): number {
 }
 
 /**
- * Python `date(year, month, day).toordinal()` 동일.
- * 1년 1월 1일 = 1.
+ * (year, month, day) → ordinal. 1년 1월 1일 = 1.
  */
 export function toOrdinal(year: number, month: number, day: number): number {
   return daysBeforeYear(year) + daysBeforeMonth(year, month) + day
 }
 
 /**
- * ordinal → { year, month, day }.
- * Python `date.fromordinal(n)` 동일.
+ * ordinal → { year, month, day }. 1년 1월 1일 = 1.
  */
 export function fromOrdinal(ord: number): { year: number; month: number; day: number } {
-  // Based on Python's _ord2ymd
   // Algorithm from Meeus, "Astronomical Algorithms", chapter 7
   let n = ord - 1 // 0-based days since 0001-01-01
   const n400 = Math.floor(n / 146097)

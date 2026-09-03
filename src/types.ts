@@ -8,7 +8,7 @@ export interface Pillar {
   branch: Branch
 }
 
-export interface BaziChart {
+export interface BaziTable {
   year: Pillar
   month: Pillar
   day: Pillar
@@ -38,7 +38,7 @@ export interface CatalogResult {
   branches: Int8Array
 }
 
-export interface ChartInput {
+export interface BirthInput {
   year: number
   month: number
   day: number

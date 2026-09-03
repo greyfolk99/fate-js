@@ -1,15 +1,15 @@
-import { baziVectorized } from "./_engine.js"
-import { toOrdinal } from "./_dateutil.js"
+import { baziVectorized } from "./engine.js"
+import { toOrdinal } from "./date-util.js"
 import { STEMS, BRANCHES } from "./constants.js"
-import type { BaziChart, ChartInput } from "./types.js"
+import type { BaziTable, BirthInput } from "./types.js"
 
 /**
- * 주어진 날짜·시각으로 사주팔자 사주(四柱)를 계산한다.
+ * 생년월일시로 사주팔자 사주(四柱)를 계산한다.
  *
  * @param input - 날짜·시간 및 보정 옵션
  * @returns 연·월·일·시 사주(四柱) 객체
  */
-export function chart(input: ChartInput): BaziChart {
+export function baziTable(input: BirthInput): BaziTable {
   const { year, month, day, hour } = input
   // timeBasis='solar' 진태양시는 TODO (longitude 보정 필요)
   const dateOrd = toOrdinal(year, month, day)

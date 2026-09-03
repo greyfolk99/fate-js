@@ -1,5 +1,5 @@
-import { baziVectorized } from "./_engine.js"
-import { toOrdinal, fromOrdinal } from "./_dateutil.js"
+import { baziVectorized } from "./engine.js"
+import { toOrdinal, fromOrdinal } from "./date-util.js"
 import type { CatalogResult } from "./types.js"
 
 const TIME_SLOTS = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21] as const

@@ -1,4 +1,4 @@
-declare module "./_jieqi.json" {
+declare module "./jieqi.json" {
   interface JieqiData {
     sec: number[]
     month: number[]

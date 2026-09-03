@@ -1,4 +1,4 @@
-/** 사주팔자 도메인 상수 — python-bazi/_constants.py 의 TypeScript 포트. */
+/** 사주팔자 도메인 상수. */
 
 export const STEMS = [
   "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸",
@@ -57,7 +57,7 @@ export const HIDDEN_STEMS: Record<typeof BRANCHES[number], readonly (typeof STEM
 
 /**
  * 천간합(天干合) — 합이 되는 천간 쌍.
- * Set<string> 배열로 표현 (frozenset 대응).
+ * Set<string> 배열로 표현.
  */
 export const STEM_COMBINATIONS: ReadonlyArray<Readonly<Set<typeof STEMS[number]>>> = [
   new Set(["甲", "己"] as const),

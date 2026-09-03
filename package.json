@@ -1,8 +1,8 @@
 {
-  "name": "@fate/bazi",
+  "name": "fate-js",
   "version": "0.2.0",
   "type": "module",
-  "description": "사주팔자(Bazi) 계산 엔진 — 절기 기반 동적 계산 (TypeScript)",
+  "description": "사주팔자(四柱) 계산 라이브러리.",
   "license": "MIT",
   "repository": {
     "type": "git",

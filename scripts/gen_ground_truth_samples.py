@@ -7,17 +7,27 @@ __tests__/fixtures/ground_truth_samples.json 으로 출력한다.
 """
 
 import json
+import os
 import datetime
 import pathlib
+import sys
 import numpy as np
 
 # ── 경로 설정 ──────────────────────────────────────────────────────────────────
 SCRIPT_DIR = pathlib.Path(__file__).parent
 PACKAGE_DIR = SCRIPT_DIR.parent
-NPZ_PATH = pathlib.Path("/Users/hjseo/apps/python-bazi/bazi/_data/ground_truth_1800_2200.npz")
+# ground_truth npz 경로: argv[1] > 환경변수 GROUND_TRUTH_NPZ > 기본 상대 경로
+NPZ_PATH = pathlib.Path(
+    sys.argv[1]
+    if len(sys.argv) > 1
+    else os.environ.get(
+        "GROUND_TRUTH_NPZ",
+        SCRIPT_DIR / "ground_truth_1800_2200.npz",
+    )
+)
 OUT_PATH = PACKAGE_DIR / "__tests__" / "fixtures" / "ground_truth_samples.json"
 
-# @fate/bazi 에서 사용하는 12시주 대표 시간
+# fate-js 에서 사용하는 12시주 대표 시간
 REPRESENTATIVE_HOURS = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
 
 N_SAMPLES = 500

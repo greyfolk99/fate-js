@@ -1,36 +1,34 @@
 /**
  * 사주팔자 계산 엔진.
- * Python python-bazi/_engine.py 의 `bazi_vectorized()` 로직을 TypeScript로 포팅.
  */
 
-import jieqiData from "./_jieqi.json" with { type: "json" }
+import jieqiData from "./jieqi.json" with { type: "json" }
 
 // ── 상수 ──────────────────────────────────────────────────────────────────────
-// date(1900, 1, 31).toordinal() = 693626  (甲辰日 기준일)
-const _BASE_ORD = 693626
-// date(1970, 1, 1).toordinal() = 719163
-const _EPOCH_ORD = 719163
-const _BASE_GAN = 0
-const _BASE_ZHI = 4
+// 1900-01-31 의 ordinal = 693626  (甲辰日 기준일)
+const BASE_ORD = 693626
+// 1970-01-01 의 ordinal = 719163
+const EPOCH_ORD = 719163
+const BASE_GAN = 0
+const BASE_ZHI = 4
 
 // 월간(月干) 기준: 寅月 시작 천간 (연간 기준)
-const _YIN_MONTH_GAN = [2, 4, 6, 8, 0, 2, 4, 6, 8, 0] as const
+const YIN_MONTH_GAN = [2, 4, 6, 8, 0, 2, 4, 6, 8, 0] as const
 // 절기 순서 → 월지(月支) 인덱스
 // mi=0=大雪(子月), 1=小寒(丑月), 2=立春(寅月), ..., 11=立冬(亥月)
-const _JIE_TO_MONTH_ZHI = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const
+const JIE_TO_MONTH_ZHI = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const
 // 寅月(mi=2) 기준 오프셋: 子=-2≡8, 丑=-1≡9, 寅=0, 卯=1, ...
-const _JIE_TO_MONTH_OFFSET = [8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const
+const JIE_TO_MONTH_OFFSET = [8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const
 // 일간(日干) → 시간(時干) 시작 인덱스
-const _DAY_GAN_TO_HOUR_BASE = [0, 2, 4, 6, 8, 0, 2, 4, 6, 8] as const
+const DAY_GAN_TO_HOUR_BASE = [0, 2, 4, 6, 8, 0, 2, 4, 6, 8] as const
 
 // 절기 데이터 (epoch seconds)
-const _jie_sec: number[] = jieqiData.sec
-const _jie_month: number[] = jieqiData.month
-const _jie_year: number[] = jieqiData.year
+const jieSec: number[] = jieqiData.sec
+const jieMonth: number[] = jieqiData.month
+const jieYear: number[] = jieqiData.year
 
 // ── 이진탐색 ───────────────────────────────────────────────────────────────────
 /**
- * Python `numpy.searchsorted(arr, val, side="right")` 대응.
  * arr에서 val을 초과하는 첫 번째 인덱스를 반환한다.
  * (val 이하인 마지막 위치 + 1)
  */
@@ -69,54 +67,54 @@ export interface BaziIndices {
 
 // ── 핵심 함수 ──────────────────────────────────────────────────────────────────
 /**
- * Python `_engine.bazi_vectorized()` 스칼라 버전.
+ * ordinal·시각으로 연·월·일·시 사주의 천간·지지 인덱스를 계산한다.
  *
- * @param dateOrd - `toOrdinal(year, month, day)` 값 (Python date.toordinal() 동일)
+ * @param dateOrd - `toOrdinal(year, month, day)` 값
  * @param hour    - 0~23 정수
  */
 export function baziVectorized(dateOrd: number, hour: number): BaziIndices {
   // ── 일주(日柱) ──
-  const diff = dateOrd - _BASE_ORD
-  const day_gan = mod(_BASE_GAN + diff, 10)
-  const day_zhi = mod(_BASE_ZHI + diff, 12)
+  const diff = dateOrd - BASE_ORD
+  const dayGan = mod(BASE_GAN + diff, 10)
+  const dayZhi = mod(BASE_ZHI + diff, 12)
 
   // ── 시주(時柱) ──
   // 子時(23시)는 다음 날 기준
-  const next_day = hour >= 23
-  const hour_zhi = next_day ? 0 : mod(Math.floor((hour + 1) / 2), 12)
-  const day_gan_for_hour = next_day ? mod(day_gan + 1, 10) : day_gan
-  const hour_gan = mod(
-    (_DAY_GAN_TO_HOUR_BASE[day_gan_for_hour] ?? 0) + hour_zhi,
+  const nextDay = hour >= 23
+  const hourZhi = nextDay ? 0 : mod(Math.floor((hour + 1) / 2), 12)
+  const dayGanForHour = nextDay ? mod(dayGan + 1, 10) : dayGan
+  const hourGan = mod(
+    (DAY_GAN_TO_HOUR_BASE[dayGanForHour] ?? 0) + hourZhi,
     10,
   )
 
   // ── 절기 탐색 ──
-  const dt_sec = (dateOrd - _EPOCH_ORD) * 86400 + hour * 3600
-  let pos = searchSortedRight(_jie_sec, dt_sec) - 1
-  pos = Math.max(0, Math.min(pos, _jie_sec.length - 1))
+  const dtSec = (dateOrd - EPOCH_ORD) * 86400 + hour * 3600
+  let pos = searchSortedRight(jieSec, dtSec) - 1
+  pos = Math.max(0, Math.min(pos, jieSec.length - 1))
 
-  const month_seq = _jie_month[pos] ?? 0
-  const jy = _jie_year[pos] ?? 0
-  const yg_base = mod(jy - 4, 10)
+  const monthSeq = jieMonth[pos] ?? 0
+  const jy = jieYear[pos] ?? 0
+  const ygBase = mod(jy - 4, 10)
 
   // ── 연주(年柱) ── 입춘(mi=2) 기준, 大雪(0)·小寒(1)은 전년도
-  const year_yg = month_seq < 2 ? mod(yg_base - 1, 10) : yg_base
+  const yearStem = monthSeq < 2 ? mod(ygBase - 1, 10) : ygBase
 
   // ── 월주(月柱) ──
-  const month_gan = mod(
-    (_YIN_MONTH_GAN[yg_base] ?? 0) + (_JIE_TO_MONTH_OFFSET[month_seq] ?? 0),
+  const monthGan = mod(
+    (YIN_MONTH_GAN[ygBase] ?? 0) + (JIE_TO_MONTH_OFFSET[monthSeq] ?? 0),
     10,
   )
-  const month_zhi = _JIE_TO_MONTH_ZHI[month_seq] ?? 0
+  const monthZhi = JIE_TO_MONTH_ZHI[monthSeq] ?? 0
 
   // ── 연지(年支) ──
-  const year_zhi_base = mod(jy - 4, 12)
-  const year_zhi = month_seq < 2 ? mod(year_zhi_base - 1, 12) : year_zhi_base
+  const yearZhiBase = mod(jy - 4, 12)
+  const yearZhi = monthSeq < 2 ? mod(yearZhiBase - 1, 12) : yearZhiBase
 
   return {
-    year:  { stemIdx: year_yg,   branchIdx: year_zhi },
-    month: { stemIdx: month_gan, branchIdx: month_zhi },
-    day:   { stemIdx: day_gan,   branchIdx: day_zhi },
-    hour:  { stemIdx: hour_gan,  branchIdx: hour_zhi },
+    year:  { stemIdx: yearStem,  branchIdx: yearZhi },
+    month: { stemIdx: monthGan,  branchIdx: monthZhi },
+    day:   { stemIdx: dayGan,    branchIdx: dayZhi },
+    hour:  { stemIdx: hourGan,   branchIdx: hourZhi },
   }
 }
