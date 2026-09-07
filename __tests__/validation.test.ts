@@ -2,8 +2,11 @@
  * 입력 검증(assertValidBirthInput) + 절기 데이터 범위 throw 테스트.
  * 조용한 오답 대신 명시적 RangeError를 던지는지 확인한다.
  */
-import { describe, test, expect } from "vitest"
+import { describe, test, expect, afterEach } from "vitest"
 import { baziTable } from "../src/bazi-table.js"
+import { baziVectorized } from "../src/engine.js"
+import { catalog } from "../src/catalog.js"
+import { getSolarConfig, setSolarConfig } from "../src/config.js"
 import { assertValidBirthInput, assertValidDate } from "../src/validate.js"
 
 describe("assertValidDate", () => {
@@ -58,5 +61,38 @@ describe("baziTable 진입점 검증·절기범위", () => {
   })
   test("범위 안 정상 연도는 통과", () => {
     expect(() => baziTable({ year: 2000, month: 6, day: 15, hour: 12, timeBasis: "standard" })).not.toThrow()
+  })
+})
+
+describe("추가 검증 구멍 (codex Round2)", () => {
+  test("year ≤ 0은 throw (date-util 계약)", () => {
+    expect(() => assertValidDate(0, 1, 1)).toThrow(RangeError)
+    expect(() => assertValidDate(-1, 1, 1)).toThrow(RangeError)
+  })
+  test("잘못된 timeBasis 문자열은 throw (조용히 standard 처리 금지)", () => {
+    expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 1, timeBasis: "bad" })).toThrow(RangeError)
+    expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 1, timeBasis: "solar" })).not.toThrow()
+  })
+  test("baziVectorized는 비유한(NaN/Infinity) 시각을 throw (range check 통과 구멍)", () => {
+    const ord = 700000 // 범위 내 임의 ordinal
+    expect(() => baziVectorized(ord, NaN)).toThrow(RangeError)
+    expect(() => baziVectorized(ord, Infinity)).toThrow(RangeError)
+    expect(() => baziVectorized(NaN, 12)).toThrow(RangeError)
+  })
+  test("catalog 입력검증: yearStart>yearEnd·NaN·hours 24 throw", () => {
+    expect(() => catalog(2001, 2000)).toThrow(RangeError)
+    expect(() => catalog(NaN, 2000)).toThrow(RangeError)
+    expect(() => catalog(2000, 2000, [24])).toThrow(RangeError)
+    expect(() => catalog(2000, 2000, [12])).not.toThrow()
+  })
+})
+
+describe("setSolarConfig 검증 (codex Round2)", () => {
+  const DEFAULTS = getSolarConfig()
+  afterEach(() => setSolarConfig(DEFAULTS))
+  test("Infinity·범위밖 경도/자오선은 throw (무한루프·오답 방지)", () => {
+    expect(() => setSolarConfig({ defaultLongitude: Infinity })).toThrow(RangeError)
+    expect(() => setSolarConfig({ standardMeridian: 999 })).toThrow(RangeError)
+    expect(() => setSolarConfig({ defaultLongitude: 127.5 })).not.toThrow()
   })
 })

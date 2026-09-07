@@ -9,6 +9,8 @@
  *   code: setSolarConfig({...}) / getSolarConfig()
  */
 
+import { assertLongitude } from "./validate.js"
+
 declare const process: { env?: Record<string, string | undefined> } | undefined
 
 function env(name: string): string | undefined {
@@ -51,7 +53,9 @@ export function getSolarConfig(): SolarConfig {
   return { ..._cfg }
 }
 
-/** 전역 진태양시 설정 갱신(부분 갱신). */
+/** 전역 진태양시 설정 갱신(부분 갱신). 비유한 경도·자오선은 거부(무한 루프·오답 방지). */
 export function setSolarConfig(patch: Partial<SolarConfig>): void {
+  if (patch.standardMeridian !== undefined) assertLongitude(patch.standardMeridian, "standardMeridian")
+  if (patch.defaultLongitude !== undefined) assertLongitude(patch.defaultLongitude, "defaultLongitude")
   _cfg = { ..._cfg, ...patch }
 }

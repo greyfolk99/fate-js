@@ -91,11 +91,13 @@ export function baziVectorized(dateOrd: number, hour: number): BaziIndices {
 
   // ── 절기 탐색 ──
   const dtSec = (dateOrd - EPOCH_ORD) * 86400 + hour * 3600
-  // 절기 데이터 범위 밖은 조용히 clamp하지 않고 명시적으로 throw한다(끝값 오답 방지).
-  if (dtSec < jieSec[0]! || dtSec >= jieSec[jieSec.length - 1]!) {
+  // 비유한(NaN/Infinity) 값은 range 비교를 조용히 통과하므로 먼저 막는다.
+  // (NaN 비교는 항상 false → clamp 없이 쓰레기 결과가 나오던 구멍)
+  // 절기 데이터 범위 밖도 clamp하지 않고 명시적으로 throw한다(끝값 오답 방지).
+  if (!Number.isFinite(dtSec) || dtSec < jieSec[0]! || dtSec >= jieSec[jieSec.length - 1]!) {
     throw new RangeError(
-      `절기 데이터 범위 밖입니다(dtSec=${dtSec}). ` +
-        `이 라이브러리는 절기 테이블이 덮는 기간(대략 1799-01 ~ 2200-11)의 날짜만 지원합니다.`,
+      `절기 데이터 범위 밖이거나 유효하지 않은 시각입니다(dtSec=${dtSec}). ` +
+        `이 라이브러리는 절기 테이블이 덮는 기간(대략 1799-01 ~ 2200-11)의 유한한 날짜/시각만 지원합니다.`,
     )
   }
   const pos = searchSortedRight(jieSec, dtSec) - 1

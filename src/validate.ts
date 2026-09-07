@@ -13,6 +13,13 @@ function assertFiniteInt(v: number, name: string): void {
   }
 }
 
+/** 경도·표준자오선 등 각도값: −180~180 사이 유한 실수. */
+export function assertLongitude(v: number, name: string): void {
+  if (!Number.isFinite(v) || v < -180 || v > 180) {
+    throw new RangeError(`${name}는 −180~180 사이 유한값이어야 합니다: ${String(v)}`)
+  }
+}
+
 /**
  * proleptic Gregorian 실존 날짜인지 확인한다(2월 30일·4월 31일 등 거부).
  * ordinal 왕복(toOrdinal→fromOrdinal)이 입력과 일치해야 실존 날짜다.
@@ -21,6 +28,8 @@ export function assertValidDate(year: number, month: number, day: number): void 
   assertFiniteInt(year, "year")
   assertFiniteInt(month, "month")
   assertFiniteInt(day, "day")
+  // date-util 계약: 1년 1월 1일 = ordinal 1. year ≤ 0은 지원 범위 밖.
+  if (year < 1) throw new RangeError(`year는 1 이상이어야 합니다: ${year}`)
   if (month < 1 || month > 12) throw new RangeError(`month는 1–12여야 합니다: ${month}`)
   if (day < 1 || day > 31) throw new RangeError(`day는 1–31여야 합니다: ${day}`)
   const rt = fromOrdinal(toOrdinal(year, month, day))
@@ -39,6 +48,7 @@ export interface ValidatableBirthInput {
   hour?: number
   minute?: number
   longitude?: number
+  timeBasis?: string
 }
 
 /**
@@ -60,9 +70,9 @@ export function assertValidBirthInput(input: ValidatableBirthInput): void {
     if (input.minute < 0 || input.minute > 59) throw new RangeError(`minute는 0–59여야 합니다: ${input.minute}`)
   }
 
-  if (input.longitude !== undefined) {
-    if (!Number.isFinite(input.longitude) || input.longitude < -180 || input.longitude > 180) {
-      throw new RangeError(`longitude는 −180~180 사이 유한값이어야 합니다: ${String(input.longitude)}`)
-    }
+  if (input.longitude !== undefined) assertLongitude(input.longitude, "longitude")
+
+  if (input.timeBasis !== undefined && input.timeBasis !== "standard" && input.timeBasis !== "solar") {
+    throw new RangeError(`timeBasis는 "standard" 또는 "solar"여야 합니다: ${String(input.timeBasis)}`)
   }
 }

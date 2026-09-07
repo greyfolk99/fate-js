@@ -21,6 +21,21 @@ export function catalog(
   yearEnd: number,
   hours: readonly number[] = TIME_SLOTS,
 ): CatalogResult {
+  if (!Number.isInteger(yearStart) || !Number.isInteger(yearEnd)) {
+    throw new RangeError(`yearStart·yearEnd는 정수여야 합니다: ${String(yearStart)}, ${String(yearEnd)}`)
+  }
+  if (yearStart < 1 || yearEnd < 1) {
+    throw new RangeError(`연도는 1 이상이어야 합니다: ${yearStart}, ${yearEnd}`)
+  }
+  if (yearStart > yearEnd) {
+    throw new RangeError(`yearStart는 yearEnd 이하여야 합니다: ${yearStart} > ${yearEnd}`)
+  }
+  for (const h of hours) {
+    if (!Number.isInteger(h) || h < 0 || h > 23) {
+      throw new RangeError(`hours 원소는 0–23 정수여야 합니다: ${String(h)}`)
+    }
+  }
+
   const startOrd = toOrdinal(yearStart, 1, 1)
   const endOrd = toOrdinal(yearEnd + 1, 1, 1) // exclusive
 
