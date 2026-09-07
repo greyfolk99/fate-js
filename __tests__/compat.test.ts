@@ -152,7 +152,7 @@ describe("지지", () => {
     expect(f.present).toBe(true)
   })
 
-  it("寅 ↔ 巳 = 형 (삼형 분해)", () => {
+  it("寅 ↔ 巳 = 형 (삼형 분해) — 무은지형 detail", () => {
     const f = fact(
       bz(["戊", "寅"], ["戊", "戌"], ["戊", "戌"]),
       bz(["戊", "巳"], ["戊", "戌"], ["戊", "戌"]),
@@ -160,15 +160,20 @@ describe("지지", () => {
     )
     expect(f.present).toBe(true)
     expect(f.polarity).toBe("clash")
+    // 형 종류(한자 코드)가 detail 로 보존된다 — 寅巳申은 무은지형.
+    expect(f.detail?.hyung).toEqual(["無恩之刑"])
   })
 
-  it("辰 ↔ 辰 = 자형", () => {
+  it("辰 ↔ 辰 = 자형 — detail 로 무은지형과 구분", () => {
     const f = fact(
       bz(["戊", "辰"], ["甲", "寅"], ["甲", "寅"]),
       bz(["戊", "辰"], ["甲", "寅"], ["甲", "寅"]),
       "branch_hyung",
     )
     expect(f.present).toBe(true)
+    // 辰辰은 자형 — 寅巳(무은지형)과 다른 코드여야 한다.
+    expect(f.detail?.hyung).toEqual(["辰辰自刑"])
+    expect(f.detail?.hyung).not.toContain("無恩之刑")
   })
 })
 
@@ -203,6 +208,30 @@ describe("삼합·방합", () => {
     )
     expect(f.present).toBe(true)
     expect(f.edges[0]?.element).toBe("wood")
+  })
+
+  it("주체 申子辰(완성) ↔ 후보 중복 子 = 새 삼합 기여 아님(불성립)", () => {
+    // 주체가 이미 申子辰 국을 갖췄고, 후보는 주체가 가진 子를 되풀이할 뿐.
+    // 중복 글자는 궁합 기여가 아니므로 삼합으로 세면 안 된다.
+    const f = fact(
+      bz(["戊", "申"], ["戊", "子"], ["甲", "辰"]),
+      bz(["戊", "子"], ["甲", "寅"], ["甲", "寅"]),
+      "branch_samhap",
+    )
+    expect(f.present).toBe(false)
+    expect(f.count).toBe(0)
+  })
+
+  it("주체 申子(반합) ↔ 후보 辰(주체에 없음) = 삼합 완성 기여", () => {
+    // 후보 辰은 주체에 없는 새 국 멤버 → 진짜 완성 기여로 성립.
+    const f = fact(
+      bz(["戊", "申"], ["戊", "子"], ["甲", "卯"]),
+      bz(["戊", "辰"], ["甲", "卯"], ["甲", "卯"]),
+      "branch_samhap",
+    )
+    expect(f.present).toBe(true)
+    expect(f.edges[0]?.element).toBe("water")
+    expect(f.count).toBeGreaterThanOrEqual(1)
   })
 })
 

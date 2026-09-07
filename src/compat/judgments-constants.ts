@@ -147,7 +147,7 @@ export const MUNCHANG_BY_STEM: Record<Stem, Branch> = {
  */
 export const YANGIN_BY_STEM: Record<Stem, Branch> = {
   "甲": "卯", "丙": "午", "戊": "午", "庚": "酉", "壬": "子",
-  // 아래 음간 값은 소수설(음인) — 다수설은 미인정.
+  // 陰刃 참고값 — 기본 정책 미적용(양간만). 소수설(음인) 데이터로만 보존.
   "乙": "辰", "丁": "未", "己": "未", "辛": "戌", "癸": "丑",
 }
 

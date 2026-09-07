@@ -242,16 +242,27 @@ const HYUNG_PAIRS: Map<string, string> = (() => {
   return m
 })()
 
+/** "무은지형(無恩之刑)" → "無恩之刑". 괄호 안 한자 코드만 뽑는다. */
+function hyungHanja(name: string): string {
+  return name.match(/[(（]([^)）]+)[)）]/)?.[1] ?? name
+}
+
 export function hyungRule(subject: Cell[], candidate: Cell[]): CompatFact {
   const edges: CompatEdge[] = []
+  // 성립한 형의 종류(한자 코드) — 無恩之刑·持勢之刑·자형별 코드를 보존.
+  // natal2.ts 의 형 detail 방출 방식과 맞춘다(괄호 안 한자 코드).
+  const kinds: string[] = []
   for (const s of subject) {
     for (const c of candidate) {
       const key = [s.branch, c.branch].sort().join("")
-      if (HYUNG_PAIRS.has(key)) {
+      const name = HYUNG_PAIRS.get(key)
+      if (name) {
         edges.push({
           subject: { glyph: s.branch, pillar: s.name },
           object: { glyph: c.branch, pillar: c.name },
         })
+        const code = hyungHanja(name)
+        if (!kinds.includes(code)) kinds.push(code)
       }
     }
   }
@@ -266,9 +277,10 @@ export function hyungRule(subject: Cell[], candidate: Cell[]): CompatFact {
     edges,
     pillars: pillarsOf(edges),
     statement: present
-      ? `형 ${edges.length}건.` + palaceNote(edges)
+      ? `형 ${edges.length}건(${kinds.join("·")}).` + palaceNote(edges)
       : "형 없음.",
     source: "자평진전·삼명통회(형)",
+    ...(present ? { detail: { hyung: kinds } } : {}),
   }
 }
 
@@ -286,7 +298,13 @@ function groupRule(
   for (const g of groups) {
     const memberSet = new Set<Branch>(g.branches)
     const subjMembers = subject.filter((s) => memberSet.has(s.branch))
-    const candMembers = candidate.filter((c) => memberSet.has(c.branch))
+    const subjBranches = new Set<Branch>(subjMembers.map((s) => s.branch))
+    // 후보 지지 중 이 국의 멤버 — 단, 주체가 이미 가진 글자(중복)는 제외한다.
+    // 상대가 주체에 없는 새 국 멤버를 더할 때만 진짜 화합 기여로 본다.
+    // (예: 주체 申子辰 완성국에 상대 子 하나 더 = 중복이라 기여 아님.)
+    const candMembers = candidate.filter(
+      (c) => memberSet.has(c.branch) && !subjBranches.has(c.branch),
+    )
     // 궁합(교차) 국은 양쪽이 각각 기여해야 성립.
     if (subjMembers.length === 0 || candMembers.length === 0) continue
     const distinct = new Set<Branch>([
@@ -297,7 +315,7 @@ function groupRule(
     if (distinct.size < 2 || !distinct.has(g.king)) continue
     for (const s of subjMembers) {
       for (const c of candMembers) {
-        if (s.branch === c.branch) continue
+        // candMembers 는 이미 주체에 없는 글자만 담으므로 same-branch 없음.
         edges.push({
           subject: { glyph: s.branch, pillar: s.name },
           object: { glyph: c.branch, pillar: c.name },
@@ -387,6 +405,10 @@ export function hiddenAmhapRule(
 
 // ── 오행 보완 — 한쪽에 없는 오행을 상대가 지녀 채우는 관계 ───────────
 
+// TODO(codex): 지장간 반영. 지금은 천간+지지 본기만 봐서 "없는 오행"을 잡는다.
+// 지장간(HIDDEN_STEMS)까지 넣으면 대부분 5행이 다 채워져 "보완"이 거의 안
+// 걸리는 다른 명리 의미가 된다(드러난 오행 vs 잠복 오행). 유파 판단이 필요한
+// 의미 변경이라 여기선 드러난 오행 기준을 유지한다.
 function elementsPresent(cs: Cell[]): Set<Element> {
   const set = new Set<Element>()
   for (const c of cs) {

@@ -230,11 +230,15 @@ function gwimunSinsal(bazi: BaziTable): NatalSinsal {
 
 function natalSinsal(bazi: BaziTable): NatalSinsal[] {
   const dm = bazi.day.stem
+  // 양인살은 양간(甲丙戊庚壬)일 때만 판정(다수설). 음간 일간은 미인정 →
+  // 참조할 지지 없이 present:false. (음인陰刃 소수설 값은 미적용.)
+  const yanginTargets: readonly Branch[] =
+    STEM_YINYANG[dm] === "yang" ? [YANGIN_BY_STEM[dm]] : []
   return [
     stemSinsal("cheoneul", "천을귀인(天乙貴人)", CHEONEUL_BY_STEM[dm], bazi, "일간 기준"),
     stemSinsal("munchang", "문창귀인(文昌貴人)", [MUNCHANG_BY_STEM[dm]], bazi, "일간 기준"),
     stemSinsal("hongyeom", "홍염살(紅艶殺)", [HONGYEOM_BY_STEM[dm]], bazi, "일간 기준"),
-    stemSinsal("yangin", "양인살(羊刃)", [YANGIN_BY_STEM[dm]], bazi, "일간 기준(양간 정설)"),
+    stemSinsal("yangin", "양인살(羊刃)", yanginTargets, bazi, "일간 기준(양간 정설 — 음간 미포함)"),
     pillarSinsal("baekho", "백호살(白虎大殺)", BAEKHO_PILLARS, bazi),
     pillarSinsal("gwaegang", "괴강살(魁罡)", GWAEGANG_PILLARS, bazi),
     gwimunSinsal(bazi),

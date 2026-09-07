@@ -13,6 +13,7 @@ import {
   BRANCH_INDEX,
   GENERATES,
   CONTROLS,
+  HIDDEN_STEMS,
 } from "../constants.js"
 import type { STEMS, BRANCHES, ELEMENTS } from "../constants.js"
 import type { BaziTable } from "../types.js"
@@ -158,7 +159,9 @@ function isOfficer(g: TenGod): boolean {
 /**
  * 배우자성(配偶星) 공급 판단.
  * 남명은 재성(정재·편재)=처, 여명은 관성(정관·편관)=부.
- * 상대(partner)가 주체(subject)의 배우자성을 일간·지장간으로 공급하는가.
+ * 상대(partner)가 주체(subject)의 배우자성을 천간·지장간으로 공급하는가.
+ * 각 기둥의 천간뿐 아니라 지지의 지장간(HIDDEN_STEMS)까지 훑어,
+ * 지지 속에만 숨은 배우자성도 잡는다.
  * gender 미제공이면 present:false 로 남긴다.
  */
 function spouseStar(
@@ -185,13 +188,18 @@ function spouseStar(
     }
   }
 
-  // partner 의 모든 천간(일간 + 나머지 기둥 천간)을 주체 일간 기준 십성으로.
+  // partner 의 각 기둥을 주체 일간 기준 십성으로 훑는다.
+  // 천간뿐 아니라 지지의 지장간(HIDDEN_STEMS)까지 봐서, 지지 속에만 숨은
+  // 배우자성도 공급으로 잡는다.
+  const wantsStar = (g: TenGod): boolean =>
+    (wantWealth && isWealth(g)) || (wantOfficer && isOfficer(g))
   const partnerCells = cells(partner)
   const supplyPillars: PillarName[] = []
   const targetKo = wantWealth ? "재성(財)" : "관성(官)"
   for (const c of partnerCells) {
-    const g = tenGod(dm, c.stem)
-    if ((wantWealth && isWealth(g)) || (wantOfficer && isOfficer(g))) {
+    const inStem = wantsStar(tenGod(dm, c.stem))
+    const inHidden = HIDDEN_STEMS[c.branch].some((hs) => wantsStar(tenGod(dm, hs)))
+    if (inStem || inHidden) {
       supplyPillars.push(c.name)
     }
   }
@@ -204,10 +212,10 @@ function spouseStar(
     present,
     statement: present
       ? `${partnerLabel}이(가) ${subjectLabel}의 배우자성 ${targetKo}=${spouseWord}을(를) ` +
-        `${supplyPillars.map((p) => PILLAR_KO[p]).join("·")}주 천간으로 공급한다.`
-      : `${partnerLabel}은(는) ${subjectLabel}의 배우자성 ${targetKo}을(를) 천간으로 공급하지 않는다.`,
+        `${supplyPillars.map((p) => PILLAR_KO[p]).join("·")}주 천간·지장간으로 공급한다.`
+      : `${partnerLabel}은(는) ${subjectLabel}의 배우자성 ${targetKo}을(를) 천간·지장간으로 공급하지 않는다.`,
     source: "자평진전(배우자성)",
-    basis: "남명=재성(처), 여명=관성(부)",
+    basis: "남명=재성(처), 여명=관성(부) — 천간·지장간 포함",
     detail: {
       gender,
       spouseStar: targetKo,
@@ -372,6 +380,46 @@ function stemBranchSinsal(
   }
 }
 
+/**
+ * 양인살(羊刃) — 일간 기준, 단 **양간(甲丙戊庚壬)일 때만** 판정한다(다수설).
+ * 음간(乙丁己辛癸) 일간은 양인 미인정 — present:false 로 남긴다.
+ * (음인陰刃 소수설 값은 YANGIN_BY_STEM 에 참고로만 보존, 여기선 미적용.)
+ */
+function yanginSinsal(refStem: Stem, targetBazi: BaziTable): Judgment {
+  const source = "자평진전(양인)"
+  if (STEM_YINYANG[refStem] !== "yang") {
+    return {
+      id: "yangin",
+      label: "양인살(羊刃)",
+      category: false,
+      present: false,
+      statement: `기준 일간 ${refStem}은(는) 음간 — 양인살 미인정(양간만, 다수설).`,
+      source,
+      basis: "일간 기준(양간 정설 — 음간 미포함)",
+      detail: { refStem, pillars: [] },
+    }
+  }
+  const hit = YANGIN_BY_STEM[refStem]
+  const pillars: PillarName[] = []
+  for (const c of cells(targetBazi)) {
+    if (c.branch === hit) pillars.push(c.name)
+  }
+  const present = pillars.length > 0
+  return {
+    id: "yangin",
+    label: "양인살(羊刃)",
+    category: present,
+    present,
+    statement: present
+      ? `기준 일간 ${refStem}의 양인살(羊刃) 지지 ${hit} — 상대 사주 ` +
+        `${pillars.map((p) => PILLAR_KO[p]).join("·")}주에 있어 성립한다.`
+      : `기준 일간 ${refStem}의 양인살(羊刃) 지지 ${hit} 없음.`,
+    source,
+    basis: "일간 기준(양간 정설 — 음간 미포함)",
+    detail: { refStem, target: hit, pillars },
+  }
+}
+
 /** 천을귀인(2지)처럼 지지가 복수인 일간 기준 신살. */
 function cheoneulSinsal(
   refStem: Stem,
@@ -471,10 +519,7 @@ function sinsalFor(refBazi: BaziTable, targetBazi: BaziTable): Judgment[] {
       "munchang", "문창귀인(文昌貴人)", refStem, MUNCHANG_BY_STEM,
       "삼명통회(문창귀인)", targetBazi,
     ),
-    stemBranchSinsal(
-      "yangin", "양인살(羊刃)", refStem, YANGIN_BY_STEM,
-      "자평진전(양인)", targetBazi,
-    ),
+    yanginSinsal(refStem, targetBazi),
     pillarSinsal(
       "baekho", "백호살(白虎)", BAEKHO_PILLARS,
       "명리 통설(백호대살)", targetBazi,
@@ -535,8 +580,9 @@ export function judgeCompat(
 
 /**
  * 12관계 facts 를 위치별로 집계해 겉(연주)·속(일지) 화합/충돌 카운트를 낸다.
- * - 겉궁합: 양쪽 연주(year 기둥)가 관여한 엣지.
- * - 속궁합: 일지(day 기둥)가 관여한 엣지.
+ * - 겉궁합: 두 사람의 연주끼리(A.年 ↔ B.年) 만난 엣지. 양쪽 끝이 모두 연주.
+ * - 속궁합: 두 사람의 일지끼리(A.日支 ↔ B.日支) 만난 엣지. 양쪽 끝이 모두 일지.
+ * 한쪽만 연주/일지인 엣지(예: A.年 ↔ B.月)는 겉·속 어디에도 세지 않는다.
  */
 function buildPalaceSummary(facts: import("./types.js").CompatFact[]): Judgment {
   let outerHarmony = 0
@@ -546,13 +592,13 @@ function buildPalaceSummary(facts: import("./types.js").CompatFact[]): Judgment 
 
   for (const f of facts) {
     for (const e of f.edges) {
-      const atYear = e.subject.pillar === "year" || e.object.pillar === "year"
-      const atDay = e.subject.pillar === "day" || e.object.pillar === "day"
-      if (atYear) {
+      const bothYear = e.subject.pillar === "year" && e.object.pillar === "year"
+      const bothDay = e.subject.pillar === "day" && e.object.pillar === "day"
+      if (bothYear) {
         if (f.polarity === "harmony") outerHarmony++
         else if (f.polarity === "clash") outerClash++
       }
-      if (atDay) {
+      if (bothDay) {
         if (f.polarity === "harmony") innerHarmony++
         else if (f.polarity === "clash") innerClash++
       }

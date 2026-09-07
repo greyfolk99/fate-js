@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest"
 import { compatTable, tenGod, nayinOf } from "../src/compat/index.js"
+import { chart } from "../src/index.js"
 import type { BaziTable, Pillar, Stem, Branch } from "../src/index.js"
 import type { CompatSubject } from "../src/compat/index.js"
 
@@ -85,6 +86,19 @@ describe("배우자성(재/관) 공급", () => {
     const cand: CompatSubject = { bazi: bz(["己", "丑"], ["戊", "戌"], ["己", "丑"]) }
     const t = compatTable(subj, cand)
     expect(t.judgments.tenGod.spouseStarForSubject.present).toBe(false)
+  })
+
+  it("배우자성이 후보 지지의 지장간에만 있어도 공급으로 잡힌다", () => {
+    // 주체 甲(남) → 재성=戊(편재)/己(정재). 후보 천간은 전부 甲(비견)이라
+    // 어떤 천간도 재성이 아니지만, 지지 寅의 지장간(甲丙戊)에 戊(편재)가 숨어 있다.
+    // 천간만 보던 옛 코드면 present:false, 지장간 반영 후엔 present:true.
+    const subj: CompatSubject = {
+      bazi: bz(["甲", "子"], ["甲", "子"], ["甲", "子"]),
+      gender: "male",
+    }
+    const cand: CompatSubject = { bazi: bz(["甲", "寅"], ["甲", "寅"], ["甲", "寅"]) }
+    const t = compatTable(subj, cand)
+    expect(t.judgments.tenGod.spouseStarForSubject.present).toBe(true)
   })
 })
 
@@ -196,6 +210,49 @@ describe("신살 sinsal (교차)", () => {
     )!
     expect(gwimun.present).toBe(true)
   })
+
+  it("양인살: 甲(양간) 일간 + 후보 卯 → 성립", () => {
+    // 甲의 양인 지지 = 卯. 필러는 신살 안 걸리는 유효 간지로.
+    const subj = bz(["丙", "寅"], ["丁", "亥"], ["甲", "子"]) // 일간 甲(양간)
+    const cand = bz(["丙", "寅"], ["丁", "亥"], ["乙", "卯"]) // 후보 일지 卯
+    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const yangin = t.judgments.sinsal.candidateForSubject.find(
+      (j) => j.id === "yangin",
+    )!
+    expect(yangin.present).toBe(true)
+    expect(yangin.detail?.target).toBe("卯")
+  })
+
+  it("양인살: 乙(음간) 일간은 후보에 辰이 있어도 미성립(양간만, 다수설)", () => {
+    // 乙은 음간 → 양인 미인정. 후보에 陰刃 참고값 辰이 있어도 present:false.
+    const subj = bz(["丙", "寅"], ["丁", "亥"], ["乙", "卯"]) // 일간 乙(음간)
+    const cand = bz(["丙", "寅"], ["丁", "亥"], ["甲", "辰"]) // 후보 일지 辰
+    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const yangin = t.judgments.sinsal.candidateForSubject.find(
+      (j) => j.id === "yangin",
+    )!
+    expect(yangin.present).toBe(false)
+  })
+})
+
+// ── 양인살 음간 정책 (원국 natal 쪽도 동일) ─────────────────────────
+
+describe("양인살 음간 정책 — 원국(chart)", () => {
+  it("甲(양간) 일간 + 卯 있으면 원국 양인 present:true", () => {
+    // 甲 일간, 시지 卯 → 양인 성립.
+    const nat = chart({ bazi: bz(["丙", "寅"], ["丁", "亥"], ["甲", "子"], ["丁", "卯"]) })
+    const yangin = nat.sinsal.find((s) => s.id === "yangin")!
+    expect(yangin.present).toBe(true)
+    expect(yangin.pillars).toContain("hour")
+  })
+
+  it("乙(음간) 일간 + 辰 있어도 원국 양인 present:false(음간 미포함)", () => {
+    // 乙 일간, 시지 辰(陰刃 참고값) → 양인 미인정.
+    const nat = chart({ bazi: bz(["丙", "寅"], ["丁", "亥"], ["乙", "卯"], ["丙", "辰"]) })
+    const yangin = nat.sinsal.find((s) => s.id === "yangin")!
+    expect(yangin.present).toBe(false)
+    expect(yangin.pillars).toHaveLength(0)
+  })
 })
 
 // ── 겉궁합/속궁합 분류 ──────────────────────────────────────────────
@@ -209,6 +266,27 @@ describe("겉궁합·속궁합 palace", () => {
     const palace = t.judgments.palace
     expect(palace.detail?.outerClash as number).toBeGreaterThanOrEqual(1)
     expect(palace.detail?.innerHarmony as number).toBeGreaterThanOrEqual(1)
+  })
+
+  it("A.년 ↔ B.년 만 겉궁합으로 센다 (양쪽 끝이 모두 연주)", () => {
+    // 주체 년지 子 ↔ 후보 년지 午 = 지지충(양쪽 다 연주) → 겉궁합 충돌.
+    const subj = bz(["戊", "子"], ["丁", "卯"], ["甲", "卯"])
+    const cand = bz(["戊", "午"], ["丁", "卯"], ["甲", "卯"])
+    const t = compatTable({ bazi: subj }, { bazi: cand })
+    expect(t.judgments.palace.detail?.outerClash as number).toBeGreaterThanOrEqual(1)
+  })
+
+  it("A.년 ↔ B.월 관계는 겉궁합에 세지 않는다 (한쪽만 연주)", () => {
+    // 주체 년지 戌 ↔ 후보 월지 辰 = 지지충(주체는 연주, 후보는 월주) →
+    // 옛 코드는 한쪽만 연주여도 겉궁합으로 셌으나, 이제는 양쪽이 모두
+    // 연주여야 하므로 겉궁합 0. 두 사람의 년지(戌↔戌)는 무관계라
+    // 연주-연주 엣지 자체가 없다.
+    const subj = bz(["戊", "戌"], ["乙", "卯"], ["甲", "卯"])
+    const cand = bz(["丙", "戌"], ["戊", "辰"], ["甲", "卯"])
+    const t = compatTable({ bazi: subj }, { bazi: cand })
+    // 년-월 충은 겉궁합(연주-연주)이 아니다.
+    expect(t.judgments.palace.detail?.outerClash).toBe(0)
+    expect(t.judgments.palace.detail?.outerHarmony).toBe(0)
   })
 })
 
