@@ -70,7 +70,8 @@ export interface BaziIndices {
  * ordinal·시각으로 연·월·일·시 사주의 천간·지지 인덱스를 계산한다.
  *
  * @param dateOrd - `toOrdinal(year, month, day)` 값
- * @param hour    - 0~23 정수
+ * @param hour    - 0~24 시각(소수 가능 — 진태양시 보정 결과를 그대로 받는다).
+ *                  시주 지지 = floor((hour+1)/2), 절기 탐색도 이 소수 시각을 쓴다.
  */
 export function baziVectorized(dateOrd: number, hour: number): BaziIndices {
   // ── 일주(日柱) ──

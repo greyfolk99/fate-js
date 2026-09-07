@@ -8,6 +8,7 @@ import {
   elementComplementRule,
   renderEdge,
 } from "./rules.js"
+import { judgeCompat } from "./judgments.js"
 import type { CompatSubject, CompatTable } from "./types.js"
 
 export const COMPAT_SCHEMA_VERSION = "compat-v1"
@@ -16,8 +17,9 @@ export const COMPAT_SCHEMA_VERSION = "compat-v1"
  * 두 사주 사이의 명리 관계를 정형 포맷으로 빠짐없이 추출한다.
  *
  * 계산으로 딱 떨어지는 관계(천간합·충, 지지 육합·삼합·방합·충·형·파·해·원진,
- * 지장간 암합, 오행 보완)를 담는다. 유파에 따라 판정이 갈리는 파생값
- * (신강신약·용신·신살·납음)은 아직 미포함 — 추후 유파별로 병렬 수록 예정.
+ * 지장간 암합, 오행 보완)를 facts 에 담는다. 결정론으로 뽑히는 판단 파생값
+ * (십성·납음·신살·겉속궁합 분류)은 judgments 섹션에 별도로 담는다.
+ * 유파별 정량화가 필요한 값(신강신약·용신)은 여전히 제외 — 별도 처리.
  *
  * 종합 점수는 만들지 않는다(하류 LLM 의 몫). 관계가 없어도 `present:false`
  * 로 항상 한 줄 남겨 인풋 차원을 고정한다.
@@ -38,11 +40,14 @@ export function compatTable(
     elementComplementRule(s, c),
   ]
 
+  const judgments = judgeCompat(subject, candidate, facts)
+
   return {
     schemaVersion: COMPAT_SCHEMA_VERSION,
     subject,
     candidate,
     facts,
+    judgments,
   }
 }
 

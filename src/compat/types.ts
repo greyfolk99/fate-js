@@ -1,5 +1,6 @@
 import type { ELEMENTS } from "../constants.js"
 import type { BaziTable } from "../types.js"
+import type { CompatJudgments } from "./judgments-types.js"
 
 type Element = typeof ELEMENTS[number]
 
@@ -72,4 +73,9 @@ export interface CompatTable {
   subject: CompatSubject
   candidate: CompatSubject
   facts: CompatFact[]
+  /**
+   * 결정론 판단 파생값 — 십성·납음·신살·겉속궁합 분류.
+   * 12관계(facts)와 별개 섹션. 종합 점수는 담지 않는다.
+   */
+  judgments: CompatJudgments
 }

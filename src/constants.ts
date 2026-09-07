@@ -37,6 +37,18 @@ export const BRANCH_ELEMENTS: Record<typeof BRANCHES[number], typeof ELEMENTS[nu
 }
 
 /**
+ * 천간 음양(陰陽) — 甲丙戊庚壬 = 양(yang), 乙丁己辛癸 = 음(yin).
+ * 십성(十星) 판정에 쓰인다.
+ */
+export const STEM_YINYANG: Record<typeof STEMS[number], "yang" | "yin"> = {
+  "甲": "yang", "乙": "yin",
+  "丙": "yang", "丁": "yin",
+  "戊": "yang", "己": "yin",
+  "庚": "yang", "辛": "yin",
+  "壬": "yang", "癸": "yin",
+}
+
+/**
  * 지장간(地藏干) — 각 지지에 숨어 있는 천간.
  * 첫 번째 원소가 주기(主氣).
  */

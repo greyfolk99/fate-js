@@ -1,0 +1,185 @@
+/**
+ * 궁합 판단(判斷)용 명리 상수 — 납음·신살 룩업 테이블.
+ * 문헌 대조로 검증한 값만 담는다. 유파가 갈리는 항목은 주석에 대안을 남긴다.
+ */
+
+import type { STEMS, BRANCHES, ELEMENTS } from "../constants.js"
+
+type Stem = typeof STEMS[number]
+type Branch = typeof BRANCHES[number]
+type Element = typeof ELEMENTS[number]
+
+/**
+ * 60갑자 → 30 납음오행(納音五行).
+ *
+ * 60갑자는 두 간지씩 짝지어 같은 납음을 공유한다(첫 짝 甲子·乙丑 = 海中金).
+ * 배열 인덱스 k(0..29) 는 60간지 순번 2k, 2k+1 짝에 해당한다.
+ * (간지 순번 n → 천간 STEMS[n%10], 지지 BRANCHES[n%12].)
+ *
+ * 검증: Baidu Baike 六十甲子纳音表 · sajuabc 납음오행표 · 每日頭條 納音表.
+ * 두 독립 출처(중문·한글)가 30짝 전부 일치.
+ * (白蠟金은 白鑞金, 釵釧金은 "차천금"으로도 표기되나 오행 배정은 동일.)
+ */
+export const NAYIN_PAIRS: readonly { name: string; element: Element }[] = [
+  { name: "海中金", element: "metal" }, // 甲子·乙丑
+  { name: "爐中火", element: "fire" }, // 丙寅·丁卯
+  { name: "大林木", element: "wood" }, // 戊辰·己巳
+  { name: "路傍土", element: "earth" }, // 庚午·辛未
+  { name: "劍鋒金", element: "metal" }, // 壬申·癸酉
+  { name: "山頭火", element: "fire" }, // 甲戌·乙亥
+  { name: "澗下水", element: "water" }, // 丙子·丁丑
+  { name: "城頭土", element: "earth" }, // 戊寅·己卯
+  { name: "白蠟金", element: "metal" }, // 庚辰·辛巳
+  { name: "楊柳木", element: "wood" }, // 壬午·癸未
+  { name: "泉中水", element: "water" }, // 甲申·乙酉
+  { name: "屋上土", element: "earth" }, // 丙戌·丁亥
+  { name: "霹靂火", element: "fire" }, // 戊子·己丑
+  { name: "松柏木", element: "wood" }, // 庚寅·辛卯
+  { name: "長流水", element: "water" }, // 壬辰·癸巳
+  { name: "沙中金", element: "metal" }, // 甲午·乙未
+  { name: "山下火", element: "fire" }, // 丙申·丁酉
+  { name: "平地木", element: "wood" }, // 戊戌·己亥
+  { name: "壁上土", element: "earth" }, // 庚子·辛丑
+  { name: "金箔金", element: "metal" }, // 壬寅·癸卯
+  { name: "覆燈火", element: "fire" }, // 甲辰·乙巳
+  { name: "天河水", element: "water" }, // 丙午·丁未
+  { name: "大驛土", element: "earth" }, // 戊申·己酉
+  { name: "釵釧金", element: "metal" }, // 庚戌·辛亥
+  { name: "桑柘木", element: "wood" }, // 壬子·癸丑
+  { name: "大溪水", element: "water" }, // 甲寅·乙卯
+  { name: "沙中土", element: "earth" }, // 丙辰·丁巳
+  { name: "天上火", element: "fire" }, // 戊午·己未
+  { name: "石榴木", element: "wood" }, // 庚申·辛酉
+  { name: "大海水", element: "water" }, // 壬戌·癸亥
+]
+
+// ── 신살(神殺) 룩업 ──────────────────────────────────────────────────
+//
+// 유파 선택: 삼합계(도화·역마·화개)와 귀문은 일지 1차 기준, 간계(홍염·귀인·
+// 양인)는 일간 기준. 년지 기준 변형도 통용되나 여기선 일지/일간을 1차로 잡고
+// 판단부에서 basis 로 밝힌다.
+
+/**
+ * 삼합(三合) 그룹별 도화(桃花)·역마(驛馬)·화개(華蓋) 지지.
+ * 어떤 지지든 자신이 속한 삼합 그룹으로 매핑해 조회한다.
+ *
+ * - 도화 = 왕지 다음(목욕沐浴) 자리, 子午卯酉 중 하나.
+ * - 역마 = 장생지와 충하는 자리, 寅申巳亥 중 하나.
+ * - 화개 = 묘(墓) 자리, 辰戌丑未 중 하나.
+ *
+ * 검증: namu.wiki(신살)·sazasaju·sajuabc — 세 신살 전부 출처 만장일치.
+ */
+export const SINSAL_FROM_SAMHAP: Record<
+  Branch,
+  { dohwa: Branch; yeokma: Branch; hwagae: Branch }
+> = (() => {
+  // 삼합 그룹 → {도화, 역마, 화개}. 그룹의 모든 멤버가 같은 값을 공유.
+  const groups: {
+    members: readonly Branch[]
+    dohwa: Branch
+    yeokma: Branch
+    hwagae: Branch
+  }[] = [
+    { members: ["申", "子", "辰"], dohwa: "酉", yeokma: "寅", hwagae: "辰" },
+    { members: ["亥", "卯", "未"], dohwa: "子", yeokma: "巳", hwagae: "未" },
+    { members: ["寅", "午", "戌"], dohwa: "卯", yeokma: "申", hwagae: "戌" },
+    { members: ["巳", "酉", "丑"], dohwa: "午", yeokma: "亥", hwagae: "丑" },
+  ]
+  const out = {} as Record<
+    Branch,
+    { dohwa: Branch; yeokma: Branch; hwagae: Branch }
+  >
+  for (const g of groups) {
+    for (const m of g.members) {
+      out[m] = { dohwa: g.dohwa, yeokma: g.yeokma, hwagae: g.hwagae }
+    }
+  }
+  return out
+})()
+
+/**
+ * 홍염살(紅艶殺) — 일간 기준.
+ * sajuabc "정통" 다수설 표. 유파 이설: 甲乙壬은 申으로 보는 표도 있고
+ * (午↔申 분기), 己는 표에서 빠지기도 한다. 여기선 다수설로 고정.
+ */
+export const HONGYEOM_BY_STEM: Record<Stem, Branch> = {
+  "甲": "午", "乙": "午",
+  "丙": "寅", "丁": "未",
+  "戊": "辰", "己": "辰",
+  "庚": "戌", "辛": "酉",
+  "壬": "子", "癸": "申",
+}
+
+/**
+ * 천을귀인(天乙貴人) — 일간 기준, 각 2지.
+ * 고전 결(訣): 甲戊庚牛羊(丑未), 乙己鼠猴(子申), 丙丁猪鷄(亥酉),
+ * 六辛馬虎(午寅), 壬癸兔蛇(卯巳). 신살 중 가장 안정적(만장일치).
+ */
+export const CHEONEUL_BY_STEM: Record<Stem, readonly Branch[]> = {
+  "甲": ["丑", "未"],
+  "乙": ["子", "申"],
+  "丙": ["亥", "酉"],
+  "丁": ["亥", "酉"],
+  "戊": ["丑", "未"],
+  "己": ["子", "申"],
+  "庚": ["丑", "未"],
+  "辛": ["午", "寅"],
+  "壬": ["巳", "卯"],
+  "癸": ["巳", "卯"],
+}
+
+/**
+ * 문창귀인(文昌貴人) — 일간 기준(일간의 식신 지지·장생 계열). 만장일치.
+ */
+export const MUNCHANG_BY_STEM: Record<Stem, Branch> = {
+  "甲": "巳", "乙": "午",
+  "丙": "申", "丁": "酉",
+  "戊": "申", "己": "酉",
+  "庚": "亥", "辛": "子",
+  "壬": "寅", "癸": "卯",
+}
+
+/**
+ * 양인살(羊刃/陽刃) — 일간 기준.
+ * 양간(甲丙戊庚壬) 5개가 정설: 甲卯·丙午·戊午·庚酉·壬子.
+ * 음간(乙丁己辛癸)은 다수설이 "양인 없음"으로 보나, 소수설 음인(陰刃)
+ * 표(乙辰·丁未·己未·辛戌·癸丑)를 참고값으로 함께 싣는다(학파 의존).
+ */
+export const YANGIN_BY_STEM: Record<Stem, Branch> = {
+  "甲": "卯", "丙": "午", "戊": "午", "庚": "酉", "壬": "子",
+  // 아래 음간 값은 소수설(음인) — 다수설은 미인정.
+  "乙": "辰", "丁": "未", "己": "未", "辛": "戌", "癸": "丑",
+}
+
+/**
+ * 백호살(白虎大殺) — 특정 60갑자 7주. 출처 만장일치(이설 없음).
+ * 甲辰·乙未·丙戌·丁丑·戊辰·壬戌·癸丑.
+ */
+export const BAEKHO_PILLARS: ReadonlySet<string> = new Set([
+  "甲辰", "乙未", "丙戌", "丁丑", "戊辰", "壬戌", "癸丑",
+])
+
+/**
+ * 괴강살(魁罡) — 특정 60갑자 주.
+ * 정설 4주(庚辰·庚戌·壬辰·戊戌)만 담는다.
+ * 이설: 壬戌·戊辰 을 더해 6주로 보는 표도 있음(戊辰·壬戌는 논쟁적).
+ * 극소수설로 甲辰을 넣기도 함 — 여기선 논쟁 없는 4주로 고정.
+ */
+export const GWAEGANG_PILLARS: ReadonlySet<string> = new Set([
+  "庚辰", "庚戌", "壬辰", "戊戌",
+])
+
+/**
+ * 귀문관살(鬼門關殺) — 지지 쌍 6종.
+ * 子酉·丑午·寅未·卯申·辰亥·巳戌.
+ * 원진(怨嗔)과 4쌍(丑午·卯申·辰亥·巳戌) 겹치며, 子·寅 쌍에서 갈린다
+ * (귀문 子酉·寅未 vs 원진 子未·寅酉).
+ */
+export const GWIMUN_PAIRS: ReadonlyArray<Readonly<Set<Branch>>> = [
+  new Set(["子", "酉"] as const),
+  new Set(["丑", "午"] as const),
+  new Set(["寅", "未"] as const),
+  new Set(["卯", "申"] as const),
+  new Set(["辰", "亥"] as const),
+  new Set(["巳", "戌"] as const),
+]

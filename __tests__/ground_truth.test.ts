@@ -33,7 +33,10 @@ describe("known-good fixtures", () => {
   test.each(samples as Sample[])(
     "$year-$month-$day $hour시",
     ({ year, month, day, hour, expected }) => {
-      const result = baziTable({ year, month, day, hour })
+      // 이 픽스처의 오라클(ground_truth npz)은 표준시(입력 시각 그대로) 기준 —
+      // 원시 천문 계산(절기·일주·시주)을 검증한다. 진태양시(출생지 경도) 보정은
+      // 그 위에 얹는 별개 레이어이므로 여기선 표준시 모드로 엔진 자체를 본다.
+      const result = baziTable({ year, month, day, hour, timeBasis: "standard" })
 
       const got = {
         yearGan:  STEM_INDEX[result.year.stem],

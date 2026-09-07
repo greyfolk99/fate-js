@@ -44,13 +44,15 @@ export interface BirthInput {
   day: number
   /** 24시 기준 정수 시각 (0–23). 미지정이면 시주 없음. */
   hour?: number
+  /** 분 (0–59). 미지정이면 0. 진태양시 보정 시 시주 경계 판정에 쓰인다. */
+  minute?: number
   /**
-   * 시간 기준.
-   * - `'standard'` — 표준시(기본값)
-   * - `'solar'`    — 진태양시(경도 보정)
+   * 시간 기준. 미지정이면 전역 설정(getSolarConfig().applySolarTime, 기본 true)을 따른다.
+   * - `'solar'`    — 진태양시(경도 지방시 + 균시차) 보정 적용
+   * - `'standard'` — 표준시 그대로(보정 안 함)
    */
   timeBasis?: "standard" | "solar"
-  /** 경도 보정용 (timeBasis === 'solar' 일 때 유효). 동경 양수. */
+  /** 출생지 경도(동경 양수). 미지정이면 전역 기본값(getSolarConfig().defaultLongitude). */
   longitude?: number
   /** IANA timezone 문자열 (예: 'Asia/Seoul'). */
   timezone?: string
