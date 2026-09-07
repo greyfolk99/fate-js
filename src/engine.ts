@@ -91,8 +91,14 @@ export function baziVectorized(dateOrd: number, hour: number): BaziIndices {
 
   // ── 절기 탐색 ──
   const dtSec = (dateOrd - EPOCH_ORD) * 86400 + hour * 3600
-  let pos = searchSortedRight(jieSec, dtSec) - 1
-  pos = Math.max(0, Math.min(pos, jieSec.length - 1))
+  // 절기 데이터 범위 밖은 조용히 clamp하지 않고 명시적으로 throw한다(끝값 오답 방지).
+  if (dtSec < jieSec[0]! || dtSec >= jieSec[jieSec.length - 1]!) {
+    throw new RangeError(
+      `절기 데이터 범위 밖입니다(dtSec=${dtSec}). ` +
+        `이 라이브러리는 절기 테이블이 덮는 기간(대략 1799-01 ~ 2200-11)의 날짜만 지원합니다.`,
+    )
+  }
+  const pos = searchSortedRight(jieSec, dtSec) - 1
 
   const monthSeq = jieMonth[pos] ?? 0
   const jy = jieYear[pos] ?? 0

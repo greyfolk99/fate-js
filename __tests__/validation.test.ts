@@ -1,0 +1,62 @@
+/**
+ * 입력 검증(assertValidBirthInput) + 절기 데이터 범위 throw 테스트.
+ * 조용한 오답 대신 명시적 RangeError를 던지는지 확인한다.
+ */
+import { describe, test, expect } from "vitest"
+import { baziTable } from "../src/bazi-table.js"
+import { assertValidBirthInput, assertValidDate } from "../src/validate.js"
+
+describe("assertValidDate", () => {
+  test("실존하지 않는 날짜는 throw (2월 30일·4월 31일)", () => {
+    expect(() => assertValidDate(2000, 2, 30)).toThrow(RangeError)
+    expect(() => assertValidDate(2001, 4, 31)).toThrow(RangeError)
+  })
+  test("범위 밖 month/day throw", () => {
+    expect(() => assertValidDate(2000, 13, 1)).toThrow(RangeError)
+    expect(() => assertValidDate(2000, 0, 1)).toThrow(RangeError)
+    expect(() => assertValidDate(2000, 1, 0)).toThrow(RangeError)
+  })
+  test("NaN·비정수 throw", () => {
+    expect(() => assertValidDate(NaN, 1, 1)).toThrow(RangeError)
+    expect(() => assertValidDate(2000, 1.5, 1)).toThrow(RangeError)
+  })
+  test("윤년 2월 29일은 통과, 평년 2월 29일은 throw", () => {
+    expect(() => assertValidDate(2000, 2, 29)).not.toThrow()
+    expect(() => assertValidDate(1900, 2, 29)).toThrow(RangeError) // 1900은 평년(100의 배수, 400 아님)
+    expect(() => assertValidDate(2001, 2, 29)).toThrow(RangeError)
+  })
+})
+
+describe("assertValidBirthInput 시간·경도", () => {
+  test("hour 0–23 벗어나면 throw", () => {
+    expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 24 })).toThrow(RangeError)
+    expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: -1 })).toThrow(RangeError)
+  })
+  test("minute 0–59 벗어나면 throw", () => {
+    expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 1, minute: 90 })).toThrow(RangeError)
+  })
+  test("minute를 hour 없이 단독 지정하면 throw", () => {
+    expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, minute: 30 })).toThrow(RangeError)
+  })
+  test("longitude 비유한/범위밖 throw (무한 루프 방지)", () => {
+    expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 1, longitude: Infinity })).toThrow(RangeError)
+    expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 1, longitude: 999 })).toThrow(RangeError)
+  })
+  test("정상 입력은 통과", () => {
+    expect(() => assertValidBirthInput({ year: 1992, month: 8, day: 4, hour: 1, minute: 55, longitude: 127 })).not.toThrow()
+  })
+})
+
+describe("baziTable 진입점 검증·절기범위", () => {
+  test("잘못된 입력은 baziTable에서 throw", () => {
+    expect(() => baziTable({ year: 2000, month: 2, day: 30 })).toThrow(RangeError)
+    expect(() => baziTable({ year: 2000, month: 1, day: 1, hour: 24 })).toThrow(RangeError)
+  })
+  test("절기 데이터 범위 밖 연도는 throw (clamp 아님)", () => {
+    expect(() => baziTable({ year: 1500, month: 6, day: 15, timeBasis: "standard" })).toThrow(RangeError)
+    expect(() => baziTable({ year: 2500, month: 6, day: 15, timeBasis: "standard" })).toThrow(RangeError)
+  })
+  test("범위 안 정상 연도는 통과", () => {
+    expect(() => baziTable({ year: 2000, month: 6, day: 15, hour: 12, timeBasis: "standard" })).not.toThrow()
+  })
+})

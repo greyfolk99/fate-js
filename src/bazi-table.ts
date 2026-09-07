@@ -3,6 +3,7 @@ import { toOrdinal } from "./date-util.js"
 import { STEMS, BRANCHES } from "./constants.js"
 import { getSolarConfig } from "./config.js"
 import { solarCorrectionMinutes } from "./solar-time.js"
+import { assertValidBirthInput } from "./validate.js"
 import type { BaziTable, BirthInput } from "./types.js"
 
 /**
@@ -16,6 +17,7 @@ import type { BaziTable, BirthInput } from "./types.js"
  * @returns 연·월·일·시 사주(四柱) 객체
  */
 export function baziTable(input: BirthInput): BaziTable {
+  assertValidBirthInput(input)
   const { year, month, day, hour, minute } = input
   const hasTime = hour !== undefined
   const cfg = getSolarConfig()
