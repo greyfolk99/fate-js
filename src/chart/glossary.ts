@@ -45,7 +45,7 @@ export const GLOSSARY: Record<string, Record<string, Term>> = {
   relationKind: {
     "天干合": { ko: "천간합", en: "cheongan-hap (stem combine)" }, "天干沖": { ko: "천간충", en: "cheongan-chung (stem clash)" },
     "地支六合": { ko: "지지육합", en: "jiji-yukhap (branch six-combine)" }, "地支三合": { ko: "지지삼합", en: "jiji-samhap (branch triple-combine)" },
-    "地支半合": { ko: "지지반합", en: "jiji-banhap (branch half-combine)" }, "地支方合": { ko: "지지방합", en: "jiji-banghap (branch directional-combine)" },
+    "地支三合半合": { ko: "지지삼합반합", en: "jiji-samhap-banhap (triple half-combine)" }, "地支方合半合": { ko: "지지방합반합", en: "jiji-banghap-banhap (directional half-combine)" }, "地支方合": { ko: "지지방합", en: "jiji-banghap (branch directional-combine)" },
     "地支沖": { ko: "지지충", en: "jiji-chung (branch clash)" }, "刑": { ko: "형", en: "hyeong (punishment)" },
     "破": { ko: "파", en: "pa (break)" }, "害": { ko: "해", en: "hae (harm)" }, "怨嗔": { ko: "원진", en: "wonjin (mutual resentment)" },
   },

@@ -35,8 +35,8 @@ const REL: Record<string, string> = {
   stem_hap: "天干合", stem_clash: "天干沖",
   branch_yukhap: "地支六合", branch_clash: "地支沖",
   branch_hae: "害", branch_pa: "破", branch_wonjin: "怨嗔", branch_hyung: "刑",
-  branch_samhap: "地支三合", branch_samhap_ban: "地支半合",
-  branch_banghap: "地支方合", branch_banghap_ban: "地支半合",
+  branch_samhap: "地支三合", branch_samhap_ban: "地支三合半合",
+  branch_banghap: "地支方合", branch_banghap_ban: "地支方合半合",
 }
 const SP: Record<string, string> = {
   cheoneul: "天乙貴人", munchang: "文昌貴人", hongyeom: "紅艶殺",
@@ -105,7 +105,7 @@ export interface Natal2 {
       eokbu: { favorable: string[]; unfavorable: string[] }
       johu: { season: string; needed: string[] }
     }
-    relations: { kind: string; detail: string | null; polarity: string; pillars: Pillar4[]; glyphs: string[] }[]
+    relations: { kind: string; detail: string | null; polarity: string; pillars: Pillar4[]; glyphs: string[]; element?: string }[]
     void: string[]
   }
   twelveSinsal: { fromYear: string[]; fromDay: string[] }
@@ -132,7 +132,14 @@ export function toNatal2(n: NatalChart): Natal2 {
 
   return {
     schemaVersion: NATAL2_SCHEMA_VERSION,
-    bazi: n.bazi,
+    // bazi는 스키마 필드(year/month/day/hour)만 화이트리스트 — 원본 pass-through 시
+    // 런타임 입력에 여분 property가 있으면 스키마 additionalProperties:false 를 깬다.
+    bazi: {
+      year:  { stem: n.bazi.year.stem,  branch: n.bazi.year.branch },
+      month: { stem: n.bazi.month.stem, branch: n.bazi.month.branch },
+      day:   { stem: n.bazi.day.stem,   branch: n.bazi.day.branch },
+      hour:  n.bazi.hour ? { stem: n.bazi.hour.stem, branch: n.bazi.hour.branch } : null,
+    },
     gender: n.gender,
     dayMaster: { glyph: n.dayMaster.glyph, element: el(n.dayMaster.element), yinyang: yy(n.dayMaster.yinyang) },
 
@@ -193,6 +200,8 @@ export function toNatal2(n: NatalChart): Natal2 {
         polarity: r.polarity,
         pillars: r.pillars as Pillar4[],
         glyphs: r.glyphs,
+        // 삼합·방합의 오행국(化한 오행). present-only — 있는 관계만.
+        ...(r.element ? { element: el(r.element) } : {}),
       })),
       void: n.voidBranches,
     },
