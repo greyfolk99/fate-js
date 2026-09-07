@@ -7,8 +7,8 @@ import jieqiData from "./jieqi.json" with { type: "json" }
 // ── 상수 ──────────────────────────────────────────────────────────────────────
 // 1900-01-31 의 ordinal = 693626  (甲辰日 기준일)
 const BASE_ORD = 693626
-// 1970-01-01 의 ordinal = 719163
-const EPOCH_ORD = 719163
+// 1970-01-01 의 ordinal = 719163 (Unix epoch). utcSec 계산에 재사용하도록 export.
+export const EPOCH_ORD = 719163
 const BASE_GAN = 0
 const BASE_ZHI = 4
 
@@ -22,7 +22,7 @@ const JIE_TO_MONTH_OFFSET = [8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9] as const
 // 일간(日干) → 시간(時干) 시작 인덱스
 const DAY_GAN_TO_HOUR_BASE = [0, 2, 4, 6, 8, 0, 2, 4, 6, 8] as const
 
-// 절기 데이터 (epoch seconds)
+// 절기 데이터 (true-UTC epoch seconds) — 절기 절대순간을 UTC로 저장(2026-09 CST축 버그 교정).
 const jieSec: number[] = jieqiData.sec
 const jieMonth: number[] = jieqiData.month
 const jieYear: number[] = jieqiData.year
@@ -67,40 +67,43 @@ export interface BaziIndices {
 
 // ── 핵심 함수 ──────────────────────────────────────────────────────────────────
 /**
- * ordinal·시각으로 연·월·일·시 사주의 천간·지지 인덱스를 계산한다.
+ * 프레임을 분리해 연·월·일·시 사주의 천간·지지 인덱스를 계산한다.
  *
- * @param dateOrd - `toOrdinal(year, month, day)` 값
- * @param hour    - 0~24 시각(소수 가능 — 진태양시 보정 결과를 그대로 받는다).
- *                  시주 지지 = floor((hour+1)/2), 절기 탐색도 이 소수 시각을 쓴다.
+ * 시간 기준(2026-09 재설계): 각 기둥이 서로 다른 시간 프레임을 쓴다.
+ *  - 일주(日柱)  = 로컬 civil 날짜(dateOrd) — 진태양시로 굴리지 않는다(v1).
+ *  - 시주(時柱)  = 로컬 진태양시 시각(localHour) — 경도·균시차 보정이 여기에만 적용.
+ *  - 월·연주     = 출생 절대순간(utcSec, true-UTC) vs 절기 UTC 비교.
+ *
+ * @param dateOrd  - `toOrdinal(year, month, day)`(로컬 civil 날짜)
+ * @param localHour - 0~24 로컬 시각(소수 가능, 진태양시 보정 반영). 시주 지지·야자시 판정용.
+ * @param utcSec    - 출생 절대순간(Unix epoch 초, UTC). 절기(월·연) 판정용.
  */
-export function baziVectorized(dateOrd: number, hour: number): BaziIndices {
+export function baziVectorized(dateOrd: number, localHour: number, utcSec: number): BaziIndices {
   // ── 일주(日柱) ──
   const diff = dateOrd - BASE_ORD
   const dayGan = mod(BASE_GAN + diff, 10)
   const dayZhi = mod(BASE_ZHI + diff, 12)
 
-  // ── 시주(時柱) ──
-  // 子時(23시)는 다음 날 기준
-  const nextDay = hour >= 23
-  const hourZhi = nextDay ? 0 : mod(Math.floor((hour + 1) / 2), 12)
+  // ── 시주(時柱) ── 로컬 진태양시 기준. 子時(23시)는 다음 날 일간 기준(야자시).
+  const nextDay = localHour >= 23
+  const hourZhi = nextDay ? 0 : mod(Math.floor((localHour + 1) / 2), 12)
   const dayGanForHour = nextDay ? mod(dayGan + 1, 10) : dayGan
   const hourGan = mod(
     (DAY_GAN_TO_HOUR_BASE[dayGanForHour] ?? 0) + hourZhi,
     10,
   )
 
-  // ── 절기 탐색 ──
-  const dtSec = (dateOrd - EPOCH_ORD) * 86400 + hour * 3600
+  // ── 절기 탐색 ── 출생 절대순간(UTC) vs 절기 UTC.
   // 비유한(NaN/Infinity) 값은 range 비교를 조용히 통과하므로 먼저 막는다.
   // (NaN 비교는 항상 false → clamp 없이 쓰레기 결과가 나오던 구멍)
   // 절기 데이터 범위 밖도 clamp하지 않고 명시적으로 throw한다(끝값 오답 방지).
-  if (!Number.isFinite(dtSec) || dtSec < jieSec[0]! || dtSec >= jieSec[jieSec.length - 1]!) {
+  if (!Number.isFinite(utcSec) || utcSec < jieSec[0]! || utcSec >= jieSec[jieSec.length - 1]!) {
     throw new RangeError(
-      `절기 데이터 범위 밖이거나 유효하지 않은 시각입니다(dtSec=${dtSec}). ` +
+      `절기 데이터 범위 밖이거나 유효하지 않은 시각입니다(utcSec=${utcSec}). ` +
         `이 라이브러리는 절기 테이블이 덮는 기간(대략 1799-01 ~ 2200-11)의 유한한 날짜/시각만 지원합니다.`,
     )
   }
-  const pos = searchSortedRight(jieSec, dtSec) - 1
+  const pos = searchSortedRight(jieSec, utcSec) - 1
 
   const monthSeq = jieMonth[pos] ?? 0
   const jy = jieYear[pos] ?? 0

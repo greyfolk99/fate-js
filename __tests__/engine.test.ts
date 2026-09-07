@@ -1,8 +1,12 @@
 import { describe, it, expect } from "vitest"
-import { baziVectorized } from "../src/engine.js"
+import { baziVectorized, EPOCH_ORD } from "../src/engine.js"
 import { toOrdinal, fromOrdinal } from "../src/date-util.js"
 import { baziTable } from "../src/bazi-table.js"
 import { STEMS, BRANCHES } from "../src/constants.js"
+
+// 이 파일의 baziVectorized 기대값은 절기표 native 프레임(CST/동경120)에서 검증된 값.
+// 엔진이 UTC 캐노니컬로 바뀌었으므로, CST 프레임 utcSec(−28800)로 넣어 동일 결과를 재현한다.
+const cstUtc = (ord: number, h: number) => (ord - EPOCH_ORD) * 86400 + h * 3600 - 28800
 
 // ── toOrdinal / fromOrdinal ────────────────────────────────────────────────────
 describe("toOrdinal", () => {
@@ -68,7 +72,7 @@ describe("baziVectorized — 기준일 검증", () => {
   it("1900-01-31 00:00 → 己亥 丁丑 甲辰 甲子", () => {
     // 기준일: 甲辰日. 연주는 己亥(소한 이전이라 전년 기준)
     const ord = toOrdinal(1900, 1, 31)
-    const r = baziVectorized(ord, 0)
+    const r = baziVectorized(ord, 0, cstUtc(ord, 0))
     expect(STEMS[r.year.stemIdx]).toBe("己")
     expect(BRANCHES[r.year.branchIdx]).toBe("亥")
     expect(STEMS[r.month.stemIdx]).toBe("丁")
@@ -83,7 +87,7 @@ describe("baziVectorized — 기준일 검증", () => {
 describe("baziVectorized — 2000-01-01 12:00", () => {
   it("己卯 丙子 戊午 戊午", () => {
     const ord = toOrdinal(2000, 1, 1)
-    const r = baziVectorized(ord, 12)
+    const r = baziVectorized(ord, 12, cstUtc(ord, 12))
     expect(STEMS[r.year.stemIdx]).toBe("己")
     expect(BRANCHES[r.year.branchIdx]).toBe("卯")
     expect(STEMS[r.month.stemIdx]).toBe("丙")
@@ -98,7 +102,7 @@ describe("baziVectorized — 2000-01-01 12:00", () => {
 describe("baziVectorized — 1990-08-04 03:00", () => {
   it("庚午 癸未 辛丑 庚寅", () => {
     const ord = toOrdinal(1990, 8, 4)
-    const r = baziVectorized(ord, 3)
+    const r = baziVectorized(ord, 3, cstUtc(ord, 3))
     expect(STEMS[r.year.stemIdx]).toBe("庚")
     expect(BRANCHES[r.year.branchIdx]).toBe("午")
     expect(STEMS[r.month.stemIdx]).toBe("癸")
@@ -114,7 +118,7 @@ describe("baziVectorized — 경계: 1999-12-31 23:00 (子시, 다음날 기준)
   it("己卯 丙子 丁巳 壬子", () => {
     // 23시는 子시이므로 다음 날(2000-01-01) 일간 기준으로 시간 계산
     const ord = toOrdinal(1999, 12, 31)
-    const r = baziVectorized(ord, 23)
+    const r = baziVectorized(ord, 23, cstUtc(ord, 23))
     expect(STEMS[r.year.stemIdx]).toBe("己")
     expect(BRANCHES[r.year.branchIdx]).toBe("卯")
     expect(STEMS[r.month.stemIdx]).toBe("丙")

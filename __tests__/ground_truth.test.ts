@@ -33,10 +33,11 @@ describe("known-good fixtures", () => {
   test.each(samples as Sample[])(
     "$year-$month-$day $hour시",
     ({ year, month, day, hour, expected }) => {
-      // 이 픽스처의 오라클(ground_truth npz)은 표준시(입력 시각 그대로) 기준 —
-      // 원시 천문 계산(절기·일주·시주)을 검증한다. 진태양시(출생지 경도) 보정은
-      // 그 위에 얹는 별개 레이어이므로 여기선 표준시 모드로 엔진 자체를 본다.
-      const result = baziTable({ year, month, day, hour, timeBasis: "standard" })
+      // 이 픽스처의 오라클(fate-py)은 절기표의 native 프레임 = CST(동경120, UTC+8) 벽시계로
+      // 생성됐다(jieqi.json이 원래 CST축이었으므로). 엔진은 이제 UTC 캐노니컬이라, 이 샘플을
+      // CST 프레임(utcOffsetMinutes:480)으로 호출하면 오프셋(−28800)이 상쇄돼 구엔진 결과를
+      // 그대로 재현한다 → 원시 천문 계산(절기·일주·시주) + UTC 변환의 sign까지 함께 검증.
+      const result = baziTable({ year, month, day, hour, timeBasis: "standard", utcOffsetMinutes: 480 })
 
       const got = {
         yearGan:  STEM_INDEX[result.year.stem],

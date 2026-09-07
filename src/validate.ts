@@ -49,6 +49,8 @@ export interface ValidatableBirthInput {
   minute?: number
   longitude?: number
   timeBasis?: string
+  utcOffsetMinutes?: number
+  timezone?: string
 }
 
 /**
@@ -74,5 +76,20 @@ export function assertValidBirthInput(input: ValidatableBirthInput): void {
 
   if (input.timeBasis !== undefined && input.timeBasis !== "standard" && input.timeBasis !== "solar") {
     throw new RangeError(`timeBasis는 "standard" 또는 "solar"여야 합니다: ${String(input.timeBasis)}`)
+  }
+
+  if (input.utcOffsetMinutes !== undefined) {
+    assertFiniteInt(input.utcOffsetMinutes, "utcOffsetMinutes")
+    if (input.utcOffsetMinutes < -720 || input.utcOffsetMinutes > 840) {
+      throw new RangeError(`utcOffsetMinutes는 −720~840 사이여야 합니다: ${input.utcOffsetMinutes}`)
+    }
+  }
+
+  // IANA timezone 리졸버는 미구현 — 오프셋 없이 timezone만 주면 조용히 무시하지 않고 명시적으로 막는다.
+  if (input.timezone !== undefined && input.utcOffsetMinutes === undefined) {
+    throw new Error(
+      `IANA timezone 해석은 아직 미구현입니다(timezone=${input.timezone}). ` +
+        `당분간 utcOffsetMinutes로 오프셋(DST·역사 변경 포함)을 직접 지정하세요.`,
+    )
   }
 }

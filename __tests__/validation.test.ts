@@ -73,11 +73,12 @@ describe("추가 검증 구멍 (codex Round2)", () => {
     expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 1, timeBasis: "bad" })).toThrow(RangeError)
     expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 1, timeBasis: "solar" })).not.toThrow()
   })
-  test("baziVectorized는 비유한(NaN/Infinity) 시각을 throw (range check 통과 구멍)", () => {
+  test("baziVectorized는 비유한(NaN/Infinity) utcSec를 throw (range check 통과 구멍)", () => {
     const ord = 700000 // 범위 내 임의 ordinal
-    expect(() => baziVectorized(ord, NaN)).toThrow(RangeError)
-    expect(() => baziVectorized(ord, Infinity)).toThrow(RangeError)
-    expect(() => baziVectorized(NaN, 12)).toThrow(RangeError)
+    const goodUtc = (700000 - 719163) * 86400 // 범위 내 UTC 초
+    expect(() => baziVectorized(ord, 12, NaN)).toThrow(RangeError)
+    expect(() => baziVectorized(ord, 12, Infinity)).toThrow(RangeError)
+    expect(() => baziVectorized(ord, 12, goodUtc)).not.toThrow()
   })
   test("catalog 입력검증: yearStart>yearEnd·NaN·hours 24 throw", () => {
     expect(() => catalog(2001, 2000)).toThrow(RangeError)

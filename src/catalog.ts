@@ -1,5 +1,6 @@
-import { baziVectorized } from "./engine.js"
+import { baziVectorized, EPOCH_ORD } from "./engine.js"
 import { toOrdinal, fromOrdinal } from "./date-util.js"
+import { getSolarConfig } from "./config.js"
 import type { CatalogResult } from "./types.js"
 
 const TIME_SLOTS = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21] as const
@@ -39,6 +40,9 @@ export function catalog(
   const startOrd = toOrdinal(yearStart, 1, 1)
   const endOrd = toOrdinal(yearEnd + 1, 1, 1) // exclusive
 
+  // 절기용 절대순간(UTC) 오프셋 — 표준자오선 표준시 기준(대량 표준시 계산, 진태양시 미적용).
+  const offsetSec = (getSolarConfig().standardMeridian / 15) * 3600
+
   const totalDays = endOrd - startOrd
   const N = totalDays * hours.length
 
@@ -55,7 +59,8 @@ export function catalog(
     const { year, month, day } = fromOrdinal(ord)
     for (let si = 0; si < hours.length; si++) {
       const h = hours[si]!
-      const idx = baziVectorized(ord, h)
+      const utcSec = (ord - EPOCH_ORD) * 86400 + h * 3600 - offsetSec
+      const idx = baziVectorized(ord, h, utcSec)
 
       yearsArr[row]  = year
       monthsArr[row] = month

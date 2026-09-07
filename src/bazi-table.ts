@@ -1,4 +1,4 @@
-import { baziVectorized } from "./engine.js"
+import { baziVectorized, EPOCH_ORD } from "./engine.js"
 import { toOrdinal } from "./date-util.js"
 import { STEMS, BRANCHES } from "./constants.js"
 import { getSolarConfig } from "./config.js"
@@ -9,11 +9,14 @@ import type { BaziTable, BirthInput } from "./types.js"
 /**
  * 생년월일시로 사주팔자 사주(四柱)를 계산한다.
  *
- * 시각이 주어지면 기본으로 진태양시(眞太陽時) 보정을 적용한다(전역 설정 getSolarConfig).
- * 보정 = 경도 지방시 + 균시차. 보정 결과가 자정을 넘으면 날짜(→일주·월주·연주)까지 함께 이동한다.
- * 보정을 끄려면 input.timeBasis='standard' 또는 setSolarConfig({applySolarTime:false}).
+ * 시간 프레임(2026-09 재설계): 각 기둥이 다른 프레임을 쓴다.
+ *  - 월·연주 = 출생 **절대순간(UTC)** vs 절기 UTC. 입력 로컬시각을 utcOffsetMinutes로 UTC 변환.
+ *    (DST·역사 표준시 변경은 호출자가 utcOffsetMinutes로 반영. 미지정 시 표준자오선 기준 오프셋.)
+ *  - 시주 = 로컬 **진태양시**(경도+균시차 보정). 보정은 시주에만 적용, 절대순간·일주는 안 건드림.
+ *  - 일주 = 로컬 civil 날짜 + 야자시. (진태양시로 날짜를 굴리지 않는다 — v1.)
+ * 진태양시를 끄려면 input.timeBasis='standard' 또는 setSolarConfig({applySolarTime:false}).
  *
- * @param input - 날짜·시간 및 보정 옵션
+ * @param input - 날짜·시간·오프셋·보정 옵션
  * @returns 연·월·일·시 사주(四柱) 객체
  */
 export function baziTable(input: BirthInput): BaziTable {
@@ -25,21 +28,27 @@ export function baziTable(input: BirthInput): BaziTable {
     ? input.timeBasis === "solar"
     : cfg.applySolarTime
 
-  let dateOrd = toOrdinal(year, month, day)
-  let decimalHour = (hour ?? 0) + (minute ?? 0) / 60
+  const dateOrd = toOrdinal(year, month, day) // 일주: 로컬 civil 날짜(진태양시로 안 굴림)
+  const stdHour = hour ?? 0
+  const stdMinute = minute ?? 0
 
+  // ── 절기용 절대순간(UTC) ── 입력 로컬시각 − UTC오프셋. 진태양시는 절대순간을 안 바꾸므로 미적용.
+  const offsetMin = input.utcOffsetMinutes ?? (cfg.standardMeridian / 15) * 60
+  const utcSec = (dateOrd - EPOCH_ORD) * 86400 + stdHour * 3600 + stdMinute * 60 - offsetMin * 60
+
+  // ── 시주용 로컬 진태양시 시각 ──
+  let localHour = stdHour + stdMinute / 60
   if (hasTime && applySolar) {
     const longitude = input.longitude ?? cfg.defaultLongitude
     const corr = solarCorrectionMinutes(
       year, month, day, longitude, cfg.standardMeridian, cfg.applyEot,
     )
-    decimalHour += corr / 60
-    // 보정으로 자정을 넘으면 날짜 이동(태양일 기준).
-    while (decimalHour < 0) { decimalHour += 24; dateOrd -= 1 }
-    while (decimalHour >= 24) { decimalHour -= 24; dateOrd += 1 }
+    localHour += corr / 60
+    // 시주 지지 계산용 [0,24) 정규화(일주 date는 안 굴린다).
+    localHour = ((localHour % 24) + 24) % 24
   }
 
-  const indices = baziVectorized(dateOrd, hasTime ? decimalHour : 0)
+  const indices = baziVectorized(dateOrd, hasTime ? localHour : 0, utcSec)
   return {
     year:  { stem: STEMS[indices.year.stemIdx]!,  branch: BRANCHES[indices.year.branchIdx]! },
     month: { stem: STEMS[indices.month.stemIdx]!, branch: BRANCHES[indices.month.branchIdx]! },
