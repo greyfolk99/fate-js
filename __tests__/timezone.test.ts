@@ -13,7 +13,7 @@ const p = (c: BaziTable) =>
 
 describe("hjseo 원판(진태양시 KST 기본)", () => {
   test("1992-08-04 01:55 KST → 壬申 丁未 壬子 辛丑", () => {
-    const c = baziTable({ year: 1992, month: 8, day: 4, hour: 1, minute: 55 })
+    const c = baziTable({ year: 1992, month: 8, day: 4, hour: 1, minute: 55, utcOffsetMinutes: 540 })
     expect(p(c)).toBe("壬申 丁未 壬子 辛丑")
   })
 })
@@ -45,13 +45,18 @@ describe("절기 경계: KST vs CST 프레임 분기 (입춘 2025)", () => {
   })
 })
 
-describe("timezone(IANA) 미구현 가드", () => {
-  test("timezone만 주고 utcOffsetMinutes 없으면 throw(조용히 무시 금지)", () => {
+describe("utcOffsetMinutes 필수 + timezone(IANA) 미구현 가드", () => {
+  test("utcOffsetMinutes를 아예 생략하면 throw(암묵 타임존 기본값 금지)", () => {
+    // @ts-expect-error utcOffsetMinutes는 이제 필수 — 생략 시 타입에러 + 런타임 throw.
+    expect(() => baziTable({ year: 2000, month: 1, day: 1, hour: 12 })).toThrow()
+  })
+  test("timezone만 주고 utcOffsetMinutes 없으면 여전히 throw(조용히 무시 금지)", () => {
     expect(() =>
+      // @ts-expect-error utcOffsetMinutes 필수 — timezone만으론 통과 못 함.
       baziTable({ year: 2000, month: 1, day: 1, hour: 12, timezone: "Asia/Seoul" }),
     ).toThrow()
   })
-  test("utcOffsetMinutes와 함께면 통과", () => {
+  test("utcOffsetMinutes와 함께면 통과(timezone 동반 여부 무관)", () => {
     expect(() =>
       baziTable({ year: 2000, month: 1, day: 1, hour: 12, timezone: "Asia/Seoul", utcOffsetMinutes: 540 }),
     ).not.toThrow()

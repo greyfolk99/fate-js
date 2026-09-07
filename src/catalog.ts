@@ -1,6 +1,5 @@
 import { baziVectorized, EPOCH_ORD } from "./engine.js"
 import { toOrdinal, fromOrdinal } from "./date-util.js"
-import { getSolarConfig } from "./config.js"
 import type { CatalogResult } from "./types.js"
 
 const TIME_SLOTS = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21] as const
@@ -12,14 +11,17 @@ const TIME_SLOTS = [23, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21] as const
  *   N = 총 행 수 (날짜 수 × hours.length)
  *   stems/branches — [N*4] row-major (year/month/day/hour 순)
  *
- * @param yearStart - 시작 연도 (포함)
- * @param yearEnd   - 종료 연도 (포함)
- * @param hours     - 포함할 시각 목록 (0–23). 미지정 시 기본 12시주 대표시간.
+ * @param yearStart        - 시작 연도 (포함)
+ * @param yearEnd          - 종료 연도 (포함)
+ * @param utcOffsetMinutes - 절기(월·연주)용 절대순간 변환 오프셋(분, 동쪽 +). **필수**.
+ *                           카탈로그 전체가 이 타임존을 가정한다 — 암묵 기본값 없음.
+ * @param hours            - 포함할 시각 목록 (0–23). 미지정 시 기본 12시주 대표시간.
  * @returns 카탈로그 결과 (TypedArray 기반 컬럼형 레이아웃)
  */
 export function catalog(
   yearStart: number,
   yearEnd: number,
+  utcOffsetMinutes: number,
   hours: readonly number[] = TIME_SLOTS,
 ): CatalogResult {
   if (!Number.isInteger(yearStart) || !Number.isInteger(yearEnd)) {
@@ -31,6 +33,15 @@ export function catalog(
   if (yearStart > yearEnd) {
     throw new RangeError(`yearStart는 yearEnd 이하여야 합니다: ${yearStart} > ${yearEnd}`)
   }
+  if (
+    !Number.isInteger(utcOffsetMinutes) ||
+    utcOffsetMinutes < -720 ||
+    utcOffsetMinutes > 840
+  ) {
+    throw new RangeError(
+      `utcOffsetMinutes는 −720~840 사이 정수여야 합니다(필수, 암묵 기본값 없음): ${String(utcOffsetMinutes)}`,
+    )
+  }
   for (const h of hours) {
     if (!Number.isInteger(h) || h < 0 || h > 23) {
       throw new RangeError(`hours 원소는 0–23 정수여야 합니다: ${String(h)}`)
@@ -40,8 +51,8 @@ export function catalog(
   const startOrd = toOrdinal(yearStart, 1, 1)
   const endOrd = toOrdinal(yearEnd + 1, 1, 1) // exclusive
 
-  // 절기용 절대순간(UTC) 오프셋 — 표준자오선 표준시 기준(대량 표준시 계산, 진태양시 미적용).
-  const offsetSec = (getSolarConfig().standardMeridian / 15) * 3600
+  // 절기용 절대순간(UTC) 오프셋 — 호출자가 명시한 utcOffsetMinutes 기준(진태양시 미적용).
+  const offsetSec = utcOffsetMinutes * 60
 
   const totalDays = endOrd - startOrd
   const N = totalDays * hours.length

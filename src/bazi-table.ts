@@ -11,7 +11,7 @@ import type { BaziTable, BirthInput } from "./types.js"
  *
  * 시간 프레임(2026-09 재설계): 각 기둥이 다른 프레임을 쓴다.
  *  - 월·연주 = 출생 **절대순간(UTC)** vs 절기 UTC. 입력 로컬시각을 utcOffsetMinutes로 UTC 변환.
- *    (DST·역사 표준시 변경은 호출자가 utcOffsetMinutes로 반영. 미지정 시 표준자오선 기준 오프셋.)
+ *    (DST·역사 표준시 변경은 호출자가 utcOffsetMinutes로 반영. **필수 입력 — 암묵 기본값 없음.**)
  *  - 시주 = 로컬 **진태양시**(경도+균시차 보정). 보정은 시주에만 적용, 절대순간·일주는 안 건드림.
  *  - 일주 = 로컬 civil 날짜 + 야자시. (진태양시로 날짜를 굴리지 않는다 — v1.)
  * 진태양시를 끄려면 input.timeBasis='standard' 또는 setSolarConfig({applySolarTime:false}).
@@ -33,7 +33,8 @@ export function baziTable(input: BirthInput): BaziTable {
   const stdMinute = minute ?? 0
 
   // ── 절기용 절대순간(UTC) ── 입력 로컬시각 − UTC오프셋. 진태양시는 절대순간을 안 바꾸므로 미적용.
-  const offsetMin = input.utcOffsetMinutes ?? (cfg.standardMeridian / 15) * 60
+  // utcOffsetMinutes는 필수(assertValidBirthInput에서 검증). 암묵 기본값 없음.
+  const offsetMin = input.utcOffsetMinutes
   const utcSec = (dateOrd - EPOCH_ORD) * 86400 + stdHour * 3600 + stdMinute * 60 - offsetMin * 60
 
   // ── 시주용 로컬 진태양시 시각 ──

@@ -133,7 +133,7 @@ describe("baziVectorized — 경계: 1999-12-31 23:00 (子시, 다음날 기준)
 // ── baziTable() 래퍼 검증 ─────────────────────────────────────────────────────
 describe("baziTable()", () => {
   it("2000-01-01 12시 → 己卯 丙子 戊午 戊午", () => {
-    const c = baziTable({ year: 2000, month: 1, day: 1, hour: 12 })
+    const c = baziTable({ year: 2000, month: 1, day: 1, hour: 12, utcOffsetMinutes: 540 })
     expect(c.year.stem).toBe("己")
     expect(c.year.branch).toBe("卯")
     expect(c.month.stem).toBe("丙")
@@ -145,7 +145,7 @@ describe("baziTable()", () => {
   })
 
   it("hour 미지정 시 hour 필드는 null", () => {
-    const c = baziTable({ year: 2000, month: 1, day: 1 })
+    const c = baziTable({ year: 2000, month: 1, day: 1, utcOffsetMinutes: 540 })
     expect(c.hour).toBeNull()
     // 연·월·일은 정상 계산
     expect(c.year.stem).toBe("己")

@@ -49,7 +49,7 @@ export interface ValidatableBirthInput {
   minute?: number
   longitude?: number
   timeBasis?: string
-  utcOffsetMinutes?: number
+  utcOffsetMinutes: number
   timezone?: string
 }
 
@@ -78,18 +78,18 @@ export function assertValidBirthInput(input: ValidatableBirthInput): void {
     throw new RangeError(`timeBasis는 "standard" 또는 "solar"여야 합니다: ${String(input.timeBasis)}`)
   }
 
-  if (input.utcOffsetMinutes !== undefined) {
-    assertFiniteInt(input.utcOffsetMinutes, "utcOffsetMinutes")
-    if (input.utcOffsetMinutes < -720 || input.utcOffsetMinutes > 840) {
-      throw new RangeError(`utcOffsetMinutes는 −720~840 사이여야 합니다: ${input.utcOffsetMinutes}`)
-    }
-  }
-
-  // IANA timezone 리졸버는 미구현 — 오프셋 없이 timezone만 주면 조용히 무시하지 않고 명시적으로 막는다.
-  if (input.timezone !== undefined && input.utcOffsetMinutes === undefined) {
+  // utcOffsetMinutes는 필수 — 암묵적 타임존 기본값 금지(implicit-timezone 버그류 차단).
+  // 날짜·hour·minute·longitude·timeBasis 검증 뒤에 두어, 기존 invalid-date/hour 테스트가
+  // 각자의 이유로 먼저 throw 하도록 한다.
+  if (input.utcOffsetMinutes === undefined) {
     throw new Error(
-      `IANA timezone 해석은 아직 미구현입니다(timezone=${input.timezone}). ` +
-        `당분간 utcOffsetMinutes로 오프셋(DST·역사 변경 포함)을 직접 지정하세요.`,
+      "utcOffsetMinutes는 필수입니다 — 이 사주의 타임존(UTC 오프셋, 분, DST·역사변경 포함)을 명시하세요. KST 등 암묵 가정 금지.",
     )
   }
+  assertFiniteInt(input.utcOffsetMinutes, "utcOffsetMinutes")
+  if (input.utcOffsetMinutes < -720 || input.utcOffsetMinutes > 840) {
+    throw new RangeError(`utcOffsetMinutes는 −720~840 사이여야 합니다: ${input.utcOffsetMinutes}`)
+  }
+  // NOTE: IANA timezone 리졸버는 여전히 미구현. utcOffsetMinutes가 필수가 되면서
+  // "timezone만 주고 오프셋 없음"은 위 필수 검증에서 이미 throw 된다(별도 가드 불필요).
 }

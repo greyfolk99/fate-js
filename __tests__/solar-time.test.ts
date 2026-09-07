@@ -36,7 +36,7 @@ describe("solarCorrectionMinutes", () => {
 })
 
 describe("baziTable 진태양시 보정", () => {
-  const birth = { year: 1992, month: 8, day: 4, hour: 3, minute: 30 } as const
+  const birth = { year: 1992, month: 8, day: 4, hour: 3, minute: 30, utcOffsetMinutes: 540 } as const
 
   test("03:30 경계: 보정 적용 시 시지 丑, 시주 辛丑 (기본 solar)", () => {
     const b = baziTable(birth) // 전역 기본 applySolarTime=true

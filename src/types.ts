@@ -55,11 +55,12 @@ export interface BirthInput {
   /** 출생지 경도(동경 양수). 미지정이면 전역 기본값(getSolarConfig().defaultLongitude). 진태양시(시주) 보정용. */
   longitude?: number
   /**
-   * 출생 시각의 UTC 오프셋(분, 동쪽 +). 절기(월·연주)용 절대순간 변환에 쓴다.
+   * 출생 시각의 UTC 오프셋(분, 동쪽 +). 절기(월·연주)용 절대순간 변환에 쓴다. **필수**.
    * **DST·역사적 표준시 변경을 여기에 반영한다**(예: 한국 1954–61은 +510, 1987 여름 DST는 +600).
-   * 미지정 시 표준자오선 기준(getSolarConfig().standardMeridian/15*60; KST=+540).
+   * 암묵적 기본값(KST 등)은 없다 — 모든 호출자가 이 사주의 타임존을 명시해야 한다.
+   * (시간 미상이어도 연·월주 절기 판정에 절대순간이 필요하므로 필수.)
    */
-  utcOffsetMinutes?: number
+  utcOffsetMinutes: number
   /**
    * IANA timezone 문자열 (예: 'Asia/Seoul'). **아직 미구현** — 지정 시 utcOffsetMinutes를 함께 줘야 한다.
    * (v2에서 이 필드로 DST·역사 오프셋을 자동 해석하는 리졸버를 붙일 예정.)
