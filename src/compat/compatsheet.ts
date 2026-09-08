@@ -131,7 +131,8 @@ export function formatCompatSheet(sheet: CompatSheet): string {
         const segs = [a && `A受${a}`, b && `B受${b}`].filter(Boolean)
         if (segs.length) extra = `(${segs.join(" ")})`
       }
-      return `${name}${f.count}${extra}`
+      // 쌍 개수(count)는 명리적 강도와 무관(위치별 조합 아티팩트) → present만, 화오행·수수오행만 부기.
+      return `${name}${extra}`
     })
     // 生 렌즈는 오행보완만으론 빈약 → 배우자성(財/官) 공급 신호를 덧댄다.
     if (g.lens === "生") {

@@ -72,4 +72,15 @@ describe("compatSheet (궁합)", () => {
     expect(txt).toContain("生(보완·상생)")
     expect(txt).toContain("沖(관계온도)")
   })
+
+  test("관계는 present(있다)로만 — 쌍 개수(count) 숫자를 붙이지 않는다", () => {
+    // 명리적으로 쌍 개수는 위치별 조합 아티팩트라 강도와 무관 → 存在만 준다.
+    // (【보조】의 궁위 집계 '和1沖0'은 위치 신호라 예외 — 렌즈 라인만 검사.)
+    const lensLines = formatCompatSheet(cs)
+      .split("\n")
+      .filter((l) => !l.startsWith("【보조】"))
+      .join("\n")
+    expect(lensLines).toContain("暗合") // 있으면 이름만
+    expect(lensLines).not.toMatch(/合\d|沖\d|刑\d|怨嗔\d|害\d|破\d/) // 관계명 뒤 숫자 금지
+  })
 })
