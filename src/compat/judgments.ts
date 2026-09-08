@@ -605,14 +605,16 @@ function buildHapChungOverlap(facts: import("./types.js").CompatFact[]): Judgmen
     if (!kind) continue
     const name = f.label.match(/\(([^)]+)\)/)?.[1] ?? f.label
     for (const e of f.edges) {
-      touch("주체", e.subject.pillar, e.subject.glyph, kind, name)
-      touch("후보", e.object.pillar, e.object.glyph, kind, name)
+      touch("A", e.subject.pillar, e.subject.glyph, kind, name)
+      touch("B", e.object.pillar, e.object.glyph, kind, name)
     }
   }
   const overlaps = [...seen.values()].filter((c) => c.hap.size > 0 && c.chung.size > 0)
   const present = overlaps.length > 0
+  // 셀 표기 "A時丑(六合+六沖)" — 렌즈 라인의 엣지 궁위 표기(A日子-B日丑)와 같은 문법.
+  const PILLAR_HANJA: Record<PillarName, string> = { year: "年", month: "月", day: "日", hour: "時" }
   const describe = (c: (typeof overlaps)[number]) =>
-    `${c.who} ${PILLAR_KO[c.pillar]}지 ${c.glyph}(${[...c.hap].join("·")}+${[...c.chung].join("·")})`
+    `${c.who}${PILLAR_HANJA[c.pillar]}${c.glyph}(${[...c.hap].join("·")}+${[...c.chung].join("·")})`
   return {
     id: "hap_chung_overlap",
     label: "합충 병존",

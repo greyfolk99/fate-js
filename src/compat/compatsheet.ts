@@ -9,8 +9,9 @@ import {
 } from "./rules.js"
 import { judgeCompat } from "./judgments.js"
 import { yongsinSupply } from "./yongsin-supply.js"
+import { STEM_ELEMENTS, GENERATES, CONTROLS } from "../constants.js"
 import type { Judgment } from "./judgments-types.js"
-import type { CompatSubject, CompatSheet, Lens, LensGroup } from "./types.js"
+import type { CompatEdge, CompatSubject, CompatSheet, Lens, LensGroup } from "./types.js"
 
 export const COMPATSHEET_SCHEMA_VERSION = "compat-sheet-v1"
 
@@ -115,6 +116,33 @@ function elsHanja(list: unknown): string {
   return list.map((e) => ELEMENT_HANJA[e as string] ?? String(e)).join("")
 }
 
+const PILLAR_HANJA: Record<string, string> = {
+  year: "年", month: "月", day: "日", hour: "時",
+}
+
+/** 엣지 → "A日子-B日丑" — 어느 사주·어느 기둥의 글자끼리 성립했는지(궁위 사실). */
+function edgeHanja(e: CompatEdge): string {
+  return `A${PILLAR_HANJA[e.subject.pillar]}${e.subject.glyph}-B${PILLAR_HANJA[e.object.pillar]}${e.object.glyph}`
+}
+
+/**
+ * 삼합·방합 엣지를 오행 국(局)별로 나눠 렌더한다.
+ * 국마다 관여 글자 종수(三字=전국, 二字=반합)를 부기 — 글자 수는 국 성립
+ * 형태의 사실이지 강도 점수가 아니다.
+ */
+function groupSegments(name: string, edges: CompatEdge[]): string[] {
+  const byEl = new Map<string, CompatEdge[]>()
+  for (const e of edges) {
+    const el = ELEMENT_HANJA[e.element as string] ?? String(e.element)
+    byEl.set(el, [...(byEl.get(el) ?? []), e])
+  }
+  return [...byEl.entries()].map(([el, es]) => {
+    const glyphs = new Set(es.flatMap((e) => [e.subject.glyph, e.object.glyph]))
+    const size = glyphs.size >= 3 ? "三字" : "二字"
+    return `${name}(${el}·${size})[${es.map(edgeHanja).join(" ")}]`
+  })
+}
+
 /**
  * 궁합 시트를 GLM 프롬프트용 한자 텍스트 블록으로 렌더한다.
  * 관계를 3렌즈(合/生/沖)로 묶고, 성립한 것만 노출한다(차원 고정은 구조체가 담당).
@@ -124,20 +152,31 @@ export function formatCompatSheet(sheet: CompatSheet): string {
   const lines: string[] = []
   for (const g of sheet.lenses) {
     const active = g.facts.filter((f) => f.present)
-    const parts = active.map((f) => {
+    const parts = active.flatMap((f) => {
       const name = hanjaOf(f.label) // 天干合, 六合, 五行相補 …
-      // 삼합·방합의 化오행은 엣지에, 오행보완의 수수(受) 오행은 detail 에 있다.
-      const edgeEls = [...new Set(f.edges.map((e) => e.element).filter(Boolean))]
-        .map((e) => ELEMENT_HANJA[e as string] ?? e)
-      let extra = edgeEls.length ? `(${edgeEls.join("")})` : ""
-      if (!extra && f.id === "element_complement" && f.detail) {
-        const a = elsHanja(f.detail.subjectReceives)
-        const b = elsHanja(f.detail.candidateReceives)
-        const segs = [a && `A受${a}`, b && `B受${b}`].filter(Boolean)
-        if (segs.length) extra = `(${segs.join(" ")})`
+      // 오행보완(生)은 엣지가 아니라 수수(受) 오행 detail 로 렌더.
+      if (f.id === "element_complement") {
+        let extra = ""
+        if (f.detail) {
+          const a = elsHanja(f.detail.subjectReceives)
+          const b = elsHanja(f.detail.candidateReceives)
+          const segs = [a && `A受${a}`, b && `B受${b}`].filter(Boolean)
+          if (segs.length) extra = `(${segs.join(" ")})`
+        }
+        return [`${name}${extra}`]
       }
-      // 쌍 개수(count)는 명리적 강도와 무관(위치별 조합 아티팩트) → present만, 화오행·수수오행만 부기.
-      return `${name}${extra}`
+      // 삼합·방합은 오행 국별로 나누고 관여 글자 종수(三字/二字)를 부기.
+      if (f.id === "branch_samhap" || f.id === "branch_banghap") {
+        return groupSegments(name, f.edges)
+      }
+      // 형은 성립한 형 종류(한자 코드)를 부기.
+      const kinds =
+        f.id === "branch_hyung" && Array.isArray(f.detail?.hyung)
+          ? `(${(f.detail.hyung as string[]).join("·")})`
+          : ""
+      // 합·충 관계는 성립 엣지의 궁위를 그대로 찍는다 — 어느 기둥 글자끼리인지가
+      // 판정 재료라서(쌍 개수는 여전히 강도가 아니라 위치 사실의 나열).
+      return [`${name}${kinds}[${f.edges.map(edgeHanja).join(" ")}]`]
     })
     // 生 렌즈는 오행보완만으론 빈약 → 배우자성(財/官)·용신 공급 신호를 덧댄다.
     // 공급은 유/무가 아니라 등급 사실로: 커버 오행 + 투출(透)/암장(藏) 구분.
@@ -191,6 +230,18 @@ export function formatCompatSheet(sheet: CompatSheet): string {
   // 교차 판단 — 배우자궁 십이운성·공망·일주대조·십이신살(사실만).
   const cr = j.cross
   const cx: string[] = []
+  // 일간끼리의 오행 생극비(相生·相剋·比和) — 결정론 사실(납음 겉궁합과 같은 층위).
+  const dsA = sheet.subject.bazi.day.stem
+  const dsB = sheet.candidate.bazi.day.stem
+  const eA = STEM_ELEMENTS[dsA]
+  const eB = STEM_ELEMENTS[dsB]
+  const dayStemRel =
+    eA === eB ? `比和(${dsA}·${dsB})`
+    : GENERATES[eA] === eB ? `A${dsA}生B${dsB}`
+    : GENERATES[eB] === eA ? `B${dsB}生A${dsA}`
+    : CONTROLS[eA] === eB ? `A${dsA}剋B${dsB}`
+    : `B${dsB}剋A${dsA}`
+  cx.push(`日干:${dayStemRel}`)
   cx.push(`배우자궁운성 B→A:${cr.spouseGungStageForSubject.detail?.stage ?? ""}`)
   cx.push(`A→B:${cr.spouseGungStageForCandidate.detail?.stage ?? ""}`)
   if (cr.voidForSubject.present) cx.push("空亡:B일지↦A공망")

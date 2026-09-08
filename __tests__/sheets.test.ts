@@ -75,14 +75,46 @@ describe("compatSheet (궁합)", () => {
   })
 
   test("관계는 present(있다)로만 — 쌍 개수(count) 숫자를 붙이지 않는다", () => {
-    // 명리적으로 쌍 개수는 위치별 조합 아티팩트라 강도와 무관 → 存在만 준다.
+    // 명리적으로 쌍 개수는 위치별 조합 아티팩트라 강도와 무관 → 存在+궁위만 준다.
     // (【보조】의 궁위 집계 '和1沖0'은 위치 신호라 예외 — 렌즈 라인만 검사.)
     const lensLines = formatCompatSheet(cs)
       .split("\n")
       .filter((l) => !l.startsWith("【보조】"))
       .join("\n")
-    expect(lensLines).toContain("暗合") // 있으면 이름만
+    expect(lensLines).toContain("暗合")
     expect(lensLines).not.toMatch(/合\d|沖\d|刑\d|怨嗔\d|害\d|破\d/) // 관계명 뒤 숫자 금지
+  })
+
+  test("합·충 엣지는 궁위를 그대로 찍는다 — [A日子-B日丑] 표기", () => {
+    const txt = formatCompatSheet(cs)
+    const pillarHanja = { year: "年", month: "月", day: "日", hour: "時" } as const
+    for (const f of cs.facts) {
+      if (!f.present || f.id === "element_complement") continue
+      const e = f.edges[0]!
+      const expected = `A${pillarHanja[e.subject.pillar]}${e.subject.glyph}-B${pillarHanja[e.object.pillar]}${e.object.glyph}`
+      expect(txt).toContain(expected)
+    }
+  })
+
+  test("삼합·방합은 국별 관여 글자 종수(三字/二字)를 부기한다", () => {
+    const txt = formatCompatSheet(cs)
+    for (const id of ["branch_samhap", "branch_banghap"]) {
+      const f = cs.facts.find((x) => x.id === id)!
+      if (!f.present) continue
+      expect(txt).toMatch(/[三方]合\([木火土金水]·[三二]字\)\[/)
+    }
+  })
+
+  test("형은 성립한 형 종류(한자 코드)를 부기한다", () => {
+    const f = cs.facts.find((x) => x.id === "branch_hyung")!
+    if (!f.present) return
+    const kinds = f.detail?.hyung as string[]
+    expect(formatCompatSheet(cs)).toContain(`刑(${kinds.join("·")})[`)
+  })
+
+  test("【교차】에 일간 생극비(相生·相剋·比和) 사실이 찍힌다", () => {
+    const txt = formatCompatSheet(cs)
+    expect(txt).toMatch(/【교차】 日干:(比和\(.·.\)|[AB].[生剋][AB].)/)
   })
 })
 
@@ -177,8 +209,8 @@ describe("compatSheet 합충 병존 — 같은 글자의 합·충 동시 성립(
     if (ov.present) {
       const cells = ov.detail!.cells as string[]
       expect(cells.length).toBeGreaterThan(0)
-      // "주체 시지 丑(六合+六沖…)" 형태 — 합군과 충군이 + 로 병기
-      expect(cells[0]).toMatch(/\(.+\+.+\)/)
+      // "A時丑(六合+六沖…)" 형태 — 엣지 궁위 표기와 같은 문법, 합군과 충군이 + 로 병기
+      expect(cells[0]).toMatch(/^[AB][年月日時].\(.+\+.+\)$/)
     }
   })
 
