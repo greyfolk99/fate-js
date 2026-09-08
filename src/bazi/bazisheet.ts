@@ -236,8 +236,13 @@ export function formatBaziSheet(b: BaziSheet, tag = "원국"): string {
   const yong = b.analysis.yongsin.eokbu.favorable.join("") || "—"
   const gg = b.analysis.gyeokguk.candidates.map((g) => `${g.basedOn}(${g.basis})`).join(",") || "—"
   const vd = b.analysis.void.join("") || "—"
+  // 통근 — 무근(어느 기둥에도 뿌리 없음)은 종격(滴天髓 從象 "絕無一毫生扶") 판단의
+  // 근거 사실이라 명시한다. 격 이름 확정은 안 함(임계는 유파 갈림 → 하류 몫).
+  const PILLAR_HANJA: Record<string, string> = { year: "年", month: "月", day: "日", hour: "時" }
+  const rooting = b.analysis.strength.rooting
+  const root = rooting.length === 0 ? "無根" : rooting.map((r) => PILLAR_HANJA[r.pillar] ?? r.pillar).join("")
   return (
     `【${tag}】 ${b.pillars.map((p) => p.ganzhi).join(" ")} · 일간 ${b.dayMaster.glyph}${b.dayMaster.element}` +
-    ` · 강약 ${str} · 용신 ${yong} · 오행 ${el} · 격국 ${gg} · 공망 ${vd}`
+    ` · 강약 ${str} · 통근 ${root} · 용신 ${yong} · 오행 ${el} · 격국 ${gg} · 공망 ${vd}`
   )
 }
