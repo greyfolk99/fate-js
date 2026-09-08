@@ -20,6 +20,7 @@ import type { Bazi } from "../types.js"
 import { cells } from "./rules.js"
 import type { PillarName } from "./types.js"
 import type { CompatSubject } from "./types.js"
+import { crossJudgments } from "./crosses.js"
 import { NAYIN_PAIRS } from "./judgments-constants.js"
 import {
   SINSAL_FROM_SAMHAP,
@@ -542,7 +543,7 @@ export function judgeCompat(
   subject: CompatSubject,
   candidate: CompatSubject,
   facts: import("./types.js").CompatFact[],
-): CompatJudgments {
+): Omit<CompatJudgments, "yongsinSupply"> {
   const sb = subject.bazi
   const cb = candidate.bazi
 
@@ -575,6 +576,7 @@ export function judgeCompat(
       subjectForCandidate: sinsalFor(cb, sb),
     },
     palace,
+    cross: crossJudgments(sb, cb),
   }
 }
 

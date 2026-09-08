@@ -6,6 +6,7 @@ import { describe, test, expect } from "vitest"
 import { bazi } from "../src/bazi.js"
 import { baziSheet, formatBaziSheet } from "../src/bazi/bazisheet.js"
 import { compatSheet, formatCompatSheet } from "../src/compat/compatsheet.js"
+import { twelveStage } from "../src/bazi/constants.js"
 import type { CompatSubject } from "../src/compat/types.js"
 
 const A: CompatSubject = {
@@ -82,5 +83,79 @@ describe("compatSheet (궁합)", () => {
       .join("\n")
     expect(lensLines).toContain("暗合") // 있으면 이름만
     expect(lensLines).not.toMatch(/合\d|沖\d|刑\d|怨嗔\d|害\d|破\d/) // 관계명 뒤 숫자 금지
+  })
+})
+
+describe("compatSheet 교차 판단(cross) — 사실만", () => {
+  const cs = compatSheet(A, B)
+  const cr = cs.judgments.cross
+
+  test("교차 7종이 모두 존재한다", () => {
+    for (const k of [
+      "spouseGungStageForSubject", "spouseGungStageForCandidate",
+      "voidForSubject", "voidForCandidate", "dayPillarMatch",
+      "sinsalCrossForSubject", "sinsalCrossForCandidate",
+    ] as const) {
+      expect(cr[k]).toBeTruthy()
+      expect(typeof cr[k].statement).toBe("string")
+    }
+  })
+
+  test("배우자궁 십이운성 = 상대 일간을 내 일지에 놓은 운성(결정론 일치)", () => {
+    // 상대(후보 B) 일간을 주체 A 일지에 놓은 십이운성과 정확히 일치해야 한다.
+    expect(cr.spouseGungStageForSubject.category)
+      .toBe(twelveStage(B.bazi.day.stem, A.bazi.day.branch))
+    expect(cr.spouseGungStageForCandidate.category)
+      .toBe(twelveStage(A.bazi.day.stem, B.bazi.day.branch))
+  })
+
+  test("일주 대조 — 동일 일주는 '동일일주'로 잡힌다", () => {
+    const self = compatSheet(A, A).judgments.cross.dayPillarMatch
+    expect(self.category).toBe("동일일주")
+    expect(self.present).toBe(true)
+    // 서로 다른 일주면 '무' 또는 부분일치
+    expect(["동일일주", "천간동", "일지동", "무"]).toContain(cr.dayPillarMatch.category)
+  })
+
+  test("십이신살 교차 — 일지 신살명이 category(신살 문자열)", () => {
+    expect(typeof cr.sinsalCrossForSubject.category).toBe("string")
+    expect(cr.sinsalCrossForSubject.category as string).toMatch(/殺/)
+    expect(cr.sinsalCrossForSubject.present).toBe(true)
+  })
+
+  test("공망 교차 present 는 boolean(적중 여부)", () => {
+    expect(typeof cr.voidForSubject.present).toBe("boolean")
+  })
+
+  test("시트에 【교차】 줄이 사실로 렌더된다(점수·등급 없음)", () => {
+    const txt = formatCompatSheet(cs)
+    expect(txt).toContain("【교차】")
+    expect(txt).toContain("배우자궁운성")
+    expect(txt).not.toMatch(/score|점수|weight|가중|통속|folk/i)
+  })
+})
+
+describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크로스", () => {
+  const cs = compatSheet(A, B)
+  const ys = cs.judgments.yongsinSupply
+
+  test("억부용신·조후 공급 4종이 존재하고 present 는 boolean", () => {
+    for (const k of ["eokbuToSubject", "eokbuToCandidate", "johuToSubject", "johuToCandidate"] as const) {
+      expect(typeof ys[k].present).toBe("boolean")
+      expect(ys[k].statement).toBeTruthy()
+    }
+  })
+
+  test("공급 판정은 상대 원국 오행 ∩ 내 억부 희신(사실)", () => {
+    // present 면 detail.supplied 가 비어있지 않아야 한다(사실 일관성).
+    if (ys.eokbuToSubject.present) {
+      expect((ys.eokbuToSubject.detail!.supplied as string[]).length).toBeGreaterThan(0)
+    }
+  })
+
+  test("生 렌즈에 用神 공급 신호가 사실로 붙는다", () => {
+    const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    // 用神 공급이 성립하면 用神A←B / 用神B←A 표기가 나온다(성립 시에만).
+    if (ys.eokbuToSubject.present) expect(line).toContain("用神A←B")
   })
 })

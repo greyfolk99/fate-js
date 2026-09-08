@@ -8,6 +8,7 @@ import {
   elementComplementRule,
 } from "./rules.js"
 import { judgeCompat } from "./judgments.js"
+import { yongsinSupply } from "./yongsin-supply.js"
 import type { CompatSubject, CompatSheet, Lens, LensGroup } from "./types.js"
 
 export const COMPATSHEET_SCHEMA_VERSION = "compat-sheet-v1"
@@ -60,7 +61,10 @@ export function compatSheet(
     elementComplementRule(s, c),
   ]
 
-  const judgments = judgeCompat(subject, candidate, facts)
+  const judgments = {
+    ...judgeCompat(subject, candidate, facts),
+    yongsinSupply: yongsinSupply(subject, candidate),
+  }
 
   const lenses: LensGroup[] = LENS_ORDER.map((lens) => {
     const group = facts.filter((f) => FACT_LENS[f.id] === lens)
@@ -134,11 +138,16 @@ export function formatCompatSheet(sheet: CompatSheet): string {
       // 쌍 개수(count)는 명리적 강도와 무관(위치별 조합 아티팩트) → present만, 화오행·수수오행만 부기.
       return `${name}${extra}`
     })
-    // 生 렌즈는 오행보완만으론 빈약 → 배우자성(財/官) 공급 신호를 덧댄다.
+    // 生 렌즈는 오행보완만으론 빈약 → 배우자성(財/官)·용신 공급 신호를 덧댄다.
     if (g.lens === "生") {
       const tg = sheet.judgments.tenGod
       if (tg.spouseStarForSubject.present) parts.push("配星A←B")
       if (tg.spouseStarForCandidate.present) parts.push("配星B←A")
+      const ys = sheet.judgments.yongsinSupply
+      if (ys.eokbuToSubject.present) parts.push("用神A←B")
+      if (ys.eokbuToCandidate.present) parts.push("用神B←A")
+      if (ys.johuToSubject.present) parts.push("調候A←B")
+      if (ys.johuToCandidate.present) parts.push("調候B←A")
     }
     lines.push(`【${LENS_NAME[g.lens]}】 ${parts.length ? parts.join(" · ") : "(없음)"}`)
   }
@@ -161,6 +170,18 @@ export function formatCompatSheet(sheet: CompatSheet): string {
   if (s2.length) aux.push(`神殺(B→A):${s2.join("·")}`)
   if (s1.length) aux.push(`神殺(A→B):${s1.join("·")}`)
   if (aux.length) lines.push(`【보조】 ${aux.join(" · ")}`)
+
+  // 교차 판단 — 배우자궁 십이운성·공망·일주대조·십이신살(사실만).
+  const cr = j.cross
+  const cx: string[] = []
+  cx.push(`배우자궁운성 B→A:${cr.spouseGungStageForSubject.detail?.stage ?? ""}`)
+  cx.push(`A→B:${cr.spouseGungStageForCandidate.detail?.stage ?? ""}`)
+  if (cr.voidForSubject.present) cx.push("空亡:B일지↦A공망")
+  if (cr.voidForCandidate.present) cx.push("空亡:A일지↦B공망")
+  if (cr.dayPillarMatch.present) cx.push(`일주:${cr.dayPillarMatch.category}`)
+  cx.push(`神殺 A년지기준B일지:${cr.sinsalCrossForSubject.category}`)
+  cx.push(`B년지기준A일지:${cr.sinsalCrossForCandidate.category}`)
+  lines.push(`【교차】 ${cx.join(" · ")}`)
 
   return lines.join("\n")
 }

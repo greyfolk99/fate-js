@@ -105,4 +105,8 @@ export interface CompatJudgments {
   }
   /** 겉궁합(연주)/속궁합(일지) 분류 요약. */
   palace: Judgment
+  /** 교차 판단 — 배우자궁 십이운성·공망·일주대조·십이신살 교차. */
+  cross: import("./crosses.js").CompatCrosses
+  /** 용신 공급 — 상대가 내 억부용신·조후용신 오행을 원국으로 공급하는가. */
+  yongsinSupply: import("./yongsin-supply.js").YongsinSupply
 }
