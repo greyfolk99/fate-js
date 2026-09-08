@@ -135,6 +135,29 @@ describe("compatSheet 교차 판단(cross) — 사실만", () => {
   })
 })
 
+describe("compatSheet 합충 병존 — 같은 글자의 합·충 동시 성립(사실만)", () => {
+  const cs = compatSheet(A, B)
+  const ov = cs.judgments.hapChungOverlap
+
+  test("병존 judgment 가 존재하고 present 는 boolean", () => {
+    expect(typeof ov.present).toBe("boolean")
+    expect(ov.statement).toBeTruthy()
+  })
+
+  test("present 면 detail.cells 에 글자별 합·충 내역이 있다", () => {
+    if (ov.present) {
+      const cells = ov.detail!.cells as string[]
+      expect(cells.length).toBeGreaterThan(0)
+      // "주체 시지 丑(六合+六沖…)" 형태 — 합군과 충군이 + 로 병기
+      expect(cells[0]).toMatch(/\(.+\+.+\)/)
+    }
+  })
+
+  test("해소 판정(길흉·해소됨)은 내리지 않는다", () => {
+    expect(ov.statement).not.toMatch(/해소됨|무력화|길|흉/)
+  })
+})
+
 describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크로스", () => {
   const cs = compatSheet(A, B)
   const ys = cs.judgments.yongsinSupply

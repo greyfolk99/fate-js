@@ -576,7 +576,53 @@ export function judgeCompat(
       subjectForCandidate: sinsalFor(cb, sb),
     },
     palace,
+    hapChungOverlap: buildHapChungOverlap(facts),
     cross: crossJudgments(sb, cb),
+  }
+}
+
+/**
+ * 합충 병존 — 같은 글자(같은 사주·같은 기둥)가 지지 합(六合·三合·方合)과
+ * 지지 충족(六沖·刑·害·破·怨嗔) 관계에 동시에 걸린 사실을 뽑는다.
+ *
+ * 근거: 자평진전 論刑沖會合解法 "會合可以解冲" — 단 원전 스스로 조건부
+ * ("有解不能解之別")로 두므로 해소 판정은 내리지 않고 병존 사실만 남긴다.
+ */
+function buildHapChungOverlap(facts: import("./types.js").CompatFact[]): Judgment {
+  const HAP = new Set(["branch_yukhap", "branch_samhap", "branch_banghap"])
+  const CHUNG = new Set(["branch_clash", "branch_hyung", "branch_hae", "branch_pa", "branch_wonjin"])
+  // 셀 키 = 어느 사주(주체/후보)·기둥·글자. 관계군별로 어떤 관계명에 걸렸는지 수집.
+  const seen = new Map<string, { who: string; pillar: PillarName; glyph: string; hap: Set<string>; chung: Set<string> }>()
+  const touch = (who: string, pillar: PillarName, glyph: string, kind: "hap" | "chung", label: string) => {
+    const key = `${who}:${pillar}:${glyph}`
+    const cur = seen.get(key) ?? { who, pillar, glyph, hap: new Set<string>(), chung: new Set<string>() }
+    cur[kind].add(label)
+    seen.set(key, cur)
+  }
+  for (const f of facts) {
+    if (!f.present) continue
+    const kind = HAP.has(f.id) ? "hap" : CHUNG.has(f.id) ? "chung" : null
+    if (!kind) continue
+    const name = f.label.match(/\(([^)]+)\)/)?.[1] ?? f.label
+    for (const e of f.edges) {
+      touch("주체", e.subject.pillar, e.subject.glyph, kind, name)
+      touch("후보", e.object.pillar, e.object.glyph, kind, name)
+    }
+  }
+  const overlaps = [...seen.values()].filter((c) => c.hap.size > 0 && c.chung.size > 0)
+  const present = overlaps.length > 0
+  const describe = (c: (typeof overlaps)[number]) =>
+    `${c.who} ${PILLAR_KO[c.pillar]}지 ${c.glyph}(${[...c.hap].join("·")}+${[...c.chung].join("·")})`
+  return {
+    id: "hap_chung_overlap",
+    label: "합충 병존",
+    category: present,
+    present,
+    statement: present
+      ? `같은 글자가 합과 충에 동시 성립: ${overlaps.map(describe).join(", ")}.`
+      : "지지 합과 충이 같은 글자에서 겹치지 않음.",
+    source: "합충 병존",
+    detail: { cells: overlaps.map(describe) },
   }
 }
 

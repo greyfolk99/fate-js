@@ -183,5 +183,12 @@ export function formatCompatSheet(sheet: CompatSheet): string {
   cx.push(`B년지기준A일지:${cr.sinsalCrossForCandidate.category}`)
   lines.push(`【교차】 ${cx.join(" · ")}`)
 
+  // 합충 병존 — 같은 글자가 합·충 양쪽에 걸린 사실(해소 판정은 안 함).
+  const ov = j.hapChungOverlap
+  if (ov.present) {
+    const cells = (ov.detail?.cells as string[]) ?? []
+    lines.push(`【병존】 ${cells.join(" · ")}`)
+  }
+
   return lines.join("\n")
 }
