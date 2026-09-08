@@ -9,6 +9,11 @@ export {
 } from "./compat-table.js"
 export { renderEdge } from "./rules.js"
 export {
+  factSheet,
+  formatFactSheet,
+  FACTSHEET_SCHEMA_VERSION,
+} from "./factsheet.js"
+export {
   tenGod,
   tenGodDistribution,
   nayinOf,
