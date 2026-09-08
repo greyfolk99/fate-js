@@ -11,10 +11,12 @@
 import type { CompatSubject } from "./types.js"
 import type { Bazi } from "../types.js"
 import { analysisFacts } from "../bazi/analysis.js"
-import { STEM_ELEMENTS, BRANCH_ELEMENTS } from "../constants.js"
-import type { ELEMENTS } from "../constants.js"
+import { STEM_ELEMENTS, BRANCH_ELEMENTS, HIDDEN_STEMS } from "../constants.js"
+import type { ELEMENTS, STEMS } from "../constants.js"
 import { cells } from "./rules.js"
 import type { Judgment } from "./judgments-types.js"
+
+type Stem = typeof STEMS[number]
 
 type Element = typeof ELEMENTS[number]
 type PillarName = "year" | "month" | "day" | "hour"
@@ -57,6 +59,31 @@ function supplyJudgment(
   }
 }
 
+/** 조후 用神(특정 천간)을 상대 원국이 천간·지장간으로 갖고 있는가 — 표 사실 교차. */
+function johuSupplyJudgment(
+  id: string, meLabel: string, partnerLabel: string, partner: Bazi,
+  main: Stem[], sub: Stem[],
+): Judgment {
+  const have = new Set<Stem>()
+  for (const c of cells(partner)) {
+    have.add(c.stem)
+    for (const hs of HIDDEN_STEMS[c.branch]) have.add(hs)
+  }
+  const mainHit = main.filter((s) => have.has(s))
+  const subHit = sub.filter((s) => have.has(s))
+  const present = mainHit.length > 0
+  return {
+    id, label: `${meLabel} 조후용신 공급`, category: present, present,
+    statement: present
+      ? `${meLabel} 조후 主用神 ${main.join("")}인데 ${partnerLabel} 원국(천간·지장간)에 ${mainHit.join("")}이(가) 있음` +
+        (subHit.length ? ` (次佐 ${subHit.join("")}도 있음).` : ".")
+      : `${partnerLabel} 원국은 ${meLabel} 조후 主用神 ${main.join("")}을(를) 천간·지장간으로 갖고 있지 않음` +
+        (subHit.length ? ` (次佐 ${subHit.join("")}은 있음).` : "."),
+    source: "조후용신(궁통보감 표)",
+    detail: { main, sub, mainHit, subHit },
+  }
+}
+
 export interface YongsinSupply {
   /** 후보 원국이 주체 억부용신을 공급하는가. */
   eokbuToSubject: Judgment
@@ -74,7 +101,7 @@ export function yongsinSupply(subject: CompatSubject, candidate: CompatSubject):
   return {
     eokbuToSubject: supplyJudgment("yongsin_eokbu_subject", "주체", "후보", candidate.bazi, a.eokbu.favorable, "억부용신"),
     eokbuToCandidate: supplyJudgment("yongsin_eokbu_candidate", "후보", "주체", subject.bazi, b.eokbu.favorable, "억부용신"),
-    johuToSubject: supplyJudgment("johu_subject", "주체", "후보", candidate.bazi, a.johu.needed, "조후용신"),
-    johuToCandidate: supplyJudgment("johu_candidate", "후보", "주체", subject.bazi, b.johu.needed, "조후용신"),
+    johuToSubject: johuSupplyJudgment("johu_subject", "주체", "후보", candidate.bazi, a.johu.main, a.johu.sub),
+    johuToCandidate: johuSupplyJudgment("johu_candidate", "후보", "주체", subject.bazi, b.johu.main, b.johu.sub),
   }
 }

@@ -19,6 +19,7 @@ import type { STEMS, BRANCHES, ELEMENTS as ELEMENTS_T } from "../constants.js"
 import type { Bazi } from "../types.js"
 import { cells } from "../compat/rules.js"
 import { tenGod } from "../compat/judgments.js"
+import { JOHU_TABLE } from "./johu-table.js"
 import type { TenGod } from "../compat/judgments-types.js"
 import type { PillarName } from "../compat/types.js"
 
@@ -90,10 +91,13 @@ export interface YongsinFacts {
     unfavorable: Element[]
     basis: string
   }
-  /** 조후(調候) — 계절 한난 기반 개략(궁통보감 정밀표는 후속). */
+  /** 조후(調候) — 궁통보감 月支×日干 표 기반. main=主用神, sub=次·佐(천간). */
   johu: {
     season: string
-    needed: Element[]
+    main: Stem[]
+    sub: Stem[]
+    /** 원문 조건 분기(있으면). */
+    cond?: string
     basis: string
   }
 }
@@ -255,11 +259,9 @@ function yongsinFacts(bazi: Bazi, strength: StrengthFacts): YongsinFacts {
     ? [ge.비겁, ge.인성]
     : [ge.식상, ge.재성, ge.관성]
 
-  // 조후 — 계절 한난 개략.
+  // 조후 — 궁통보감 月支×日干 표(johu-table.ts, edition-lock·교차검증 수렴본).
   const season = SEASON_OF[bazi.month.branch]
-  const needed: Element[] = []
-  if (season === "겨울(冬)") needed.push("fire")
-  else if (season === "여름(夏)") needed.push("water")
+  const johu = JOHU_TABLE[bazi.day.stem][bazi.month.branch]
 
   return {
     eokbu: {
@@ -270,8 +272,10 @@ function yongsinFacts(bazi: Bazi, strength: StrengthFacts): YongsinFacts {
     },
     johu: {
       season,
-      needed,
-      basis: "계절 한난 기반 개략 — 궁통보감 정밀 조후표는 후속.",
+      main: johu.main,
+      sub: johu.sub,
+      ...(johu.cond ? { cond: johu.cond } : {}),
+      basis: "궁통보감 조후표(月支×日干) — 표 사실만, 취사는 다운스트림 몫.",
     },
   }
 }

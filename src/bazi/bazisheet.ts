@@ -103,7 +103,7 @@ export interface BaziSheet {
     }
     yongsin: {
       eokbu: { favorable: string[]; unfavorable: string[] }
-      johu: { season: string; needed: string[] }
+      johu: { season: string; main: string[]; sub: string[]; cond?: string }
     }
     relations: { kind: string; detail: string | null; polarity: string; pillars: Pillar4[]; glyphs: string[]; element?: string }[]
     void: string[]
@@ -192,7 +192,12 @@ export function toBaziSheet(n: BaziAnalysis): BaziSheet {
       },
       yongsin: {
         eokbu: { favorable: y.eokbu.favorable.map(el), unfavorable: y.eokbu.unfavorable.map(el) },
-        johu: { season: hanja(y.johu.season), needed: y.johu.needed.map(el) },
+        johu: {
+          season: hanja(y.johu.season),
+          main: [...y.johu.main],
+          sub: [...y.johu.sub],
+          ...(y.johu.cond ? { cond: y.johu.cond } : {}),
+        },
       },
       relations: n.internalRelations.map((r) => ({
         kind: REL[r.id] ?? r.id,
@@ -241,8 +246,11 @@ export function formatBaziSheet(b: BaziSheet, tag = "원국"): string {
   const PILLAR_HANJA: Record<string, string> = { year: "年", month: "月", day: "日", hour: "時" }
   const rooting = b.analysis.strength.rooting
   const root = rooting.length === 0 ? "無根" : rooting.map((r) => PILLAR_HANJA[r.pillar] ?? r.pillar).join("")
+  // 조후 — 궁통보감 표의 主(次佐) 천간. 조건 분기는 구조체(cond)에만.
+  const jh = b.analysis.yongsin.johu
+  const johu = jh.main.join("") + (jh.sub.length ? `(${jh.sub.join("")})` : "")
   return (
     `【${tag}】 ${b.pillars.map((p) => p.ganzhi).join(" ")} · 일간 ${b.dayMaster.glyph}${b.dayMaster.element}` +
-    ` · 강약 ${str} · 통근 ${root} · 용신 ${yong} · 오행 ${el} · 격국 ${gg} · 공망 ${vd}`
+    ` · 강약 ${str} · 통근 ${root} · 용신 ${yong} · 조후 ${johu} · 오행 ${el} · 격국 ${gg} · 공망 ${vd}`
   )
 }

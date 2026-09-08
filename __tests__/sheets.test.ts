@@ -135,6 +135,35 @@ describe("compatSheet 교차 판단(cross) — 사실만", () => {
   })
 })
 
+describe("조후용신표(JOHU_TABLE) — 궁통보감 edition-lock 수렴본", () => {
+  test("120셀 완전(10일간×12월지), main 비어있지 않음", async () => {
+    const { JOHU_TABLE } = await import("../src/bazi/johu-table.js")
+    const stems = Object.keys(JOHU_TABLE)
+    expect(stems.length).toBe(10)
+    for (const s of stems) {
+      const months = Object.keys(JOHU_TABLE[s as keyof typeof JOHU_TABLE])
+      expect(months.length).toBe(12)
+      for (const m of months) {
+        expect(JOHU_TABLE[s as keyof typeof JOHU_TABLE][m as never].main.length).toBeGreaterThan(0)
+      }
+    }
+  })
+
+  test("원문 검증 스팟체크 — 甲子=丁·丙子=壬·庚子=丁·癸子=丙(해동)", async () => {
+    const { JOHU_TABLE } = await import("../src/bazi/johu-table.js")
+    expect(JOHU_TABLE["甲"]["子"].main).toEqual(["丁"])
+    expect(JOHU_TABLE["丙"]["子"].main).toEqual(["壬"])
+    expect(JOHU_TABLE["庚"]["子"].main).toEqual(["丁"])
+    expect(JOHU_TABLE["癸"]["子"].main).toEqual(["丙"])
+  })
+
+  test("baziSheet.johu 가 표를 반영하고 formatBaziSheet에 조후가 나온다", () => {
+    const s = baziSheet(A) // 壬일간 未월
+    expect(s.analysis.yongsin.johu.main.length).toBeGreaterThan(0)
+    expect(formatBaziSheet(s, "A")).toContain("조후 ")
+  })
+})
+
 describe("compatSheet 합충 병존 — 같은 글자의 합·충 동시 성립(사실만)", () => {
   const cs = compatSheet(A, B)
   const ov = cs.judgments.hapChungOverlap
