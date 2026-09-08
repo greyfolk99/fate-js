@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest"
 import { baziVectorized, EPOCH_ORD } from "../src/engine.js"
 import { toOrdinal, fromOrdinal } from "../src/date-util.js"
-import { baziTable } from "../src/bazi-table.js"
+import { bazi } from "../src/bazi.js"
 import { STEMS, BRANCHES } from "../src/constants.js"
 
 // 이 파일의 baziVectorized 기대값은 절기표 native 프레임(CST/동경120)에서 검증된 값.
@@ -130,10 +130,10 @@ describe("baziVectorized — 경계: 1999-12-31 23:00 (子시, 다음날 기준)
   })
 })
 
-// ── baziTable() 래퍼 검증 ─────────────────────────────────────────────────────
-describe("baziTable()", () => {
+// ── bazi() 래퍼 검증 ─────────────────────────────────────────────────────
+describe("bazi()", () => {
   it("2000-01-01 12시 → 己卯 丙子 戊午 戊午", () => {
-    const c = baziTable({ year: 2000, month: 1, day: 1, hour: 12, utcOffsetMinutes: 540 })
+    const c = bazi({ year: 2000, month: 1, day: 1, hour: 12, utcOffsetMinutes: 540 })
     expect(c.year.stem).toBe("己")
     expect(c.year.branch).toBe("卯")
     expect(c.month.stem).toBe("丙")
@@ -145,7 +145,7 @@ describe("baziTable()", () => {
   })
 
   it("hour 미지정 시 hour 필드는 null", () => {
-    const c = baziTable({ year: 2000, month: 1, day: 1, utcOffsetMinutes: 540 })
+    const c = bazi({ year: 2000, month: 1, day: 1, utcOffsetMinutes: 540 })
     expect(c.hour).toBeNull()
     // 연·월·일은 정상 계산
     expect(c.year.stem).toBe("己")

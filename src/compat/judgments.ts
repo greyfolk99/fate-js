@@ -16,7 +16,7 @@ import {
   HIDDEN_STEMS,
 } from "../constants.js"
 import type { STEMS, BRANCHES, ELEMENTS } from "../constants.js"
-import type { BaziTable } from "../types.js"
+import type { Bazi } from "../types.js"
 import { cells } from "./rules.js"
 import type { PillarName } from "./types.js"
 import type { CompatSubject } from "./types.js"
@@ -112,7 +112,7 @@ function emptyTenGodCount(): TenGodCount {
 }
 
 /** 한 사주의 천간 4자(시 미상이면 3자)를 일간 기준 십성 분포로 집계. */
-export function tenGodDistribution(bazi: BaziTable): TenGodCount {
+export function tenGodDistribution(bazi: Bazi): TenGodCount {
   const dm = bazi.day.stem
   const out = emptyTenGodCount()
   for (const cell of cells(bazi)) {
@@ -128,8 +128,8 @@ function crossTenGod(
   id: string,
   viewerLabel: string,
   targetLabel: string,
-  viewer: BaziTable,
-  target: BaziTable,
+  viewer: Bazi,
+  target: Bazi,
 ): Judgment {
   const dm = viewer.day.stem
   const other = target.day.stem
@@ -169,7 +169,7 @@ function spouseStar(
   subjectLabel: string,
   partnerLabel: string,
   subject: CompatSubject,
-  partner: BaziTable,
+  partner: Bazi,
 ): Judgment {
   const gender = subject.gender
   const dm = subject.bazi.day.stem
@@ -249,7 +249,7 @@ export function nayinOf(
   return null
 }
 
-function nayinCells(bazi: BaziTable): NayinCell[] {
+function nayinCells(bazi: Bazi): NayinCell[] {
   const out: NayinCell[] = []
   for (const c of cells(bazi)) {
     const ny = nayinOf(c.stem, c.branch)
@@ -268,7 +268,7 @@ function nayinCells(bazi: BaziTable): NayinCell[] {
  * 전통 겉궁합 — 주체 년주 납음 vs 후보 년주 납음의 오행 상생/상극/비화.
  * 납음오행끼리 상생이면 길, 비화(같음)면 무난, 상극이면 주의로 읽는 통설.
  */
-function nayinOuterReading(subject: BaziTable, candidate: BaziTable): Judgment {
+function nayinOuterReading(subject: Bazi, candidate: Bazi): Judgment {
   const s = nayinOf(subject.year.stem, subject.year.branch)
   const c = nayinOf(candidate.year.stem, candidate.year.branch)
   if (!s || !c) {
@@ -327,7 +327,7 @@ function samhapSinsal(
   label: string,
   key: "dohwa" | "yeokma" | "hwagae",
   refBranch: Branch,
-  targetBazi: BaziTable,
+  targetBazi: Bazi,
 ): Judgment {
   const hit = SINSAL_FROM_SAMHAP[refBranch][key]
   const pillars: PillarName[] = []
@@ -357,7 +357,7 @@ function stemBranchSinsal(
   refStem: Stem,
   table: Record<Stem, Branch>,
   source: string,
-  targetBazi: BaziTable,
+  targetBazi: Bazi,
 ): Judgment {
   const hit = table[refStem]
   const pillars: PillarName[] = []
@@ -385,7 +385,7 @@ function stemBranchSinsal(
  * 음간(乙丁己辛癸) 일간은 양인 미인정 — present:false 로 남긴다.
  * (음인陰刃 소수설 값은 YANGIN_BY_STEM 에 참고로만 보존, 여기선 미적용.)
  */
-function yanginSinsal(refStem: Stem, targetBazi: BaziTable): Judgment {
+function yanginSinsal(refStem: Stem, targetBazi: Bazi): Judgment {
   const source = "자평진전(양인)"
   if (STEM_YINYANG[refStem] !== "yang") {
     return {
@@ -423,7 +423,7 @@ function yanginSinsal(refStem: Stem, targetBazi: BaziTable): Judgment {
 /** 천을귀인(2지)처럼 지지가 복수인 일간 기준 신살. */
 function cheoneulSinsal(
   refStem: Stem,
-  targetBazi: BaziTable,
+  targetBazi: Bazi,
 ): Judgment {
   const targets = CHEONEUL_BY_STEM[refStem]
   const pillars: PillarName[] = []
@@ -452,7 +452,7 @@ function pillarSinsal(
   label: string,
   pillarSet: ReadonlySet<string>,
   source: string,
-  targetBazi: BaziTable,
+  targetBazi: Bazi,
 ): Judgment {
   const pillars: PillarName[] = []
   for (const c of cells(targetBazi)) {
@@ -474,7 +474,7 @@ function pillarSinsal(
 }
 
 /** 귀문관살 — 기준 일지와 상대 지지가 귀문 쌍을 이루는지(교차). */
-function gwimunSinsal(refBranch: Branch, targetBazi: BaziTable): Judgment {
+function gwimunSinsal(refBranch: Branch, targetBazi: Bazi): Judgment {
   const pillars: PillarName[] = []
   for (const c of cells(targetBazi)) {
     if (c.branch === refBranch) continue
@@ -503,7 +503,7 @@ function gwimunSinsal(refBranch: Branch, targetBazi: BaziTable): Judgment {
  * 후보가 주체 기준으로 지니는 신살 묶음.
  * 기준 = 주체 일지(삼합계·귀문)·주체 일간(간계) — 유파상 일지/일간 1차.
  */
-function sinsalFor(refBazi: BaziTable, targetBazi: BaziTable): Judgment[] {
+function sinsalFor(refBazi: Bazi, targetBazi: Bazi): Judgment[] {
   const refBranch = refBazi.day.branch
   const refStem = refBazi.day.stem
   return [
@@ -536,7 +536,7 @@ function sinsalFor(refBazi: BaziTable, targetBazi: BaziTable): Judgment[] {
 
 /**
  * 두 사주의 판단 파생값을 뽑는다. subject 관점을 1차로 기술한다.
- * `facts` 는 compatTable 의 12관계 결과 — 겉속궁합 집계에 재활용.
+ * `facts` 는 compatSheet 의 12관계 결과 — 겉속궁합 집계에 재활용.
  */
 export function judgeCompat(
   subject: CompatSubject,

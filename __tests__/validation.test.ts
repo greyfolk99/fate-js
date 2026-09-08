@@ -3,7 +3,7 @@
  * 조용한 오답 대신 명시적 RangeError를 던지는지 확인한다.
  */
 import { describe, test, expect, afterEach } from "vitest"
-import { baziTable } from "../src/bazi-table.js"
+import { bazi } from "../src/bazi.js"
 import { baziVectorized } from "../src/engine.js"
 import { catalog } from "../src/catalog.js"
 import { getSolarConfig, setSolarConfig } from "../src/config.js"
@@ -57,17 +57,17 @@ describe("assertValidBirthInput 시간·경도", () => {
   })
 })
 
-describe("baziTable 진입점 검증·절기범위", () => {
-  test("잘못된 입력은 baziTable에서 throw", () => {
-    expect(() => baziTable({ year: 2000, month: 2, day: 30 })).toThrow(RangeError)
-    expect(() => baziTable({ year: 2000, month: 1, day: 1, hour: 24 })).toThrow(RangeError)
+describe("bazi 진입점 검증·절기범위", () => {
+  test("잘못된 입력은 bazi에서 throw", () => {
+    expect(() => bazi({ year: 2000, month: 2, day: 30 })).toThrow(RangeError)
+    expect(() => bazi({ year: 2000, month: 1, day: 1, hour: 24 })).toThrow(RangeError)
   })
   test("절기 데이터 범위 밖 연도는 throw (clamp 아님)", () => {
-    expect(() => baziTable({ year: 1500, month: 6, day: 15, timeBasis: "standard", utcOffsetMinutes: 540 })).toThrow(RangeError)
-    expect(() => baziTable({ year: 2500, month: 6, day: 15, timeBasis: "standard", utcOffsetMinutes: 540 })).toThrow(RangeError)
+    expect(() => bazi({ year: 1500, month: 6, day: 15, timeBasis: "standard", utcOffsetMinutes: 540 })).toThrow(RangeError)
+    expect(() => bazi({ year: 2500, month: 6, day: 15, timeBasis: "standard", utcOffsetMinutes: 540 })).toThrow(RangeError)
   })
   test("범위 안 정상 연도는 통과", () => {
-    expect(() => baziTable({ year: 2000, month: 6, day: 15, hour: 12, timeBasis: "standard", utcOffsetMinutes: 540 })).not.toThrow()
+    expect(() => bazi({ year: 2000, month: 6, day: 15, hour: 12, timeBasis: "standard", utcOffsetMinutes: 540 })).not.toThrow()
   })
 })
 

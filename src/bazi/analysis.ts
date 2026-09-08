@@ -16,7 +16,7 @@ import {
   ELEMENTS,
 } from "../constants.js"
 import type { STEMS, BRANCHES, ELEMENTS as ELEMENTS_T } from "../constants.js"
-import type { BaziTable } from "../types.js"
+import type { Bazi } from "../types.js"
 import { cells } from "../compat/rules.js"
 import { tenGod } from "../compat/judgments.js"
 import type { TenGod } from "../compat/judgments-types.js"
@@ -107,7 +107,7 @@ function roleAt(count: number, idx: number): string {
   return HIDDEN_ROLE[idx]!
 }
 
-function strengthFacts(bazi: BaziTable): StrengthFacts {
+function strengthFacts(bazi: Bazi): StrengthFacts {
   const dm = bazi.day.stem
   const dmElement = STEM_ELEMENTS[dm]
   const cs = cells(bazi)
@@ -200,7 +200,7 @@ function gyeokName(g: TenGod): string {
   return map[g]
 }
 
-function gyeokgukFacts(bazi: BaziTable): GyeokgukFacts {
+function gyeokgukFacts(bazi: Bazi): GyeokgukFacts {
   const dm = bazi.day.stem
   const mb = bazi.month.branch
   const hidden = HIDDEN_STEMS[mb]
@@ -242,7 +242,7 @@ const SEASON_OF: Record<Branch, string> = {
   "亥": "겨울(冬)", "子": "겨울(冬)", "丑": "겨울(冬)",
 }
 
-function yongsinFacts(bazi: BaziTable, strength: StrengthFacts): YongsinFacts {
+function yongsinFacts(bazi: Bazi, strength: StrengthFacts): YongsinFacts {
   const dm = STEM_ELEMENTS[bazi.day.stem]
   const ge = groupElements(dm)
 
@@ -284,7 +284,7 @@ export interface NatalAnalysis {
   yongsin: YongsinFacts
 }
 
-export function analyzeNatal(bazi: BaziTable): NatalAnalysis {
+export function analyzeNatal(bazi: Bazi): NatalAnalysis {
   const strength = strengthFacts(bazi)
   return {
     strength,

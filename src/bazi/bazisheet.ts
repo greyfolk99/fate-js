@@ -1,21 +1,21 @@
 /**
- * natal-2 — 1번 레이어(시스템∩AI 친화)의 확정 계약 출력.
+ * baziSheet — 한 사람의 **원국+분석 시트**(팩트 기반, 시스템∩AI 친화).
  *
- * `chart()`(natal-1)가 뽑은 결정론 사실을 그대로 받아, 표현만 정규화한다:
+ * `analyze()`(BaziAnalysis)가 뽑은 결정론 사실을 그대로 받아, 표현만 정규화한다:
  *  ① 모든 명리 값 = 한자 코드(머신키). 한글/영문 라벨 전멸 → 표시(t)는 glossary 몫.
  *  ② present-only — 합충·특수신살·공망은 성립한 것만(강약 득령/득지/득세는 근거라 present 유지).
  *  ③ 산문(prose)·policy 딕셔너리 제거 → policyVersion 문자열 + 외부 레지스트리.
  *  ④ 십이신살은 기둥에서 빼내 twelveSinsal{fromYear,fromDay} 4배열로.
  *
- * 스키마: mannabosal/schema/natal-2.schema.json 과 1:1. 새 도메인 값은 enums.json 참조.
+ * 스키마: mannabosal/schema/bazi-sheet.schema.json 과 1:1. 새 도메인 값은 enums.json 참조.
  */
 
-import { chart } from "./natal.js"
-import type { NatalChart } from "./natal.js"
+import { analyze } from "./analyze.js"
+import type { BaziAnalysis } from "./analyze.js"
 import type { CompatSubject } from "../compat/types.js"
 
-export const NATAL2_SCHEMA_VERSION = "natal-2" as const
-export const NATAL2_POLICY_VERSION = "natal-2/2026-09" as const
+export const BAZISHEET_SCHEMA_VERSION = "bazi-sheet" as const
+export const BAZISHEET_POLICY_VERSION = "bazi-sheet/2026-09" as const
 
 // ── 코드 맵(머신키) ─────────────────────────────────────────────────
 
@@ -64,9 +64,9 @@ const mapGroupCount = (g: GC) => ({
 
 type Pillar4 = "year" | "month" | "day" | "hour"
 
-export interface Natal2 {
-  schemaVersion: "natal-2"
-  bazi: NatalChart["bazi"]
+export interface BaziSheet {
+  schemaVersion: "bazi-sheet"
+  bazi: BaziAnalysis["bazi"]
   gender: "male" | "female"
   dayMaster: { glyph: string; element: string; yinyang: string }
   pillars: {
@@ -115,23 +115,23 @@ export interface Natal2 {
 
 // ── 변환 ────────────────────────────────────────────────────────────
 
-/** natal-1(NatalChart) → natal-2. 순수 함수(표현 정규화만). */
-export function toNatal2(n: NatalChart): Natal2 {
+/** BaziAnalysis(BaziAnalysis) → baziSheet. 순수 함수(표현 정규화만). */
+export function toBaziSheet(n: BaziAnalysis): BaziSheet {
   if (n.pillars.length !== 4) {
-    throw new Error("natal-2는 4기둥(시주 포함)이 필요합니다 — 출생시가 없으면 산출 불가")
+    throw new Error("baziSheet는 4기둥(시주 포함)이 필요합니다 — 출생시가 없으면 산출 불가")
   }
-  if (!n.gender) throw new Error("natal-2는 gender가 필요합니다")
+  if (!n.gender) throw new Error("baziSheet는 gender가 필요합니다")
 
   const s = n.analysis.strength
   const g = n.analysis.gyeokguk
   const y = n.analysis.yongsin
 
   // 격 후보의 근거: 월지 지장간이 천간에 투출했으면 透出, 아니면 본기(本氣).
-  // (natal-1 candidates 는 투출이 있으면 전부 투출 후보, 없으면 본기 후보 1개.)
+  // (BaziAnalysis candidates 는 투출이 있으면 전부 투출 후보, 없으면 본기 후보 1개.)
   const gyeokgukBasis = () => (g.revealed.length > 0 ? "月令透出" : "月令本氣")
 
   return {
-    schemaVersion: NATAL2_SCHEMA_VERSION,
+    schemaVersion: BAZISHEET_SCHEMA_VERSION,
     // bazi는 스키마 필드(year/month/day/hour)만 화이트리스트 — 원본 pass-through 시
     // 런타임 입력에 여분 property가 있으면 스키마 additionalProperties:false 를 깬다.
     bazi: {
@@ -214,11 +214,30 @@ export function toNatal2(n: NatalChart): Natal2 {
       .filter((x) => x.present)
       .map((x) => ({ code: SP[x.id] ?? x.id, pillars: x.pillars as Pillar4[] })),
 
-    policyVersion: NATAL2_POLICY_VERSION,
+    policyVersion: BAZISHEET_POLICY_VERSION,
   }
 }
 
-/** 사주 한 벌 → natal-2 원국(1번 레이어 계약 출력). */
-export function natal2(subject: CompatSubject): Natal2 {
-  return toNatal2(chart(subject))
+/** 사주 한 벌 → baziSheet(원국+분석 시트). */
+export function baziSheet(subject: CompatSubject): BaziSheet {
+  return toBaziSheet(analyze(subject))
+}
+
+/**
+ * baziSheet 를 GLM 프롬프트·UI용 한자 한 줄로 렌더한다.
+ * 간지·일간·강약·용신·오행분포(장간포함)·격국후보·공망을 압축한다.
+ */
+export function formatBaziSheet(b: BaziSheet, tag = "원국"): string {
+  const el = Object.entries(b.elementDistribution.withHidden)
+    .filter(([, n]) => n > 0)
+    .map(([k, n]) => `${k}${n}`)
+    .join(" ")
+  const str = b.analysis.strength.byRule.map((s) => `${s.rule}:${s.result}`).join("/") || "—"
+  const yong = b.analysis.yongsin.eokbu.favorable.join("") || "—"
+  const gg = b.analysis.gyeokguk.candidates.map((g) => `${g.basedOn}(${g.basis})`).join(",") || "—"
+  const vd = b.analysis.void.join("") || "—"
+  return (
+    `【${tag}】 ${b.pillars.map((p) => p.ganzhi).join(" ")} · 일간 ${b.dayMaster.glyph}${b.dayMaster.element}` +
+    ` · 강약 ${str} · 용신 ${yong} · 오행 ${el} · 격국 ${gg} · 공망 ${vd}`
+  )
 }

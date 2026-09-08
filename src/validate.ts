@@ -2,7 +2,7 @@
  * 입력 검증 유틸 — 잘못된 날짜·시간·경도를 계산 이전에 차단한다.
  *
  * TypeScript의 number 타입은 2월 30일·hour 24·NaN·Infinity 같은 값을 못 막는다.
- * public 진입점(baziTable 등)에서 이 검증을 먼저 호출해, 조용한 오답 대신
+ * public 진입점(bazi 등)에서 이 검증을 먼저 호출해, 조용한 오답 대신
  * 명시적 RangeError를 던지게 한다.
  */
 import { fromOrdinal, toOrdinal } from "./date-util.js"

@@ -1,7 +1,7 @@
 /**
- * natal-2 표시사전(display glossary) — 번역 지원.
+ * baziSheet 표시사전(display glossary) — 번역 지원.
  *
- * 원칙: natal-2 "데이터"는 한자 코드(머신키) 한 벌만 쓴다(한글·영문 혼용 금지).
+ * 원칙: baziSheet "데이터"는 한자 코드(머신키) 한 벌만 쓴다(한글·영문 혼용 금지).
  * 사람이 읽을 한글/영문은 "데이터"가 아니라 이 사전에서 표시 시점에 룩업한다.
  *   t("將星殺")        → "장성살"   (기본 ko)
  *   t("將星殺", "en")  → "jangseongsal"
@@ -99,7 +99,7 @@ export function label(enumName: string, code: string, lang: Lang = "ko"): string
   return GLOSSARY[enumName]?.[code]?.[lang] ?? code
 }
 
-/** enum 몰라도 되는 전역 룩업 — natal-2 값 하나를 번역. 모르는 코드는 그대로. */
+/** enum 몰라도 되는 전역 룩업 — baziSheet 값 하나를 번역. 모르는 코드는 그대로. */
 export function t(code: string, lang: Lang = "ko"): string {
   if (lang === "hanja") return code
   return FLAT[code]?.[lang] ?? code

@@ -9,7 +9,7 @@ import {
   ELEMENTS,
 } from "../constants.js"
 import type { STEMS, BRANCHES } from "../constants.js"
-import type { BaziTable } from "../types.js"
+import type { Bazi } from "../types.js"
 import {
   STEM_CLASH,
   BRANCH_PA,
@@ -54,7 +54,7 @@ interface Cell {
 }
 
 /** 사주 4주(시 미상이면 3주)를 순회 가능한 셀 배열로 편다. */
-export function cells(bazi: BaziTable): Cell[] {
+export function cells(bazi: Bazi): Cell[] {
   const out: Cell[] = [
     { name: "year", stem: bazi.year.stem, branch: bazi.year.branch },
     { name: "month", stem: bazi.month.stem, branch: bazi.month.branch },
@@ -250,7 +250,7 @@ function hyungHanja(name: string): string {
 export function hyungRule(subject: Cell[], candidate: Cell[]): CompatFact {
   const edges: CompatEdge[] = []
   // 성립한 형의 종류(한자 코드) — 無恩之刑·持勢之刑·자형별 코드를 보존.
-  // natal2.ts 의 형 detail 방출 방식과 맞춘다(괄호 안 한자 코드).
+  // baziSheet.ts 의 형 detail 방출 방식과 맞춘다(괄호 안 한자 코드).
   const kinds: string[] = []
   for (const s of subject) {
     for (const c of candidate) {

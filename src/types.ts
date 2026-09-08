@@ -8,7 +8,7 @@ export interface Pillar {
   branch: Branch
 }
 
-export interface BaziTable {
+export interface Bazi {
   year: Pillar
   month: Pillar
   day: Pillar

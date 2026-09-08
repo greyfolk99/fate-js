@@ -1,7 +1,7 @@
 /**
  * 1인 원국(原局) FactSheet — 사주 여덟 글자에서 결정론으로 나오는 명리
  * 요소를 전부 구조화해 뽑는다. 해석 문장(prose)이 아니라 사실(fact)만 담아
- * 뒤에 LLM 라벨·궁합(compatTable) 재료로 쓴다.
+ * 뒤에 LLM 라벨·궁합(compatSheet) 재료로 쓴다.
  *
  * 1단계: 기둥별 십성·지장간·십이운성·십이신살·납음·공망·오행분포·
  *        원국 내부 관계(합충형파해)·원국 신살(길흉신).
@@ -22,7 +22,7 @@ import {
   BRANCH_HARM,
 } from "../constants.js"
 import type { STEMS, ELEMENTS as ELEMENTS_T } from "../constants.js"
-import type { BaziTable } from "../types.js"
+import type { Bazi } from "../types.js"
 import {
   STEM_CLASH,
   BRANCH_PA,
@@ -52,7 +52,7 @@ type Stem = typeof STEMS[number]
 type Branch = typeof BRANCHES[number]
 type Element = typeof ELEMENTS_T[number]
 
-export const NATAL_SCHEMA_VERSION = "natal-1"
+export const BAZIANALYSIS_SCHEMA_VERSION = "bazi-analysis"
 
 // ── 출력 타입 ───────────────────────────────────────────────────────
 
@@ -115,7 +115,7 @@ export interface NatalRelation {
   element?: Element
 }
 
-export interface NatalSinsal {
+export interface BaziSinsal {
   id: string
   label: string
   present: boolean
@@ -123,9 +123,9 @@ export interface NatalSinsal {
   basis: string
 }
 
-export interface NatalChart {
+export interface BaziAnalysis {
   schemaVersion: string
-  bazi: BaziTable
+  bazi: Bazi
   gender?: "male" | "female"
   dayMaster: { glyph: Stem; element: Element; yinyang: "yang" | "yin" }
   pillars: NatalPillar[]
@@ -137,7 +137,7 @@ export interface NatalChart {
     /** 지장간 전부를 각 1로 가중. */
     withHidden: ElementCount
   }
-  sinsal: NatalSinsal[]
+  sinsal: BaziSinsal[]
   internalRelations: NatalRelation[]
   /** 2단계 — 신강신약·격국·용신(사실 시트, 점수·최종판정 없음). */
   analysis: NatalAnalysis
@@ -163,7 +163,7 @@ function hiddenRole(count: number, idx: number): string {
 }
 
 /** 순중공망(旬中空亡) — 일주 기준 공망 2지. */
-function voidBranchesOf(bazi: BaziTable): Branch[] {
+function voidBranchesOf(bazi: Bazi): Branch[] {
   const si = STEM_INDEX[bazi.day.stem]
   const bi = BRANCH_INDEX[bazi.day.branch]
   const base = (bi - si + 12) % 12
@@ -180,9 +180,9 @@ function stemSinsal(
   id: string,
   label: string,
   targets: readonly Branch[],
-  bazi: BaziTable,
+  bazi: Bazi,
   basis: string,
-): NatalSinsal {
+): BaziSinsal {
   const pillars: PillarName[] = []
   for (const c of cells(bazi)) {
     if (targets.includes(c.branch)) pillars.push(c.name)
@@ -195,8 +195,8 @@ function pillarSinsal(
   id: string,
   label: string,
   set: ReadonlySet<string>,
-  bazi: BaziTable,
-): NatalSinsal {
+  bazi: Bazi,
+): BaziSinsal {
   const pillars: PillarName[] = []
   for (const c of cells(bazi)) {
     if (set.has(c.stem + c.branch)) pillars.push(c.name)
@@ -205,7 +205,7 @@ function pillarSinsal(
 }
 
 /** 원국 내 귀문관살 — 두 지지가 귀문 쌍을 이루는가. */
-function gwimunSinsal(bazi: BaziTable): NatalSinsal {
+function gwimunSinsal(bazi: Bazi): BaziSinsal {
   const cs = cells(bazi)
   const pillars = new Set<PillarName>()
   for (let i = 0; i < cs.length; i++) {
@@ -228,7 +228,7 @@ function gwimunSinsal(bazi: BaziTable): NatalSinsal {
   }
 }
 
-function natalSinsal(bazi: BaziTable): NatalSinsal[] {
+function baziSinsal(bazi: Bazi): BaziSinsal[] {
   const dm = bazi.day.stem
   // 양인살은 양간(甲丙戊庚壬)일 때만 판정(다수설). 음간 일간은 미인정 →
   // 참조할 지지 없이 present:false. (음인陰刃 소수설 값은 미적용.)
@@ -271,7 +271,7 @@ const HYUNG_PAIRS: Map<string, string> = (() => {
   return m
 })()
 
-function internalRelations(bazi: BaziTable): NatalRelation[] {
+function internalRelations(bazi: Bazi): NatalRelation[] {
   const cs = cells(bazi)
   const out: NatalRelation[] = []
 
@@ -338,7 +338,7 @@ function internalRelations(bazi: BaziTable): NatalRelation[] {
 
 // ── 오행 분포 ───────────────────────────────────────────────────────
 
-function elementDistribution(bazi: BaziTable): {
+function elementDistribution(bazi: Bazi): {
   simple: ElementCount; withHidden: ElementCount
 } {
   const simple = emptyElementCount()
@@ -357,7 +357,7 @@ function elementDistribution(bazi: BaziTable): {
 /**
  * 사주 한 벌의 1인 원국 FactSheet 를 만든다.
  */
-export function chart(subject: CompatSubject): NatalChart {
+export function analyze(subject: CompatSubject): BaziAnalysis {
   const bazi = subject.bazi
   const dm = bazi.day.stem
   const yearBranch = bazi.year.branch
@@ -399,7 +399,7 @@ export function chart(subject: CompatSubject): NatalChart {
   })
 
   return {
-    schemaVersion: NATAL_SCHEMA_VERSION,
+    schemaVersion: BAZIANALYSIS_SCHEMA_VERSION,
     bazi,
     ...(subject.gender ? { gender: subject.gender } : {}),
     dayMaster: {
@@ -411,7 +411,7 @@ export function chart(subject: CompatSubject): NatalChart {
     voidBranches: voids,
     tenGodDistribution: tenGodDistribution(bazi),
     elementDistribution: elementDistribution(bazi),
-    sinsal: natalSinsal(bazi),
+    sinsal: baziSinsal(bazi),
     internalRelations: internalRelations(bazi),
     analysis: analyzeNatal(bazi),
     policy: {

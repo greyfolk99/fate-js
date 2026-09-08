@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest"
-import { compatTable, tenGod, nayinOf } from "../src/compat/index.js"
-import { chart } from "../src/index.js"
-import type { BaziTable, Pillar, Stem, Branch } from "../src/index.js"
+import { compatSheet, tenGod, nayinOf } from "../src/compat/index.js"
+import { analyze } from "../src/index.js"
+import type { Bazi, Pillar, Stem, Branch } from "../src/index.js"
 import type { CompatSubject } from "../src/compat/index.js"
 
 // ── 조립기 (compat.test.ts 와 동일 패턴) ────────────────────────────
@@ -16,7 +16,7 @@ function bz(
   month: [string, string],
   day: [string, string],
   hour: [string, string] | null = null,
-): BaziTable {
+): Bazi {
   return {
     year: p(...year),
     month: p(...month),
@@ -52,7 +52,7 @@ describe("십성 tenGod", () => {
 describe("십성 분포·교차", () => {
   it("분포는 일간 자신을 빼고 나머지 천간을 집계", () => {
     const a = bz(["丙", "寅"], ["戊", "戌"], ["甲", "子"], ["庚", "午"])
-    const t = compatTable({ bazi: a }, { bazi: a })
+    const t = compatSheet({ bazi: a }, { bazi: a })
     const d = t.judgments.tenGod.subjectDistribution
     // 일간 甲 제외: 丙=식신, 戊=편재, 庚=편관.
     expect(d["식신"]).toBe(1)
@@ -64,7 +64,7 @@ describe("십성 분포·교차", () => {
   it("교차 읽기: 후보 일간이 주체에게 무슨 십성인가", () => {
     const subj = bz(["戊", "戌"], ["戊", "戌"], ["甲", "子"]) // 주체 일간 甲
     const cand = bz(["戊", "戌"], ["戊", "戌"], ["己", "丑"]) // 후보 일간 己
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     expect(t.judgments.tenGod.candidateToSubject.category).toBe("정재")
   })
 })
@@ -77,14 +77,14 @@ describe("배우자성(재/관) 공급", () => {
       gender: "male",
     }
     const cand: CompatSubject = { bazi: bz(["己", "丑"], ["戊", "戌"], ["乙", "亥"]) }
-    const t = compatTable(subj, cand)
+    const t = compatSheet(subj, cand)
     expect(t.judgments.tenGod.spouseStarForSubject.present).toBe(true)
   })
 
   it("gender 미제공이면 배우자성 판정 보류(present:false)", () => {
     const subj: CompatSubject = { bazi: bz(["戊", "戌"], ["戊", "戌"], ["甲", "子"]) }
     const cand: CompatSubject = { bazi: bz(["己", "丑"], ["戊", "戌"], ["己", "丑"]) }
-    const t = compatTable(subj, cand)
+    const t = compatSheet(subj, cand)
     expect(t.judgments.tenGod.spouseStarForSubject.present).toBe(false)
   })
 
@@ -97,7 +97,7 @@ describe("배우자성(재/관) 공급", () => {
       gender: "male",
     }
     const cand: CompatSubject = { bazi: bz(["甲", "寅"], ["甲", "寅"], ["甲", "寅"]) }
-    const t = compatTable(subj, cand)
+    const t = compatSheet(subj, cand)
     expect(t.judgments.tenGod.spouseStarForSubject.present).toBe(true)
   })
 })
@@ -115,21 +115,21 @@ describe("납음 nayin", () => {
 
   it("겉궁합: 년주 납음오행 상생/상극/비화", () => {
     // 주체 년주 甲子=海中金(metal), 후보 년주 甲子=海中金(metal) → 비화.
-    const same = compatTable(
+    const same = compatSheet(
       { bazi: bz(["甲", "子"], ["戊", "戌"], ["戊", "戌"]) },
       { bazi: bz(["甲", "子"], ["戊", "戌"], ["戊", "戌"]) },
     )
     expect(same.judgments.nayin.outerReading.category).toBe("same")
 
     // 주체 甲子=metal, 후보 戊辰=大林木(wood): metal 이 wood 극 → 상극.
-    const ctrl = compatTable(
+    const ctrl = compatSheet(
       { bazi: bz(["甲", "子"], ["戊", "戌"], ["戊", "戌"]) },
       { bazi: bz(["戊", "辰"], ["戊", "戌"], ["戊", "戌"]) },
     )
     expect(ctrl.judgments.nayin.outerReading.category).toBe("controls")
 
     // 주체 甲子=metal, 후보 丙子=澗下水(water): metal 이 water 생 → 상생.
-    const gen = compatTable(
+    const gen = compatSheet(
       { bazi: bz(["甲", "子"], ["戊", "戌"], ["戊", "戌"]) },
       { bazi: bz(["丙", "子"], ["戊", "戌"], ["戊", "戌"]) },
     )
@@ -143,7 +143,7 @@ describe("신살 sinsal (교차)", () => {
   it("도화살: 주체 일지 午(寅午戌) → 도화 卯를 후보가 지님", () => {
     const subj = bz(["戊", "戌"], ["戊", "戌"], ["甲", "午"]) // 일지 午
     const cand = bz(["戊", "戌"], ["戊", "戌"], ["乙", "卯"]) // 일지 卯
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     const dohwa = t.judgments.sinsal.candidateForSubject.find(
       (j) => j.id === "dohwa",
     )!
@@ -154,7 +154,7 @@ describe("신살 sinsal (교차)", () => {
   it("역마살: 주체 일지 子(申子辰) → 역마 寅을 후보가 지님", () => {
     const subj = bz(["戊", "戌"], ["戊", "戌"], ["甲", "子"])
     const cand = bz(["戊", "戌"], ["戊", "戌"], ["丙", "寅"])
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     const yeokma = t.judgments.sinsal.candidateForSubject.find(
       (j) => j.id === "yeokma",
     )!
@@ -165,7 +165,7 @@ describe("신살 sinsal (교차)", () => {
   it("천을귀인: 주체 일간 甲 → 丑·未를 후보가 지님", () => {
     const subj = bz(["戊", "戌"], ["戊", "戌"], ["甲", "子"])
     const cand = bz(["戊", "戌"], ["戊", "未"], ["乙", "丑"])
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     const cheoneul = t.judgments.sinsal.candidateForSubject.find(
       (j) => j.id === "cheoneul",
     )!
@@ -177,7 +177,7 @@ describe("신살 sinsal (교차)", () => {
   it("백호살: 후보 일주가 甲辰이면 백호 성립", () => {
     const subj = bz(["戊", "戌"], ["戊", "戌"], ["丙", "子"])
     const cand = bz(["戊", "戌"], ["戊", "戌"], ["甲", "辰"])
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     const baekho = t.judgments.sinsal.candidateForSubject.find(
       (j) => j.id === "baekho",
     )!
@@ -187,14 +187,14 @@ describe("신살 sinsal (교차)", () => {
   it("괴강살: 후보 일주 庚辰 성립, 甲辰(이설)은 미성립", () => {
     // 필러 기둥은 신살에 안 걸리는 유효 간지(丙寅·丁卯)로.
     const subj = bz(["丙", "寅"], ["丁", "卯"], ["丙", "子"])
-    const gyaegang = compatTable(
+    const gyaegang = compatSheet(
       { bazi: subj },
       { bazi: bz(["丙", "寅"], ["丁", "卯"], ["庚", "辰"]) },
     ).judgments.sinsal.candidateForSubject.find((j) => j.id === "gwaegang")!
     expect(gyaegang.present).toBe(true)
 
     // 甲辰은 정설 괴강 4주에 없음(백호로는 걸리므로 괴강 판정만 확인).
-    const notGyaegang = compatTable(
+    const notGyaegang = compatSheet(
       { bazi: subj },
       { bazi: bz(["丙", "寅"], ["丁", "卯"], ["甲", "辰"]) },
     ).judgments.sinsal.candidateForSubject.find((j) => j.id === "gwaegang")!
@@ -204,7 +204,7 @@ describe("신살 sinsal (교차)", () => {
   it("귀문관살: 주체 일지 子 ↔ 후보 酉 성립(子未 원진과 구분)", () => {
     const subj = bz(["戊", "戌"], ["戊", "戌"], ["甲", "子"])
     const cand = bz(["戊", "戌"], ["戊", "戌"], ["辛", "酉"])
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     const gwimun = t.judgments.sinsal.candidateForSubject.find(
       (j) => j.id === "gwimun",
     )!
@@ -215,7 +215,7 @@ describe("신살 sinsal (교차)", () => {
     // 甲의 양인 지지 = 卯. 필러는 신살 안 걸리는 유효 간지로.
     const subj = bz(["丙", "寅"], ["丁", "亥"], ["甲", "子"]) // 일간 甲(양간)
     const cand = bz(["丙", "寅"], ["丁", "亥"], ["乙", "卯"]) // 후보 일지 卯
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     const yangin = t.judgments.sinsal.candidateForSubject.find(
       (j) => j.id === "yangin",
     )!
@@ -227,7 +227,7 @@ describe("신살 sinsal (교차)", () => {
     // 乙은 음간 → 양인 미인정. 후보에 陰刃 참고값 辰이 있어도 present:false.
     const subj = bz(["丙", "寅"], ["丁", "亥"], ["乙", "卯"]) // 일간 乙(음간)
     const cand = bz(["丙", "寅"], ["丁", "亥"], ["甲", "辰"]) // 후보 일지 辰
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     const yangin = t.judgments.sinsal.candidateForSubject.find(
       (j) => j.id === "yangin",
     )!
@@ -237,10 +237,10 @@ describe("신살 sinsal (교차)", () => {
 
 // ── 양인살 음간 정책 (원국 natal 쪽도 동일) ─────────────────────────
 
-describe("양인살 음간 정책 — 원국(chart)", () => {
+describe("양인살 음간 정책 — 원국(analyze)", () => {
   it("甲(양간) 일간 + 卯 있으면 원국 양인 present:true", () => {
     // 甲 일간, 시지 卯 → 양인 성립.
-    const nat = chart({ bazi: bz(["丙", "寅"], ["丁", "亥"], ["甲", "子"], ["丁", "卯"]) })
+    const nat = analyze({ bazi: bz(["丙", "寅"], ["丁", "亥"], ["甲", "子"], ["丁", "卯"]) })
     const yangin = nat.sinsal.find((s) => s.id === "yangin")!
     expect(yangin.present).toBe(true)
     expect(yangin.pillars).toContain("hour")
@@ -248,7 +248,7 @@ describe("양인살 음간 정책 — 원국(chart)", () => {
 
   it("乙(음간) 일간 + 辰 있어도 원국 양인 present:false(음간 미포함)", () => {
     // 乙 일간, 시지 辰(陰刃 참고값) → 양인 미인정.
-    const nat = chart({ bazi: bz(["丙", "寅"], ["丁", "亥"], ["乙", "卯"], ["丙", "辰"]) })
+    const nat = analyze({ bazi: bz(["丙", "寅"], ["丁", "亥"], ["乙", "卯"], ["丙", "辰"]) })
     const yangin = nat.sinsal.find((s) => s.id === "yangin")!
     expect(yangin.present).toBe(false)
     expect(yangin.pillars).toHaveLength(0)
@@ -262,7 +262,7 @@ describe("겉궁합·속궁합 palace", () => {
     // 연주끼리 충(子↔午), 일지끼리 육합(子↔丑).
     const subj = bz(["戊", "子"], ["戊", "戌"], ["甲", "子"])
     const cand = bz(["戊", "午"], ["戊", "戌"], ["乙", "丑"])
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     const palace = t.judgments.palace
     expect(palace.detail?.outerClash as number).toBeGreaterThanOrEqual(1)
     expect(palace.detail?.innerHarmony as number).toBeGreaterThanOrEqual(1)
@@ -272,7 +272,7 @@ describe("겉궁합·속궁합 palace", () => {
     // 주체 년지 子 ↔ 후보 년지 午 = 지지충(양쪽 다 연주) → 겉궁합 충돌.
     const subj = bz(["戊", "子"], ["丁", "卯"], ["甲", "卯"])
     const cand = bz(["戊", "午"], ["丁", "卯"], ["甲", "卯"])
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     expect(t.judgments.palace.detail?.outerClash as number).toBeGreaterThanOrEqual(1)
   })
 
@@ -283,7 +283,7 @@ describe("겉궁합·속궁합 palace", () => {
     // 연주-연주 엣지 자체가 없다.
     const subj = bz(["戊", "戌"], ["乙", "卯"], ["甲", "卯"])
     const cand = bz(["丙", "戌"], ["戊", "辰"], ["甲", "卯"])
-    const t = compatTable({ bazi: subj }, { bazi: cand })
+    const t = compatSheet({ bazi: subj }, { bazi: cand })
     // 년-월 충은 겉궁합(연주-연주)이 아니다.
     expect(t.judgments.palace.detail?.outerClash).toBe(0)
     expect(t.judgments.palace.detail?.outerHarmony).toBe(0)
@@ -293,8 +293,8 @@ describe("겉궁합·속궁합 palace", () => {
 // ── 스키마 불변식 ───────────────────────────────────────────────────
 
 describe("judgments 스키마", () => {
-  it("compatTable 에 judgments 섹션이 붙고 12관계와 분리된다", () => {
-    const t = compatTable(
+  it("compatSheet 에 judgments 섹션이 붙고 12관계와 분리된다", () => {
+    const t = compatSheet(
       { bazi: bz(["甲", "子"], ["甲", "子"], ["甲", "子"]) },
       { bazi: bz(["己", "丑"], ["己", "丑"], ["己", "丑"]) },
     )
@@ -308,7 +308,7 @@ describe("judgments 스키마", () => {
   })
 
   it("십성 분포는 10종 컬럼을 항상 채운다(차원 고정)", () => {
-    const t = compatTable(
+    const t = compatSheet(
       { bazi: bz(["甲", "子"], ["甲", "子"], ["甲", "子"]) },
       { bazi: bz(["甲", "子"], ["甲", "子"], ["甲", "子"]) },
     )

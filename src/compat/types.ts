@@ -1,5 +1,5 @@
 import type { ELEMENTS } from "../constants.js"
-import type { BaziTable } from "../types.js"
+import type { Bazi } from "../types.js"
 import type { CompatJudgments } from "./judgments-types.js"
 
 type Element = typeof ELEMENTS[number]
@@ -57,22 +57,41 @@ export interface CompatFact {
 
 /** 궁합 계산 입력 — 사주 하나 + 부가 정보. */
 export interface CompatSubject {
-  bazi: BaziTable
+  bazi: Bazi
   /** 배우자성(재/관) 판정에 필요. v1 룰에는 아직 미사용. */
   gender?: "male" | "female"
 }
 
+/** 관계 3렌즈(만나보살 확정): 合=끌림·정, 生=보완·상생, 沖=관계온도(방향X). */
+export type Lens = "合" | "生" | "沖"
+
+/** 한 렌즈에 묶인 교차 관계들. */
+export interface LensGroup {
+  lens: Lens
+  /** 이 렌즈에 속하는 관계 facts 전체(차원 고정 — present:false 포함). */
+  facts: CompatFact[]
+  /** 성립한(present) 관계 수 합. */
+  activeCount: number
+  /** 성립한 엣지 총수. */
+  edgeTotal: number
+}
+
 /**
- * 두 사주의 궁합 관계 테이블.
+ * 두 사주의 궁합 시트 — 팩트 기반, 점수 없음.
  *
  * 시스템(결정론 코드)으로 구할 수 있는 명리 관계를 빠짐없이 정형 포맷으로
- * 담는다. 소비자(LLM 프롬프트/ML 인풋)는 이 목록을 그대로 읽는다.
+ * 담는다. 관계(12종+오행보완)를 3렌즈(合/生/沖)로 조직하고, 신살·납음·궁위·
+ * 십성교차는 judgments(rationale 재료)로 별도. 소비자(LLM 프롬프트/ML 인풋)가
+ * 그대로 읽는다. 원국 사실은 baziSheet(개인 시트)에 있다.
  */
-export interface CompatTable {
+export interface CompatSheet {
   schemaVersion: string
   subject: CompatSubject
   candidate: CompatSubject
+  /** 관계 fact 전체(차원 고정 — present:false 포함). */
   facts: CompatFact[]
+  /** 관계 3렌즈. 항상 3개(合/生/沖) 고정 순서 — facts 를 렌즈로 묶은 뷰. */
+  lenses: LensGroup[]
   /**
    * 결정론 판단 파생값 — 십성·납음·신살·겉속궁합 분류.
    * 12관계(facts)와 별개 섹션. 종합 점수는 담지 않는다.

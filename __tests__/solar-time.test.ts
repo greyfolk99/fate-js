@@ -2,7 +2,7 @@
  * 진태양시(眞太陽時) 보정 레이어 테스트.
  */
 import { describe, test, expect, afterEach } from "vitest"
-import { baziTable } from "../src/bazi-table.js"
+import { bazi } from "../src/bazi.js"
 import { equationOfTime, solarCorrectionMinutes } from "../src/solar-time.js"
 import { getSolarConfig, setSolarConfig } from "../src/config.js"
 
@@ -35,11 +35,11 @@ describe("solarCorrectionMinutes", () => {
   })
 })
 
-describe("baziTable 진태양시 보정", () => {
+describe("bazi 진태양시 보정", () => {
   const birth = { year: 1992, month: 8, day: 4, hour: 3, minute: 30, utcOffsetMinutes: 540 } as const
 
   test("03:30 경계: 보정 적용 시 시지 丑, 시주 辛丑 (기본 solar)", () => {
-    const b = baziTable(birth) // 전역 기본 applySolarTime=true
+    const b = bazi(birth) // 전역 기본 applySolarTime=true
     expect(b.hour).toEqual({ stem: "辛", branch: "丑" })
     // 나머지 기둥은 그대로
     expect(b.year).toEqual({ stem: "壬", branch: "申" })
@@ -47,14 +47,14 @@ describe("baziTable 진태양시 보정", () => {
   })
 
   test("timeBasis='standard'면 보정 없음 → 시지 寅, 시주 壬寅", () => {
-    const b = baziTable({ ...birth, timeBasis: "standard" })
+    const b = bazi({ ...birth, timeBasis: "standard" })
     expect(b.hour).toEqual({ stem: "壬", branch: "寅" })
   })
 
   test("setSolarConfig로 전역 off 하면 표준시와 동일", () => {
     setSolarConfig({ applySolarTime: false })
-    const off = baziTable(birth)
-    const std = baziTable({ ...birth, timeBasis: "standard" })
+    const off = bazi(birth)
+    const std = bazi({ ...birth, timeBasis: "standard" })
     expect(off.hour).toEqual(std.hour)
     expect(off.hour).toEqual({ stem: "壬", branch: "寅" })
   })

@@ -67,7 +67,7 @@ export interface NayinCell {
 }
 
 /**
- * 궁합 판단 묶음 — CompatTable 에 별도 섹션으로 실린다.
+ * 궁합 판단 묶음 — CompatSheet 에 별도 섹션으로 실린다.
  * 12관계와 섞지 않는다. 신살 판정은 각각 Judgment 로 담고,
  * 걸린 기둥 위치는 Judgment.detail.pillars 에 둔다.
  */
