@@ -45,8 +45,8 @@ import { tenGod, tenGodDistribution, nayinOf } from "../compat/judgments.js"
 import type { TenGod, TenGodCount } from "../compat/judgments-types.js"
 import type { CompatSubject, PillarName, Polarity } from "../compat/types.js"
 import { twelveStage, twelveSinsal } from "./constants.js"
-import { analyzeNatal } from "./analysis.js"
-import type { NatalAnalysis } from "./analysis.js"
+import { analysisFacts } from "./analysis.js"
+import type { AnalysisFacts } from "./analysis.js"
 
 type Stem = typeof STEMS[number]
 type Branch = typeof BRANCHES[number]
@@ -65,7 +65,7 @@ export interface HiddenStemInfo {
   role: string
 }
 
-export interface NatalStem {
+export interface BaziStem {
   glyph: Stem
   element: Element
   yinyang: "yang" | "yin"
@@ -73,7 +73,7 @@ export interface NatalStem {
   tenGod: TenGod | null
 }
 
-export interface NatalBranch {
+export interface BaziBranch {
   glyph: Branch
   element: Element
   yinyang: "yang" | "yin"
@@ -90,10 +90,10 @@ export interface NatalBranch {
   isVoid: boolean
 }
 
-export interface NatalPillar {
+export interface BaziPillar {
   name: PillarName
-  stem: NatalStem
-  branch: NatalBranch
+  stem: BaziStem
+  branch: BaziBranch
   ganzhi: string
   nayin: { name: string; element: Element } | null
 }
@@ -106,7 +106,7 @@ export interface ElementCount {
   water: number
 }
 
-export interface NatalRelation {
+export interface BaziRelation {
   id: string
   label: string
   polarity: Polarity
@@ -128,7 +128,7 @@ export interface BaziAnalysis {
   bazi: Bazi
   gender?: "male" | "female"
   dayMaster: { glyph: Stem; element: Element; yinyang: "yang" | "yin" }
-  pillars: NatalPillar[]
+  pillars: BaziPillar[]
   voidBranches: Branch[]
   tenGodDistribution: TenGodCount
   elementDistribution: {
@@ -138,9 +138,9 @@ export interface BaziAnalysis {
     withHidden: ElementCount
   }
   sinsal: BaziSinsal[]
-  internalRelations: NatalRelation[]
+  internalRelations: BaziRelation[]
   /** 2단계 — 신강신약·격국·용신(사실 시트, 점수·최종판정 없음). */
-  analysis: NatalAnalysis
+  analysis: AnalysisFacts
   policy: Record<string, string>
 }
 
@@ -271,9 +271,9 @@ const HYUNG_PAIRS: Map<string, string> = (() => {
   return m
 })()
 
-function internalRelations(bazi: Bazi): NatalRelation[] {
+function internalRelations(bazi: Bazi): BaziRelation[] {
   const cs = cells(bazi)
-  const out: NatalRelation[] = []
+  const out: BaziRelation[] = []
 
   // 두 기둥 쌍(pairwise) 관계.
   const pairSpecs: {
@@ -364,7 +364,7 @@ export function analyze(subject: CompatSubject): BaziAnalysis {
   const dayBranch = bazi.day.branch
   const voids = voidBranchesOf(bazi)
 
-  const pillars: NatalPillar[] = cells(bazi).map((c) => {
+  const pillars: BaziPillar[] = cells(bazi).map((c) => {
     const isDayStem = c.name === "day"
     const hidden: HiddenStemInfo[] = HIDDEN_STEMS[c.branch].map((hs, idx) => ({
       glyph: hs,
@@ -413,7 +413,7 @@ export function analyze(subject: CompatSubject): BaziAnalysis {
     elementDistribution: elementDistribution(bazi),
     sinsal: baziSinsal(bazi),
     internalRelations: internalRelations(bazi),
-    analysis: analyzeNatal(bazi),
+    analysis: analysisFacts(bazi),
     policy: {
       화토동법: "戊·己는 丙·丁과 같은 십이운성(다수설)",
       십이신살기준: "년지·일지 병기(sinsalFromYear·sinsalFromDay)",

@@ -278,13 +278,13 @@ function yongsinFacts(bazi: Bazi, strength: StrengthFacts): YongsinFacts {
 
 // ── 종합 ────────────────────────────────────────────────────────────
 
-export interface NatalAnalysis {
+export interface AnalysisFacts {
   strength: StrengthFacts
   gyeokguk: GyeokgukFacts
   yongsin: YongsinFacts
 }
 
-export function analyzeNatal(bazi: Bazi): NatalAnalysis {
+export function analysisFacts(bazi: Bazi): AnalysisFacts {
   const strength = strengthFacts(bazi)
   return {
     strength,
