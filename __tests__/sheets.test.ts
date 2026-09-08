@@ -198,10 +198,16 @@ describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크�
     }
   })
 
-  test("공급 판정은 상대 원국 오행 ∩ 내 억부 희신(사실)", () => {
-    // present 면 detail.supplied 가 비어있지 않아야 한다(사실 일관성).
+  test("공급은 등급 사실 — 커버 오행·투출 구분이 detail 에 있다", () => {
+    // present 면 covered 가 비어있지 않고, revealed ⊆ covered (투출은 커버의 부분집합).
     if (ys.eokbuToSubject.present) {
-      expect((ys.eokbuToSubject.detail!.supplied as string[]).length).toBeGreaterThan(0)
+      const d = ys.eokbuToSubject.detail as { covered: string[]; revealed: string[] }
+      expect(d.covered.length).toBeGreaterThan(0)
+      for (const r of d.revealed) expect(d.covered).toContain(r)
+    }
+    // 조후는 투출(透)/암장(藏) 구분이 category 로 나온다.
+    if (ys.johuToSubject.present) {
+      expect(["투출", "암장"]).toContain(ys.johuToSubject.category)
     }
   })
 

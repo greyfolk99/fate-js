@@ -9,6 +9,7 @@ import {
 } from "./rules.js"
 import { judgeCompat } from "./judgments.js"
 import { yongsinSupply } from "./yongsin-supply.js"
+import type { Judgment } from "./judgments-types.js"
 import type { CompatSubject, CompatSheet, Lens, LensGroup } from "./types.js"
 
 export const COMPATSHEET_SCHEMA_VERSION = "compat-sheet-v1"
@@ -139,15 +140,31 @@ export function formatCompatSheet(sheet: CompatSheet): string {
       return `${name}${extra}`
     })
     // 生 렌즈는 오행보완만으론 빈약 → 배우자성(財/官)·용신 공급 신호를 덧댄다.
+    // 공급은 유/무가 아니라 등급 사실로: 커버 오행 + 투출(透)/암장(藏) 구분.
+    // (유/무 boolean 은 무작위 쌍의 99%가 참이라 변별 신호가 0 — 실측.)
     if (g.lens === "生") {
       const tg = sheet.judgments.tenGod
       if (tg.spouseStarForSubject.present) parts.push("配星A←B")
       if (tg.spouseStarForCandidate.present) parts.push("配星B←A")
       const ys = sheet.judgments.yongsinSupply
-      if (ys.eokbuToSubject.present) parts.push("用神A←B")
-      if (ys.eokbuToCandidate.present) parts.push("用神B←A")
-      if (ys.johuToSubject.present) parts.push("調候A←B")
-      if (ys.johuToCandidate.present) parts.push("調候B←A")
+      const eokbu = (jd: Judgment, tag: string) => {
+        if (!jd.present) { parts.push(`${tag}(無)`); return }
+        const d = jd.detail as { favorable: string[]; covered: string[]; revealed: string[] }
+        parts.push(`${tag}(${d.covered.join("")}/${d.favorable.join("")}供${d.revealed.length ? `·${d.revealed.join("")}透` : "·無透"})`)
+      }
+      eokbu(ys.eokbuToSubject, "用神A←B")
+      eokbu(ys.eokbuToCandidate, "用神B←A")
+      const johu = (jd: Judgment, tag: string) => {
+        if (!jd.present) { parts.push(`${tag}(無)`); return }
+        const d = jd.detail as { mainRevealed: string[]; mainHidden: string[] }
+        const seg = [
+          d.mainRevealed.length ? `${d.mainRevealed.join("")}透` : "",
+          d.mainHidden.length ? `${d.mainHidden.join("")}藏` : "",
+        ].filter(Boolean).join("·")
+        parts.push(`${tag}(${seg})`)
+      }
+      johu(ys.johuToSubject, "調候A←B")
+      johu(ys.johuToCandidate, "調候B←A")
     }
     lines.push(`【${LENS_NAME[g.lens]}】 ${parts.length ? parts.join(" · ") : "(없음)"}`)
   }
