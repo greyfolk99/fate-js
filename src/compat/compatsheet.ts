@@ -204,7 +204,7 @@ export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boo
       const star = (jd: Judgment, tag: string) => {
         if (!jd.present) { parts.push(`${tag}(無)`); return }
         const d = jd.detail as {
-          revealedPillars: string[]; daySeat: string | null; jeong: number; pyeon: number
+          revealedPillars: string[]; daySeat: string | false; jeong: number; pyeon: number
         }
         const segs = [
           d.revealedPillars.length ? `${d.revealedPillars.map((p) => PILLAR_HANJA[p]).join("")}透` : "藏",

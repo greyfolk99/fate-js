@@ -224,12 +224,12 @@ function spouseStar(
   // 다른 장간에만 있으면 "장간". 성(星)과 궁(宮)이 겹치는 자리라 문헌이 최상으로 침.
   const dayBranch = partner.day.branch
   const mainStem = HIDDEN_STEMS[dayBranch].find((hs) => STEM_ELEMENTS[hs] === BRANCH_ELEMENTS[dayBranch])
-  const daySeat =
+  const daySeat: string | false =
     mainStem && wantsStar(tenGod(dm, mainStem))
       ? "본기"
       : HIDDEN_STEMS[dayBranch].some((hs) => wantsStar(tenGod(dm, hs)))
         ? "장간"
-        : null
+        : false
   const present = supplyPillars.length > 0
   const spouseWord = gender === "male" ? "처(妻)" : "부(夫)"
   return {
