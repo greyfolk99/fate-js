@@ -267,9 +267,14 @@ describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크�
     }
   })
 
-  test("生 렌즈에 忌神·剋用神 줄이 항상 찍힌다(없으면 無)", () => {
-    const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
-    for (const tag of ["忌神A←B", "忌神B←A", "剋用神A←B", "剋用神B←A"]) expect(line).toContain(tag)
+  test("忌神·剋用神 줄은 기본 꺼짐, includeHarm 옵션에서만 찍힌다", () => {
+    // 발화율 99%라 기본 시트에서 v2.1 보완 일관성을 91→65%로 무너뜨림(실측) — 옵션 분리.
+    const off = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    const on = formatCompatSheet(cs, { includeHarm: true }).split("\n").find((l) => l.includes("生(보완"))!
+    for (const tag of ["忌神A←B", "忌神B←A", "剋用神A←B", "剋用神B←A"]) {
+      expect(off).not.toContain(tag)
+      expect(on).toContain(tag)
+    }
   })
 })
 

@@ -147,8 +147,12 @@ function groupSegments(name: string, edges: CompatEdge[]): string[] {
  * 궁합 시트를 GLM 프롬프트용 한자 텍스트 블록으로 렌더한다.
  * 관계를 3렌즈(合/生/沖)로 묶고, 성립한 것만 노출한다(차원 고정은 구조체가 담당).
  * 신살·납음·궁위는 【보조】로 붙인다(rationale 재료).
+ *
+ * includeHarm: 忌神 유입·剋用神 줄 노출 여부(기본 꺼짐). 발화율 실측(800쌍)에서
+ * 기신 투출 99%·剋 99%로 "서로 기신을 대줌" 앵커가 상수화되어 v2.1 보완 일관성이
+ * 91→65%로 붕괴했다. 상대량 규칙을 가진 전용 프롬프트에서만 켤 것.
  */
-export function formatCompatSheet(sheet: CompatSheet): string {
+export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boolean }): string {
   const lines: string[] = []
   for (const g of sheet.lenses) {
     const active = g.facts.filter((f) => f.present)
@@ -233,18 +237,20 @@ export function formatCompatSheet(sheet: CompatSheet): string {
       johu(ys.johuToSubject, "調候A←B")
       johu(ys.johuToCandidate, "調候B←A")
       // 공급의 거울(해로움 사실): 기신 유입(투/장)과 희신 극(천간 단위).
-      // 채점 규칙에는 원래 기신·극 조항이 있는데 시트에 사실이 없어 작동 못 했다.
-      const harm = (jd: Judgment, tag: string, keukTag: string) => {
-        const d = jd.detail as { unfavorable: string[]; covered: string[]; revealed: string[]; keuk: string[] }
-        parts.push(
-          d.covered.length
-            ? `${tag}(${d.covered.join("")}/${d.unfavorable.join("")}入${d.revealed.length ? `·${d.revealed.join("")}透` : "·無透"})`
-            : `${tag}(無)`,
-        )
-        parts.push(d.keuk.length ? `${keukTag}(${d.keuk.join("·")})` : `${keukTag}(無)`)
+      // 기본 꺼짐(위 includeHarm 주석) — 전용 프롬프트에서만 노출.
+      if (opts?.includeHarm) {
+        const harm = (jd: Judgment, tag: string, keukTag: string) => {
+          const d = jd.detail as { unfavorable: string[]; covered: string[]; revealed: string[]; keuk: string[] }
+          parts.push(
+            d.covered.length
+              ? `${tag}(${d.covered.join("")}/${d.unfavorable.join("")}入${d.revealed.length ? `·${d.revealed.join("")}透` : "·無透"})`
+              : `${tag}(無)`,
+          )
+          parts.push(d.keuk.length ? `${keukTag}(${d.keuk.join("·")})` : `${keukTag}(無)`)
+        }
+        harm(ys.harmToSubject, "忌神A←B", "剋用神A←B")
+        harm(ys.harmToCandidate, "忌神B←A", "剋用神B←A")
       }
-      harm(ys.harmToSubject, "忌神A←B", "剋用神A←B")
-      harm(ys.harmToCandidate, "忌神B←A", "剋用神B←A")
     }
     lines.push(`【${LENS_NAME[g.lens]}】 ${parts.length ? parts.join(" · ") : "(없음)"}`)
   }
