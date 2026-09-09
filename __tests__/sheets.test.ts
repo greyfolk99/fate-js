@@ -309,9 +309,9 @@ describe("배우자성(配星) 등급 사실 — 유무가 아니라 투/장·�
     const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
     for (const [jd, tag] of [[ys.johuToSubject, "調候A←B"], [ys.johuToCandidate, "調候B←A"]] as const) {
       const d = jd.detail as { mainRevealed: string[]; mainHidden: string[]; subHit: string[] }
-      // 主가 없어도 次佐가 있으면 (無)가 아니라 佐 표기가 나와야 한다.
+      // 主가 없으면 無 토큰은 유지하고(앵커 호환), 次佐는 덧붙는다.
       if (!jd.present && d.subHit.length) {
-        expect(line).toContain(`${tag}(佐${d.subHit.join("")})`)
+        expect(line).toContain(`${tag}(無·佐${d.subHit.join("")})`)
       }
       if (!jd.present && !d.subHit.length) expect(line).toContain(`${tag}(無)`)
     }

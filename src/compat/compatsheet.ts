@@ -225,14 +225,15 @@ export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boo
       eokbu(ys.eokbuToCandidate, "用神B←A")
       const johu = (jd: Judgment, tag: string) => {
         // 主用神 투/장에 더해 次佐(보조 용신)도 찍는다 — 主 없이 佐만 있는 경우를
-        // (無)로 뭉개면 계산된 사실이 유실된다.
+        // (無)로 뭉개면 계산된 사실이 유실된다. 단 主 부재의 "無" 토큰은 유지 —
+        // v2.1 앵커('調候为無')가 이 토큰을 읽으므로 佐만 있어도 無·佐X 로 덧붙인다.
         const d = jd.detail as { mainRevealed: string[]; mainHidden: string[]; subHit?: string[] }
         const seg = [
           d.mainRevealed.length ? `${d.mainRevealed.join("")}透` : "",
           d.mainHidden.length ? `${d.mainHidden.join("")}藏` : "",
-          d.subHit?.length ? `佐${d.subHit.join("")}` : "",
-        ].filter(Boolean).join("·")
-        parts.push(`${tag}(${seg || "無"})`)
+        ].filter(Boolean).join("·") || "無"
+        const jwa = d.subHit?.length ? `·佐${d.subHit.join("")}` : ""
+        parts.push(`${tag}(${seg}${jwa})`)
       }
       johu(ys.johuToSubject, "調候A←B")
       johu(ys.johuToCandidate, "調候B←A")
