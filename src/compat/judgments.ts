@@ -11,6 +11,7 @@ import {
   STEM_YINYANG,
   STEM_INDEX,
   BRANCH_INDEX,
+  BRANCH_ELEMENTS,
   GENERATES,
   CONTROLS,
   HIDDEN_STEMS,
@@ -196,6 +197,17 @@ function spouseStar(
     (wantWealth && isWealth(g)) || (wantOfficer && isOfficer(g))
   const partnerCells = cells(partner)
   const supplyPillars: PillarName[] = []
+  // 등급 사실(자평진전 논법) — "있냐"는 무작위 쌍 96%가 참이라 변별 0. 문헌이 실제로
+  // 보는 축을 사실로 찍는다: 투(천간)/장(지장간), 배우자궁(상대 일지) 안착, 正·偏 개수.
+  const revealedPillars: PillarName[] = []
+  const hiddenPillars: PillarName[] = []
+  let jeong = 0
+  let pyeon = 0
+  const countStar = (g: TenGod) => {
+    if (!wantsStar(g)) return
+    if (g === "정재" || g === "정관") jeong++
+    else pyeon++
+  }
   const targetKo = wantWealth ? "재성(財)" : "관성(官)"
   for (const c of partnerCells) {
     const inStem = wantsStar(tenGod(dm, c.stem))
@@ -203,7 +215,21 @@ function spouseStar(
     if (inStem || inHidden) {
       supplyPillars.push(c.name)
     }
+    if (inStem) revealedPillars.push(c.name)
+    else if (inHidden) hiddenPillars.push(c.name)
+    countStar(tenGod(dm, c.stem))
+    for (const hs of HIDDEN_STEMS[c.branch]) countStar(tenGod(dm, hs))
   }
+  // 배우자궁 안착 — 상대 일지의 정기(본기 오행과 같은 지장간)가 배우자성이면 "본기",
+  // 다른 장간에만 있으면 "장간". 성(星)과 궁(宮)이 겹치는 자리라 문헌이 최상으로 침.
+  const dayBranch = partner.day.branch
+  const mainStem = HIDDEN_STEMS[dayBranch].find((hs) => STEM_ELEMENTS[hs] === BRANCH_ELEMENTS[dayBranch])
+  const daySeat =
+    mainStem && wantsStar(tenGod(dm, mainStem))
+      ? "본기"
+      : HIDDEN_STEMS[dayBranch].some((hs) => wantsStar(tenGod(dm, hs)))
+        ? "장간"
+        : null
   const present = supplyPillars.length > 0
   const spouseWord = gender === "male" ? "처(妻)" : "부(夫)"
   return {
@@ -221,6 +247,11 @@ function spouseStar(
       gender,
       spouseStar: targetKo,
       supplyPillars,
+      revealedPillars,
+      hiddenPillars,
+      daySeat,
+      jeong,
+      pyeon,
     },
   }
 }

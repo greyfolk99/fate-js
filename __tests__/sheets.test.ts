@@ -267,3 +267,30 @@ describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크�
     for (const tag of ["忌神A←B", "忌神B←A", "剋用神A←B", "剋用神B←A"]) expect(line).toContain(tag)
   })
 })
+
+describe("배우자성(配星) 등급 사실 — 유무가 아니라 투/장·궁 안착·正偏", () => {
+  const cs = compatSheet(A, B)
+  const tg = cs.judgments.tenGod
+
+  test("등급 detail 불변식: 투·장 기둥은 서로소이고 공급 기둥의 부분집합", () => {
+    for (const k of ["spouseStarForSubject", "spouseStarForCandidate"] as const) {
+      const d = tg[k].detail as {
+        supplyPillars: string[]; revealedPillars: string[]; hiddenPillars: string[]
+        daySeat: string | null; jeong: number; pyeon: number
+      }
+      if (!tg[k].present) continue
+      for (const p of d.revealedPillars) expect(d.supplyPillars).toContain(p)
+      for (const p of d.hiddenPillars) expect(d.supplyPillars).toContain(p)
+      for (const p of d.revealedPillars) expect(d.hiddenPillars).not.toContain(p)
+      // 배우자궁 안착이면 상대 일주가 공급 기둥에 있어야 한다.
+      if (d.daySeat) expect(d.supplyPillars).toContain("day")
+      expect(d.jeong + d.pyeon).toBeGreaterThan(0)
+    }
+  })
+
+  test("시트에 配星 등급 표기가 항상 찍힌다(없으면 無)", () => {
+    const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    expect(line).toMatch(/配星A←B\((無|[^)]*正\d+偏\d+[^)]*)\)/)
+    expect(line).toMatch(/配星B←A\((無|[^)]*正\d+偏\d+[^)]*)\)/)
+  })
+})

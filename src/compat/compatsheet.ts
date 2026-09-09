@@ -183,8 +183,22 @@ export function formatCompatSheet(sheet: CompatSheet): string {
     // (유/무 boolean 은 무작위 쌍의 99%가 참이라 변별 신호가 0 — 실측.)
     if (g.lens === "生") {
       const tg = sheet.judgments.tenGod
-      if (tg.spouseStarForSubject.present) parts.push("配星A←B")
-      if (tg.spouseStarForCandidate.present) parts.push("配星B←A")
+      // 배우자성은 "있음"이 무작위 쌍 96%라 유무 표기는 변별 0 — 자평진전이 실제로
+      // 보는 등급(투/장, 배우자궁 안착, 正·偏 개수)을 찍는다.
+      const star = (jd: Judgment, tag: string) => {
+        if (!jd.present) { parts.push(`${tag}(無)`); return }
+        const d = jd.detail as {
+          revealedPillars: string[]; daySeat: string | null; jeong: number; pyeon: number
+        }
+        const segs = [
+          d.revealedPillars.length ? `${d.revealedPillars.map((p) => PILLAR_HANJA[p]).join("")}透` : "藏",
+          d.daySeat ? (d.daySeat === "본기" ? "坐日支" : "日支藏") : "",
+          `正${d.jeong}偏${d.pyeon}`,
+        ].filter(Boolean)
+        parts.push(`${tag}(${segs.join("·")})`)
+      }
+      star(tg.spouseStarForSubject, "配星A←B")
+      star(tg.spouseStarForCandidate, "配星B←A")
       const ys = sheet.judgments.yongsinSupply
       const eokbu = (jd: Judgment, tag: string) => {
         if (!jd.present) { parts.push(`${tag}(無)`); return }
