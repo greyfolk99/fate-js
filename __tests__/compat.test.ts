@@ -61,7 +61,7 @@ describe("compatSheet 스키마", () => {
 
   it("schemaVersion 이 붙는다", () => {
     const table = compatSheet({ bazi: NEUTRAL }, { bazi: NEUTRAL })
-    expect(table.schemaVersion).toBe("compat-sheet-v1")
+    expect(table.schemaVersion).toBe("compat-sheet-v2")
   })
 
   it("종합 점수(value 같은 스칼라)를 만들지 않는다 — 관계·개수만", () => {

@@ -22,7 +22,7 @@ describe("baziSheet (개인 원국+분석)", () => {
   const s = baziSheet(A)
 
   test("원국+분석을 담는다(간지·일간·강약·용신·격국·공망)", () => {
-    expect(s.schemaVersion).toBe("bazi-sheet")
+    expect(s.schemaVersion).toBe("bazi-sheet-v2")
     expect(s.pillars.map((p) => p.ganzhi)).toEqual(["壬申", "丁未", "壬子", "辛丑"])
     expect(s.dayMaster.glyph).toBe("壬")
     expect(s.analysis.strength.byRule.some((r) => r.rule === "抑扶")).toBe(true)
@@ -192,6 +192,44 @@ describe("조후용신표(JOHU_TABLE) — 궁통보감 edition-lock 수렴본", 
     expect(JOHU_TABLE["丙"]["子"].main).toEqual(["壬"])
     expect(JOHU_TABLE["庚"]["子"].main).toEqual(["丁"])
     expect(JOHU_TABLE["癸"]["子"].main).toEqual(["丙"])
+  })
+
+  test("논쟁셀 회귀 — 원문 우선으로 집계표 干을 배제한 셀들이 유지된다", async () => {
+    const { JOHU_TABLE } = await import("../src/bazi/johu-table.js")
+    // 壬丑: 원문 專用丙火·甲木佐之 — 丁은 丁壬合化 조건부 문단에만(집계표 아티팩트)
+    expect(JOHU_TABLE["壬"]["丑"].main).toEqual(["丙"])
+    expect(JOHU_TABLE["壬"]["丑"].sub).toEqual(["甲"])
+    // 辛丑: 원문 先丙後壬, 戊는 "戊又出干者 皂隸之流"로 명시 배격 — 用神提要(집계표)의 戊己 배제
+    expect(JOHU_TABLE["辛"]["丑"].main).toEqual(["丙"])
+    expect(JOHU_TABLE["辛"]["丑"].sub).toEqual(["壬"])
+    // 헤더 주석의 명시 배격 4건
+    expect(JOHU_TABLE["庚"]["戌"].sub).not.toContain("己")
+    expect(JOHU_TABLE["辛"]["申"].sub).not.toContain("癸")
+    expect(JOHU_TABLE["辛"]["子"].sub).not.toContain("戊")
+    expect(JOHU_TABLE["壬"]["酉"].sub).not.toContain("庚")
+  })
+
+  test("note 불변식 — note에만 있고 main/sub/cond에 없는 干은 알려진 셀뿐", async () => {
+    const { JOHU_TABLE } = await import("../src/bazi/johu-table.js")
+    const STEMS = "甲乙丙丁戊己庚辛壬癸"
+    const noteOnly: string[] = []
+    for (const [s, months] of Object.entries(JOHU_TABLE)) {
+      for (const [m, e] of Object.entries(months as Record<string, { main: string[]; sub: string[]; cond?: string; note?: string }>)) {
+        if (!e.note) continue
+        const inCalc = new Set((e.main.join("") + e.sub.join("") + (e.cond ?? "")).split(""))
+        const only = [...new Set(e.note.split("").filter((ch) => STEMS.includes(ch) && !inCalc.has(ch)))]
+        if (only.length) noteOnly.push(`${s}${m}:${only.join("")}`)
+      }
+    }
+    // 배제 근거(원문 배격·집계표 아티팩트) 또는 보류(佐 승격 재검토 대기) — 목록 변경은 의도적이어야 한다
+    expect(noteOnly).toEqual([
+      "甲寅:丁庚", "甲卯:丁丙", "甲丑:甲",
+      "己寅:庚甲戊", "己未:辛甲", "己申:辛",
+      "庚戌:己",
+      "辛申:癸", "辛子:戊癸", "辛丑:戊己",
+      "壬酉:庚", "壬丑:丁",
+      "癸申:甲", "癸丑:丁壬",
+    ])
   })
 
   test("baziSheet.johu 가 표를 반영하고 formatBaziSheet에 조후가 나온다", () => {

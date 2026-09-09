@@ -273,8 +273,8 @@ function yongsinFacts(bazi: Bazi, strength: StrengthFacts): YongsinFacts {
     },
     johu: {
       season,
-      main: johu.main,
-      sub: johu.sub,
+      main: [...johu.main],
+      sub: [...johu.sub],
       ...(johu.cond ? { cond: johu.cond } : {}),
       basis: "궁통보감 조후표(月支×日干) — 표 사실만, 취사는 다운스트림 몫.",
     },

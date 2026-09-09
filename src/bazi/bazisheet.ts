@@ -14,7 +14,7 @@ import { analyze } from "./analyze.js"
 import type { BaziAnalysis } from "./analyze.js"
 import type { CompatSubject } from "../compat/types.js"
 
-export const BAZISHEET_SCHEMA_VERSION = "bazi-sheet" as const
+export const BAZISHEET_SCHEMA_VERSION = "bazi-sheet-v2" as const
 export const BAZISHEET_POLICY_VERSION = "bazi-sheet/2026-09" as const
 
 // ── 코드 맵(머신키) ─────────────────────────────────────────────────
@@ -65,7 +65,7 @@ const mapGroupCount = (g: GC) => ({
 type Pillar4 = "year" | "month" | "day" | "hour"
 
 export interface BaziSheet {
-  schemaVersion: "bazi-sheet"
+  schemaVersion: typeof BAZISHEET_SCHEMA_VERSION
   bazi: BaziAnalysis["bazi"]
   gender: "male" | "female"
   dayMaster: { glyph: string; element: string; yinyang: string }

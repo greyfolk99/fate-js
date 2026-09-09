@@ -13,7 +13,7 @@ import { STEM_ELEMENTS, GENERATES, CONTROLS } from "../constants.js"
 import type { Judgment } from "./judgments-types.js"
 import type { CompatEdge, CompatSubject, CompatSheet, Lens, LensGroup } from "./types.js"
 
-export const COMPATSHEET_SCHEMA_VERSION = "compat-sheet-v1"
+export const COMPATSHEET_SCHEMA_VERSION = "compat-sheet-v2"
 
 /** compat fact id → 렌즈 매핑. 관계 12종+오행보완만 렌즈를 만든다. */
 const FACT_LENS: Record<string, Lens> = {
@@ -145,7 +145,9 @@ function groupSegments(name: string, edges: CompatEdge[]): string[] {
 
 /**
  * 궁합 시트를 GLM 프롬프트용 한자 텍스트 블록으로 렌더한다.
- * 관계를 3렌즈(合/生/沖)로 묶고, 성립한 것만 노출한다(차원 고정은 구조체가 담당).
+ * 관계를 3렌즈(合/生/沖)로 묶는다. 성립사실(facts)은 성립한 것만 노출하고
+ * (차원 고정은 구조체가 담당), 등급 판단(配星·用神·調候 공급)은 生 줄에 항상
+ * 덧붙인다 — 등급은 부재도 정보라 調候 主 부재는 無 토큰으로 표기(라벨 계약).
  * 신살·납음·궁위는 【보조】로 붙인다(rationale 재료).
  *
  * includeHarm: 忌神 유입·剋用神 줄 노출 여부(기본 꺼짐). 발화율 실측(800쌍)에서
