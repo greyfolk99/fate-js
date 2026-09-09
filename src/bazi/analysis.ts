@@ -66,8 +66,8 @@ export interface StrengthFacts {
     simple: { ally: number; foe: number; byGroup: Record<StarGroup, number> }
     withHidden: { ally: number; foe: number; byGroup: Record<StarGroup, number> }
   }
-  /** 통근(通根) — 일간이 뿌리내린 기둥·지장간. */
-  rooting: { pillar: PillarName; via: { stem: Stem; kind: "비겁" | "인성" }[] }[]
+  /** 통근(通根) — 일간과 같은 오행(비겁) 지장간이 있는 기둥. 인성은 생조라 제외. */
+  rooting: { pillar: PillarName; via: { stem: Stem; kind: "비겁" }[] }[]
   /** 투출(透出) — 지장간이 천간에 드러난 것. */
   revealed: { stem: Stem; fromBranch: PillarName; atStems: PillarName[] }[]
   /** 참고 판정(점수 아님) — 다수설 휴리스틱 라벨. */
@@ -151,13 +151,14 @@ function strengthFacts(bazi: Bazi): StrengthFacts {
   }
   const deukse = { simple: tally(false), withHidden: tally(true) }
 
-  // 통근 — 일간이 뿌리내린 기둥.
+  // 통근 — 일간이 뿌리내린 기둥. 표준 정의는 지장간에 일간과 같은 오행(비겁)이
+  // 있는 것만이다. 인성은 생조(生助)이지 뿌리가 아니므로 세지 않는다 — 인성
+  // 세력은 득지·득세(byGroup)에 이미 반영되어 있다.
   const rooting: StrengthFacts["rooting"] = []
   for (const c of cs) {
-    const via: { stem: Stem; kind: "비겁" | "인성" }[] = []
+    const via: { stem: Stem; kind: "비겁" }[] = []
     for (const hs of HIDDEN_STEMS[c.branch]) {
       if (STEM_ELEMENTS[hs] === dmElement) via.push({ stem: hs, kind: "비겁" })
-      else if (GENERATES[STEM_ELEMENTS[hs]] === dmElement) via.push({ stem: hs, kind: "인성" })
     }
     if (via.length) rooting.push({ pillar: c.name, via })
   }

@@ -110,10 +110,10 @@ describe("compatSheet (궁합)", () => {
     if (!f.present) return
     const kinds = f.detail?.hyung as string[]
     const printed = formatCompatSheet(cs).match(/刑\(([^[]*)\)\[/)?.[1] ?? ""
-    // 종류 이름은 전부 나오고, 삼형계(無恩·持勢)에는 글자수 부기가 붙는다.
+    // 종류 이름은 전부 나오고, 삼형계(無恩·恃勢)에는 글자수 부기가 붙는다.
     for (const k of kinds) expect(printed).toContain(k)
     for (const k of kinds) {
-      if (k === "無恩之刑" || k === "持勢之刑") expect(printed).toMatch(new RegExp(`${k}\\((三|二)字\\)`))
+      if (k === "無恩之刑" || k === "恃勢之刑") expect(printed).toMatch(new RegExp(`${k}\\((三|二)字\\)`))
     }
   })
 

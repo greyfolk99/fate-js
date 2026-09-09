@@ -65,7 +65,7 @@ export interface HyungRule {
  */
 export const BRANCH_HYUNG: readonly HyungRule[] = [
   { branches: ["寅", "巳", "申"], kind: "samhyung", name: "무은지형(無恩之刑)" },
-  { branches: ["丑", "戌", "未"], kind: "samhyung", name: "지세지형(持勢之刑)" },
+  { branches: ["丑", "戌", "未"], kind: "samhyung", name: "시세지형(恃勢之刑)" },
   { branches: ["子", "卯"], kind: "sanghyung", name: "무례지형(無禮之刑)" },
   { branches: ["辰", "辰"], kind: "jahyung", name: "진진자형(辰辰自刑)" },
   { branches: ["午", "午"], kind: "jahyung", name: "오오자형(午午自刑)" },

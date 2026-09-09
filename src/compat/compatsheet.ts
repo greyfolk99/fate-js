@@ -180,7 +180,7 @@ export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boo
       // 다 모였는지(三字=전국)까지 — 삼합의 三字/二字 부기와 같은 패턴.
       const SAMHYUNG_GROUPS: Record<string, string[]> = {
         無恩之刑: ["寅", "巳", "申"],
-        持勢之刑: ["丑", "戌", "未"],
+        恃勢之刑: ["丑", "戌", "未"],
       }
       const kinds =
         f.id === "branch_hyung" && Array.isArray(f.detail?.hyung)

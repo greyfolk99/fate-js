@@ -249,7 +249,7 @@ function hyungHanja(name: string): string {
 
 export function hyungRule(subject: Cell[], candidate: Cell[]): CompatFact {
   const edges: CompatEdge[] = []
-  // 성립한 형의 종류(한자 코드) — 無恩之刑·持勢之刑·자형별 코드를 보존.
+  // 성립한 형의 종류(한자 코드) — 無恩之刑·恃勢之刑·자형별 코드를 보존.
   // baziSheet.ts 의 형 detail 방출 방식과 맞춘다(괄호 안 한자 코드).
   const kinds: string[] = []
   for (const s of subject) {
