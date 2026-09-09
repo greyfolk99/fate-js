@@ -248,4 +248,22 @@ describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크�
     // 用神 공급이 성립하면 用神A←B / 用神B←A 표기가 나온다(성립 시에만).
     if (ys.eokbuToSubject.present) expect(line).toContain("用神A←B")
   })
+
+  test("해로움(거울면) — 기신 유입은 희신 공급과 오행이 겹치지 않는다", () => {
+    for (const k of ["harmToSubject", "harmToCandidate"] as const) {
+      const d = ys[k].detail as { unfavorable: string[]; covered: string[]; revealed: string[]; keuk: string[] }
+      // revealed ⊆ covered ⊆ unfavorable, 그리고 기신은 희신과 서로소.
+      for (const r of d.revealed) expect(d.covered).toContain(r)
+      for (const c of d.covered) expect(d.unfavorable).toContain(c)
+      const fav = (ys[k === "harmToSubject" ? "eokbuToSubject" : "eokbuToCandidate"].detail as { favorable: string[] }).favorable
+      for (const u of d.unfavorable) expect(fav).not.toContain(u)
+      // 剋 표기는 "천간剋오행" 형식.
+      for (const s of d.keuk) expect(s).toMatch(/^[甲乙丙丁戊己庚辛壬癸]剋[木火土金水]$/)
+    }
+  })
+
+  test("生 렌즈에 忌神·剋用神 줄이 항상 찍힌다(없으면 無)", () => {
+    const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    for (const tag of ["忌神A←B", "忌神B←A", "剋用神A←B", "剋用神B←A"]) expect(line).toContain(tag)
+  })
 })

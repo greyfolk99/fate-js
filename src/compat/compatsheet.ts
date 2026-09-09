@@ -204,6 +204,19 @@ export function formatCompatSheet(sheet: CompatSheet): string {
       }
       johu(ys.johuToSubject, "調候A←B")
       johu(ys.johuToCandidate, "調候B←A")
+      // 공급의 거울(해로움 사실): 기신 유입(투/장)과 희신 극(천간 단위).
+      // 채점 규칙에는 원래 기신·극 조항이 있는데 시트에 사실이 없어 작동 못 했다.
+      const harm = (jd: Judgment, tag: string, keukTag: string) => {
+        const d = jd.detail as { unfavorable: string[]; covered: string[]; revealed: string[]; keuk: string[] }
+        parts.push(
+          d.covered.length
+            ? `${tag}(${d.covered.join("")}/${d.unfavorable.join("")}入${d.revealed.length ? `·${d.revealed.join("")}透` : "·無透"})`
+            : `${tag}(無)`,
+        )
+        parts.push(d.keuk.length ? `${keukTag}(${d.keuk.join("·")})` : `${keukTag}(無)`)
+      }
+      harm(ys.harmToSubject, "忌神A←B", "剋用神A←B")
+      harm(ys.harmToCandidate, "忌神B←A", "剋用神B←A")
     }
     lines.push(`【${LENS_NAME[g.lens]}】 ${parts.length ? parts.join(" · ") : "(없음)"}`)
   }

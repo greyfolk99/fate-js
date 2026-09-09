@@ -16,7 +16,7 @@
 import type { CompatSubject } from "./types.js"
 import type { Bazi } from "../types.js"
 import { analysisFacts } from "../bazi/analysis.js"
-import { STEM_ELEMENTS, BRANCH_ELEMENTS, HIDDEN_STEMS } from "../constants.js"
+import { STEM_ELEMENTS, BRANCH_ELEMENTS, HIDDEN_STEMS, CONTROLS } from "../constants.js"
 import type { ELEMENTS, STEMS } from "../constants.js"
 import type { Judgment } from "./judgments-types.js"
 
@@ -88,6 +88,50 @@ function johuSupplyJudgment(
   }
 }
 
+/** 공급의 거울 — 상대 원국이 내 억부 기신(忌神)을 유입시키거나 희신을 극하는가.
+ * 기신 정의 = analysis.ts yongsin.eokbu.unfavorable(억부 반대편, 滴天髓 衰旺 원리).
+ * 剋은 천간(투출 오행) 단위로만 본다 — 지장간 극은 잡음이라 사실로 안 찍는다. */
+function harmJudgment(
+  id: string, meLabel: string, partnerLabel: string, partner: Bazi,
+  unfavorable: Element[], favorable: Element[],
+): Judgment {
+  const p = partnerElements(partner)
+  const covered = unfavorable.filter((e) => p.grounded.has(e))
+  const revealed = unfavorable.filter((e) => p.visible.has(e))
+  const keuk: string[] = []
+  for (const c of [partner.year, partner.month, partner.day, partner.hour]) {
+    if (c == null) continue
+    const el = STEM_ELEMENTS[c.stem]
+    const hit = favorable.find((f) => CONTROLS[el] === f)
+    if (hit) keuk.push(`${c.stem}剋${EL_KO[hit]}`)
+  }
+  const keukUniq = [...new Set(keuk)]
+  const present = covered.length > 0 || keukUniq.length > 0
+  const unfStr = unfavorable.map((e) => EL_KO[e]).join("")
+  const covStr = covered.map((e) => EL_KO[e]).join("")
+  const revStr = revealed.map((e) => EL_KO[e]).join("")
+  return {
+    id, label: `${meLabel} 기신 유입·용신 극`, category: revealed.length > 0 ? "투출" : present ? "암장" : false,
+    present,
+    statement: present
+      ? [
+          covered.length
+            ? `${meLabel} 억부 기신 ${unfStr} 중 ${partnerLabel} 원국이 ${covStr}을(를) 유입` +
+              (revealed.length ? ` — ${revStr}은(는) 천간 투출.` : " — 투출 없음(지지·본기).")
+            : "",
+          keukUniq.length ? `${partnerLabel} 천간이 ${meLabel} 희신을 극: ${keukUniq.join("·")}.` : "",
+        ].filter(Boolean).join(" ")
+      : `${partnerLabel} 원국은 ${meLabel} 기신 ${unfStr}을(를) 유입시키지 않고 희신을 극하지도 않음.`,
+    source: "억부용신 공급(거울면)",
+    detail: {
+      unfavorable: unfavorable.map((e) => EL_KO[e]),
+      covered: covered.map((e) => EL_KO[e]),
+      revealed: revealed.map((e) => EL_KO[e]),
+      keuk: keukUniq,
+    },
+  }
+}
+
 export interface YongsinSupply {
   /** 후보 원국이 주체 억부용신을 공급하는가(커버·투출). */
   eokbuToSubject: Judgment
@@ -97,6 +141,10 @@ export interface YongsinSupply {
   johuToSubject: Judgment
   /** 주체가 후보 조후용신을 공급하는가. */
   johuToCandidate: Judgment
+  /** 후보가 주체 기신을 유입시키거나 주체 희신을 극하는가(공급의 거울). */
+  harmToSubject: Judgment
+  /** 주체가 후보 기신을 유입시키거나 후보 희신을 극하는가. */
+  harmToCandidate: Judgment
 }
 
 export function yongsinSupply(subject: CompatSubject, candidate: CompatSubject): YongsinSupply {
@@ -107,5 +155,11 @@ export function yongsinSupply(subject: CompatSubject, candidate: CompatSubject):
     eokbuToCandidate: eokbuSupplyJudgment("yongsin_eokbu_candidate", "후보", "주체", subject.bazi, b.eokbu.favorable),
     johuToSubject: johuSupplyJudgment("johu_subject", "주체", "후보", candidate.bazi, a.johu.main, a.johu.sub),
     johuToCandidate: johuSupplyJudgment("johu_candidate", "후보", "주체", subject.bazi, b.johu.main, b.johu.sub),
+    harmToSubject: harmJudgment(
+      "yongsin_harm_subject", "주체", "후보", candidate.bazi, a.eokbu.unfavorable, a.eokbu.favorable,
+    ),
+    harmToCandidate: harmJudgment(
+      "yongsin_harm_candidate", "후보", "주체", subject.bazi, b.eokbu.unfavorable, b.eokbu.favorable,
+    ),
   }
 }
