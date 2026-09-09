@@ -151,8 +151,11 @@ function groupSegments(name: string, edges: CompatEdge[]): string[] {
  * includeHarm: 忌神 유입·剋用神 줄 노출 여부(기본 꺼짐). 발화율 실측(800쌍)에서
  * 기신 투출 99%·剋 99%로 "서로 기신을 대줌" 앵커가 상수화되어 v2.1 보완 일관성이
  * 91→65%로 붕괴했다. 상대량 규칙을 가진 전용 프롬프트에서만 켤 것.
+ *
+ * includeWangswe: 【沖旺衰】 줄(六沖별 왕쇠·뽑히는 쪽) 노출 여부(기본 꺼짐).
+ * 온도 방향 분리(temp_A/B) 재료 — 읽는 규칙을 가진 프롬프트에서만 켤 것.
  */
-export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boolean }): string {
+export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boolean; includeWangswe?: boolean }): string {
   const lines: string[] = []
   for (const g of sheet.lenses) {
     const active = g.facts.filter((f) => f.present)
@@ -257,6 +260,12 @@ export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boo
   }
 
   const j = sheet.judgments
+  // 충 왕쇠 줄 — 기본 꺼짐(위 includeWangswe 주석). 六沖 줄 토큰은 그대로 두고
+  // 별도 줄로만 덧붙인다(기존 앵커가 읽는 토큰 보존 원칙).
+  if (opts?.includeWangswe && j.chungWangswe.present) {
+    const entries = (j.chungWangswe.detail?.entries ?? []) as string[]
+    lines.push(`【沖旺衰】 ${entries.join(" · ")}`)
+  }
   const aux: string[] = []
   if (j.nayin.outerReading.present) {
     const cat = String(j.nayin.outerReading.category)

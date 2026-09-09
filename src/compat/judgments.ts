@@ -609,7 +609,63 @@ export function judgeCompat(
     palace,
     hapChungOverlap: buildHapChungOverlap(facts),
     jaenghap: buildJaenghap(facts),
+    chungWangswe: buildChungWangswe(subject, candidate, facts),
     cross: crossJudgments(sb, cb),
+  }
+}
+
+// ── 충 왕쇠(旺者沖衰) ────────────────────────────────────────────────
+
+/** 왕상휴수사(旺相休囚死) 서열 — 인덱스가 클수록 왕. */
+const WANGSWE_ORDER = ["死", "囚", "休", "相", "旺"] as const
+type WangsweGrade = (typeof WANGSWE_ORDER)[number]
+
+/** 오행의 월령(계절 오행) 기준 왕상휴수사 — 고전표(당령=旺, 令生=相, 生令=休, 剋令=囚, 令剋=死). */
+function wangsweGrade(el: (typeof ELEMENTS)[number], seasonEl: (typeof ELEMENTS)[number]): WangsweGrade {
+  if (el === seasonEl) return "旺"
+  if (GENERATES[seasonEl] === el) return "相"
+  if (GENERATES[el] === seasonEl) return "休"
+  if (CONTROLS[el] === seasonEl) return "囚"
+  return "死"
+}
+
+/**
+ * 두 원국 사이 六沖 각각의 왕쇠 비대칭 — 적천수 "旺者沖衰衰者拔 衰神沖旺旺神發".
+ * 각 글자의 왕쇠는 자기 원국 월령 기준 왕상휴수사(고전표)로 재고, 등급이 낮은
+ * 쪽이 뽑히는(拔) 쪽이다. 동급이면 相持(대등).
+ *
+ * ⚠️ 원전의 충 왕쇠론은 단일 원국·대운/세운 충 맥락 — 쌍반(두 원국 사이) 충에의
+ * 적용은 외래 글자 충과의 동형 유추 확장이다(source 에 명시).
+ */
+function buildChungWangswe(
+  subject: CompatSubject,
+  candidate: CompatSubject,
+  facts: import("./types.js").CompatFact[],
+): Judgment {
+  const clash = facts.find((f) => f.id === "branch_clash")
+  const seasonA = BRANCH_ELEMENTS[subject.bazi.month.branch]
+  const seasonB = BRANCH_ELEMENTS[candidate.bazi.month.branch]
+  const PILLAR_HANJA: Record<PillarName, string> = { year: "年", month: "月", day: "日", hour: "時" }
+  // 토큰 문자열로 평탄화(detail 타입 제약: string[]) — "A時丑(休)-B時未(旺)→A拔".
+  const entries = (clash?.edges ?? []).map((e) => {
+    const gA = wangsweGrade(BRANCH_ELEMENTS[e.subject.glyph as keyof typeof BRANCH_ELEMENTS], seasonA)
+    const gB = wangsweGrade(BRANCH_ELEMENTS[e.object.glyph as keyof typeof BRANCH_ELEMENTS], seasonB)
+    const ra = WANGSWE_ORDER.indexOf(gA)
+    const rb = WANGSWE_ORDER.indexOf(gB)
+    const verdict: "A拔" | "B拔" | "相持" = ra === rb ? "相持" : ra < rb ? "A拔" : "B拔"
+    return `A${PILLAR_HANJA[e.subject.pillar]}${e.subject.glyph}(${gA})-B${PILLAR_HANJA[e.object.pillar]}${e.object.glyph}(${gB})→${verdict}`
+  })
+  const present = entries.length > 0
+  return {
+    id: "chung_wangswe",
+    label: "충 왕쇠(旺者沖衰)",
+    category: present,
+    present,
+    statement: present
+      ? `六沖 ${entries.length}처의 왕쇠(월령 왕상휴수 기준): ${entries.join(", ")}.`
+      : "六沖 없음 — 왕쇠 판정 대상 없음.",
+    source: "적천수(旺者沖衰衰者拔) — 왕쇠=월령 왕상휴수 고전표; 쌍반 충 적용은 대운·세운 충 유추(원전 직접 아님)",
+    detail: { entries },
   }
 }
 

@@ -345,3 +345,36 @@ describe("쟁합·투합(jaenghap) — 같은 종류 합 다중 성립(사실만
     expect(txt.includes("【쟁합】")).toBe(cs.judgments.jaenghap.present)
   })
 })
+
+describe("충 왕쇠(chungWangswe) — 旺者沖衰 방향(사실만)", () => {
+  const cs = compatSheet(A, B)
+  const j = cs.judgments.chungWangswe
+  const entries = (j.detail?.entries as string[]) ?? []
+
+  test("六沖 엣지 수와 판정 수가 일치하고 토큰 문법을 지킨다", () => {
+    const clash = cs.facts.find((f) => f.id === "branch_clash")!
+    expect(entries.length).toBe(clash.edges.length)
+    expect(entries.length).toBeGreaterThan(0) // 픽스처에 六沖 1처 보장
+    expect(j.present).toBe(true)
+    for (const t of entries)
+      expect(t).toMatch(/^A[年月日時].\((旺|相|休|囚|死)\)-B[年月日時].\((旺|相|休|囚|死)\)→(A拔|B拔|相持)$/)
+  })
+
+  test("뽑히는 쪽(拔)은 왕상휴수 서열이 낮은 쪽 — 토큰과 판정 일치", () => {
+    const ORDER = ["死", "囚", "休", "相", "旺"]
+    for (const t of entries) {
+      const m = t.match(/\((.)\).*\((.)\)→(A拔|B拔|相持)$/)!
+      const ra = ORDER.indexOf(m[1]!)
+      const rb = ORDER.indexOf(m[2]!)
+      expect(m[3]).toBe(ra === rb ? "相持" : ra < rb ? "A拔" : "B拔")
+    }
+  })
+
+  test("【沖旺衰】 줄은 기본 꺼짐, includeWangswe 옵션에서만 찍힌다", () => {
+    expect(formatCompatSheet(cs).includes("【沖旺衰】")).toBe(false)
+    expect(formatCompatSheet(cs, { includeWangswe: true }).includes("【沖旺衰】")).toBe(true)
+    // 기존 六沖 토큰은 그대로 보존(앵커 토큰 보존 원칙).
+    const on = formatCompatSheet(cs, { includeWangswe: true })
+    expect(on).toMatch(/六沖\[A[年月日時].-B[年月日時].\]/)
+  })
+})

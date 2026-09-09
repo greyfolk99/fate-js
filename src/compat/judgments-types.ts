@@ -109,6 +109,8 @@ export interface CompatJudgments {
   hapChungOverlap: Judgment
   /** 쟁합·투합 — 한 글자가 같은 종류 합을 상대 여러 글자와 동시에 맺음(사실만). */
   jaenghap: Judgment
+  /** 충 왕쇠 — 六沖 각각의 월령 왕상휴수 비교(旺者沖衰, 뽑히는 쪽 판정). */
+  chungWangswe: Judgment
   /** 교차 판단 — 배우자궁 십이운성·공망·일주대조·십이신살 교차. */
   cross: import("./crosses.js").CompatCrosses
   /** 용신 공급 — 상대가 내 억부용신·조후용신 오행을 원국으로 공급하는가. */
