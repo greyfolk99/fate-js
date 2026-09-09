@@ -608,7 +608,47 @@ export function judgeCompat(
     },
     palace,
     hapChungOverlap: buildHapChungOverlap(facts),
+    jaenghap: buildJaenghap(facts),
     cross: crossJudgments(sb, cb),
+  }
+}
+
+/**
+ * 쟁합(爭合)·투합(妒合) — 한 글자가 같은 종류의 합(天干合·六合)을 상대의
+ * 여러 글자와 동시에 맺은 사실. 합의 힘이 갈라진다는 논거는 자평진전
+ * (二者爭合·妒合則合而不專)이나, 여기서는 판정 없이 사실만 남긴다.
+ * 삼합·방합은 본질이 다자 결합이라 제외, 암합은 장간 급이라 논외.
+ */
+function buildJaenghap(facts: import("./types.js").CompatFact[]): Judgment {
+  const KINDS = new Set(["stem_hap", "branch_yukhap"])
+  const seen = new Map<string, { who: string; pillar: PillarName; glyph: string; label: string; n: number }>()
+  for (const f of facts) {
+    if (!f.present || !KINDS.has(f.id)) continue
+    const name = f.label.match(/\(([^)]+)\)/)?.[1] ?? f.label
+    for (const e of f.edges) {
+      for (const [who, end] of [["A", e.subject], ["B", e.object]] as const) {
+        const key = `${who}:${end.pillar}:${end.glyph}:${name}`
+        const cur = seen.get(key) ?? { who, pillar: end.pillar, glyph: end.glyph, label: name, n: 0 }
+        cur.n++
+        seen.set(key, cur)
+      }
+    }
+  }
+  const contested = [...seen.values()].filter((c) => c.n >= 2)
+  const present = contested.length > 0
+  const PILLAR_HANJA: Record<PillarName, string> = { year: "年", month: "月", day: "日", hour: "時" }
+  const describe = (c: (typeof contested)[number]) =>
+    `${c.who}${PILLAR_HANJA[c.pillar]}${c.glyph}(${c.label}×${c.n})`
+  return {
+    id: "jaenghap",
+    label: "쟁합·투합",
+    category: present,
+    present,
+    statement: present
+      ? `같은 글자가 같은 종류 합을 여럿 맺음: ${contested.map(describe).join(", ")}.`
+      : "쟁합·투합 없음.",
+    source: "자평진전(爭合·妒合)",
+    detail: { cells: contested.map(describe) },
   }
 }
 

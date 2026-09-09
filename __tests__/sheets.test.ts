@@ -105,11 +105,16 @@ describe("compatSheet (궁합)", () => {
     }
   })
 
-  test("형은 성립한 형 종류(한자 코드)를 부기한다", () => {
+  test("형은 성립한 형 종류(한자 코드)를 부기한다 — 삼형계는 三字/二字까지", () => {
     const f = cs.facts.find((x) => x.id === "branch_hyung")!
     if (!f.present) return
     const kinds = f.detail?.hyung as string[]
-    expect(formatCompatSheet(cs)).toContain(`刑(${kinds.join("·")})[`)
+    const printed = formatCompatSheet(cs).match(/刑\(([^[]*)\)\[/)?.[1] ?? ""
+    // 종류 이름은 전부 나오고, 삼형계(無恩·持勢)에는 글자수 부기가 붙는다.
+    for (const k of kinds) expect(printed).toContain(k)
+    for (const k of kinds) {
+      if (k === "無恩之刑" || k === "持勢之刑") expect(printed).toMatch(new RegExp(`${k}\\((三|二)字\\)`))
+    }
   })
 
   test("【교차】에 일간 생극비(相生·相剋·比和) 사실이 찍힌다", () => {
@@ -292,5 +297,46 @@ describe("배우자성(配星) 등급 사실 — 유무가 아니라 투/장·�
     const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
     expect(line).toMatch(/配星A←B\((無|[^)]*正\d+偏\d+[^)]*)\)/)
     expect(line).toMatch(/配星B←A\((無|[^)]*正\d+偏\d+[^)]*)\)/)
+  })
+
+  test("調候 표기 — 主 투/장에 더해 次佐(佐)가 유실되지 않는다", () => {
+    const ys = cs.judgments.yongsinSupply
+    const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    for (const [jd, tag] of [[ys.johuToSubject, "調候A←B"], [ys.johuToCandidate, "調候B←A"]] as const) {
+      const d = jd.detail as { mainRevealed: string[]; mainHidden: string[]; subHit: string[] }
+      // 主가 없어도 次佐가 있으면 (無)가 아니라 佐 표기가 나와야 한다.
+      if (!jd.present && d.subHit.length) {
+        expect(line).toContain(`${tag}(佐${d.subHit.join("")})`)
+      }
+      if (!jd.present && !d.subHit.length) expect(line).toContain(`${tag}(無)`)
+    }
+  })
+})
+
+describe("쟁합·투합(jaenghap) — 같은 종류 합 다중 성립(사실만)", () => {
+  const cs = compatSheet(A, B)
+
+  test("쟁합 판정은 렌즈 엣지 집계와 일치한다", () => {
+    const counts = new Map<string, number>()
+    for (const f of cs.facts) {
+      if (!f.present || !["stem_hap", "branch_yukhap"].includes(f.id)) continue
+      const name = f.label.match(/\(([^)]+)\)/)?.[1] ?? f.label
+      for (const e of f.edges) {
+        for (const [who, end] of [["A", e.subject], ["B", e.object]] as const) {
+          const k = `${who}:${end.pillar}:${end.glyph}:${name}`
+          counts.set(k, (counts.get(k) ?? 0) + 1)
+        }
+      }
+    }
+    const expected = [...counts.values()].filter((n) => n >= 2).length
+    const cells = (cs.judgments.jaenghap.detail?.cells as string[]) ?? []
+    expect(cells.length).toBe(expected)
+    expect(cs.judgments.jaenghap.present).toBe(expected > 0)
+    for (const c of cells) expect(c).toMatch(/^[AB][年月日時].\(.+×\d+\)$/)
+  })
+
+  test("쟁합 성립 시 【쟁합】 줄이 찍힌다", () => {
+    const txt = formatCompatSheet(cs)
+    expect(txt.includes("【쟁합】")).toBe(cs.judgments.jaenghap.present)
   })
 })

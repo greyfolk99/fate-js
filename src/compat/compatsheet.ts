@@ -169,10 +169,22 @@ export function formatCompatSheet(sheet: CompatSheet): string {
       if (f.id === "branch_samhap" || f.id === "branch_banghap") {
         return groupSegments(name, f.edges)
       }
-      // 형은 성립한 형 종류(한자 코드)를 부기.
+      // 형은 성립한 형 종류(한자 코드)를 부기. 삼형계(寅巳申·丑戌未)는 세 글자가
+      // 다 모였는지(三字=전국)까지 — 삼합의 三字/二字 부기와 같은 패턴.
+      const SAMHYUNG_GROUPS: Record<string, string[]> = {
+        無恩之刑: ["寅", "巳", "申"],
+        持勢之刑: ["丑", "戌", "未"],
+      }
       const kinds =
         f.id === "branch_hyung" && Array.isArray(f.detail?.hyung)
-          ? `(${(f.detail.hyung as string[]).join("·")})`
+          ? `(${(f.detail.hyung as string[]).map((k) => {
+              const group = SAMHYUNG_GROUPS[k]
+              if (!group) return k
+              const glyphs = new Set(
+                f.edges.flatMap((e) => [e.subject.glyph, e.object.glyph]).filter((g) => group.includes(g)),
+              )
+              return `${k}(${glyphs.size >= 3 ? "三字" : "二字"})`
+            }).join("·")})`
           : ""
       // 합·충 관계는 성립 엣지의 궁위를 그대로 찍는다 — 어느 기둥 글자끼리인지가
       // 판정 재료라서(쌍 개수는 여전히 강도가 아니라 위치 사실의 나열).
@@ -208,13 +220,15 @@ export function formatCompatSheet(sheet: CompatSheet): string {
       eokbu(ys.eokbuToSubject, "用神A←B")
       eokbu(ys.eokbuToCandidate, "用神B←A")
       const johu = (jd: Judgment, tag: string) => {
-        if (!jd.present) { parts.push(`${tag}(無)`); return }
-        const d = jd.detail as { mainRevealed: string[]; mainHidden: string[] }
+        // 主用神 투/장에 더해 次佐(보조 용신)도 찍는다 — 主 없이 佐만 있는 경우를
+        // (無)로 뭉개면 계산된 사실이 유실된다.
+        const d = jd.detail as { mainRevealed: string[]; mainHidden: string[]; subHit?: string[] }
         const seg = [
           d.mainRevealed.length ? `${d.mainRevealed.join("")}透` : "",
           d.mainHidden.length ? `${d.mainHidden.join("")}藏` : "",
+          d.subHit?.length ? `佐${d.subHit.join("")}` : "",
         ].filter(Boolean).join("·")
-        parts.push(`${tag}(${seg})`)
+        parts.push(`${tag}(${seg || "無"})`)
       }
       johu(ys.johuToSubject, "調候A←B")
       johu(ys.johuToCandidate, "調候B←A")
@@ -283,6 +297,13 @@ export function formatCompatSheet(sheet: CompatSheet): string {
   if (ov.present) {
     const cells = (ov.detail?.cells as string[]) ?? []
     lines.push(`【병존】 ${cells.join(" · ")}`)
+  }
+
+  // 쟁합·투합 — 한 글자가 같은 종류 합을 여럿 맺어 힘이 갈라지는 사실.
+  const jh = j.jaenghap
+  if (jh.present) {
+    const cells = (jh.detail?.cells as string[]) ?? []
+    lines.push(`【쟁합】 ${cells.join(" · ")}`)
   }
 
   return lines.join("\n")
