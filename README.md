@@ -1,80 +1,82 @@
 # fate-js
 
-생년월일시로 사주팔자(四柱) — 천간·지지 4주(년·월·일·시) — 를 계산하는 TypeScript 라이브러리. npm 패키지명은 `fate-js`.
+[English](./README.md) · [한국어](./README.ko.md) · [简体中文](./README.zh-CN.md) · [日本語](./README.ja.md)
 
-- 24절기(입춘 등)를 기준으로 월주 경계를 계산
-- 시(時)를 모르면 삼주(년·월·일)만 계산
-- 연도 범위 × 시주 전체를 `TypedArray`로 한 번에 계산 (`catalog`) — 대량 연산용
-- 순수 TypeScript, 런타임 의존성 없음 — 브라우저·Node·React Native 어디서나 동작
+A TypeScript library that computes the Four Pillars of Destiny (BaZi, 四柱八字) — the year, month, day, and hour stem-branch pairs — from a birth date and time. Published as `fate-js`.
 
-## 설치
+- Month pillar boundaries follow the 24 solar terms (立春 Start of Spring, etc.)
+- Computes three pillars (year · month · day) when the birth hour is unknown
+- Bulk computation of full year ranges × all hour branches into `TypedArray`s (`catalog`)
+- Pure TypeScript with zero runtime dependencies — runs in browsers, Node, and React Native
+
+## Install
 
 ```bash
-# GitHub 직접 설치
+# install directly from GitHub
 npm install github:greyfolk99/fate-js
-# 또는 pnpm
+# or with pnpm
 pnpm add github:greyfolk99/fate-js
 ```
 
-## 사용
+## Usage
 
-### 단건 — `bazi()`
+### Single chart — `bazi()`
 
-`utcOffsetMinutes`(동경 +, KST=540)는 필수다 — 절기(월·연주)를 절대시각(UTC)으로 맞추기 위해 암묵 타임존을 두지 않는다.
+`utcOffsetMinutes` (east positive, KST = 540) is required — solar terms are anchored in absolute time (UTC), so the library never assumes an implicit timezone.
 
 ```ts
 import { bazi } from "fate-js"
 
-const c = bazi({ year: 1992, month: 8, day: 4, hour: 3, utcOffsetMinutes: 540, timeBasis: "standard" })
-// { year: {stem:'壬',branch:'申'}, month: {stem:'丁',branch:'未'},
-//   day: {stem:'壬',branch:'子'}, hour: {stem:'壬',branch:'寅'} }
+const c = bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, utcOffsetMinutes: 540, timeBasis: "standard" })
+// { year: {stem:'庚',branch:'午'}, month: {stem:'辛',branch:'巳'},
+//   day: {stem:'庚',branch:'辰'}, hour: {stem:'辛',branch:'巳'} }
 
-// 시간 미상이면 hour 생략 → 시주 null (삼주)
-bazi({ year: 1992, month: 8, day: 4, utcOffsetMinutes: 540 })
+// unknown birth hour: omit hour → hour pillar is null (three pillars)
+bazi({ year: 1990, month: 5, day: 15, utcOffsetMinutes: 540 })
 ```
 
-기본은 진태양시(경도+균시차) 보정이 켜져 있다(시주에만 적용). 위처럼 `timeBasis: "standard"`면 표준시로 계산한다.
+True solar time correction (longitude + equation of time) is on by default and applies to the hour pillar only. Pass `timeBasis: "standard"` as above to use standard clock time.
 
-### 시트 — `baziSheet()` · `compatSheet()`
+### Sheets — `baziSheet()` · `compatSheet()`
 
-사실 기반 시트: `baziSheet(subject)`는 한 사람의 **원국+분석**(강약·용신·오행/십성 분포·격국·공망·신살), `compatSheet(a, b)`는 두 사람의 **궁합**(관계 12종을 合/生/沖 3렌즈로) 을 점수 없이 정형 추출한다.
+Fact-based sheets: `baziSheet(subject)` extracts one person's natal chart plus analysis (strength, favorable elements, five-element / ten-god distribution, chart structure, void branches, symbolic stars); `compatSheet(a, b)` extracts two people's compatibility (12 relation kinds viewed through the three lenses 合 / 生 / 沖) — structured facts, no scores.
 
 ```ts
 import { bazi, baziSheet, compatSheet, formatBaziSheet, formatCompatSheet } from "fate-js"
 
-const a = { bazi: bazi({ year: 1992, month: 8, day: 4, hour: 1, minute: 55, utcOffsetMinutes: 540, gender: "male" }), gender: "male" }
-const b = { bazi: bazi({ year: 1994, month: 3, day: 15, hour: 14, minute: 20, utcOffsetMinutes: 540, gender: "female" }), gender: "female" }
+const a = { bazi: bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, utcOffsetMinutes: 540, gender: "male" }), gender: "male" }
+const b = { bazi: bazi({ year: 1992, month: 11, day: 2, hour: 14, minute: 20, utcOffsetMinutes: 540, gender: "female" }), gender: "female" }
 
-formatBaziSheet(baziSheet(a), "대상A") // 한자 한 줄 요약
-formatCompatSheet(compatSheet(a, b))  // 3렌즈 한자 텍스트 블록
+formatBaziSheet(baziSheet(a), "A")   // one-line hanzi summary
+formatCompatSheet(compatSheet(a, b)) // 3-lens hanzi text block
 ```
 
-### 대량 — `catalog()`
+### Bulk — `catalog()`
 
-연도 범위 × 시간대 조합의 팔자를 `TypedArray`로 반환한다 (궁합·통계 등 대량 연산용).
+Returns the pillars for a year range × hour-branch combinations as `TypedArray`s (for compatibility scans, statistics, and other bulk workloads).
 
 ```ts
 import { catalog } from "fate-js"
 
-const cat = catalog(1990, 2000, 540)     // 1990~2000년, KST, 12시주 전체
-cat.stems      // Int8Array [N*4]  (year/month/day/hour 순, row-major)
+const cat = catalog(1990, 2000, 540) // 1990–2000, KST, all 12 hour branches
+cat.stems      // Int8Array [N*4]  (year/month/day/hour, row-major)
 cat.branches   // Int8Array [N*4]
 cat.years      // Int16Array [N]
 ```
 
 ## API
 
-| export | 설명 |
+| export | description |
 |---|---|
-| `bazi(input: BirthInput): Bazi` | 생년월일시 → 사주 4주 (`utcOffsetMinutes` 필수) |
-| `baziSheet(subject): BaziSheet` | 한 사람 원국+분석 시트 (팩트 기반, 점수 없음) |
-| `compatSheet(a, b): CompatSheet` | 두 사람 궁합 시트 (관계 12종 → 3렌즈 合/生/沖) |
-| `analyze(subject): BaziAnalysis` | 원국 분석 (강약·격국·용신·신살) |
-| `catalog(yearStart, yearEnd, utcOffsetMinutes, hours?): CatalogResult` | 연도 범위 → 팔자 행렬(TypedArray) |
-| `formatBaziSheet` · `formatCompatSheet` | 시트 → GLM/UI용 한자 텍스트 |
-| `STEMS`, `BRANCHES` | 천간·지지 상수 배열 |
-| 타입 | `BirthInput`, `Bazi`, `BaziSheet`, `CompatSheet`, `Pillar`, `CatalogResult`, `Stem`, `Branch` |
+| `bazi(input: BirthInput): Bazi` | birth date/time → four pillars (`utcOffsetMinutes` required) |
+| `baziSheet(subject): BaziSheet` | one person's natal chart + analysis sheet (facts, no scores) |
+| `compatSheet(a, b): CompatSheet` | two-person compatibility sheet (12 relations → 3 lenses 合/生/沖) |
+| `analyze(subject): BaziAnalysis` | natal analysis (strength · structure · favorable elements · stars) |
+| `catalog(yearStart, yearEnd, utcOffsetMinutes, hours?): CatalogResult` | year range → pillar matrices (`TypedArray`) |
+| `formatBaziSheet` · `formatCompatSheet` | sheet → hanzi text for LLM prompts / UI |
+| `STEMS`, `BRANCHES` | stem / branch constant arrays |
+| types | `BirthInput`, `Bazi`, `BaziSheet`, `CompatSheet`, `Pillar`, `CatalogResult`, `Stem`, `Branch` |
 
-## 라이선스
+## License
 
 MIT

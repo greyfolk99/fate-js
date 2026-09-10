@@ -1,11 +1,8 @@
 /**
  * known-good fixtures cross-validation
  *
- * ground_truth_1800_2200.npz 에서 추출한 500개 샘플과
+ * 외부 만세력 기준값에서 추출한 500개 샘플(1800~2200년)과
  * bazi() 계산 결과를 비교한다.
- *
- * 샘플 재생성:
- *   python3 scripts/gen_ground_truth_samples.py
  */
 import { describe, test, expect } from "vitest"
 import samples from "./fixtures/ground_truth_samples.json"
