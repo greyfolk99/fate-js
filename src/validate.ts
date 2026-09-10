@@ -42,8 +42,9 @@ export function assertValidDate(year: number, month: number, day: number): void 
 
 /**
  * 검증 대상 입력의 최소 형태(BirthInput 부분집합).
- * utcOffsetMinutes는 BirthInput에선 필수지만 여기선 optional — 누락 검증(아래 throw)을
- * 위해 "아직 완전하지 않은 입력"도 타입 캐스팅 없이 이 함수에 넣을 수 있어야 한다.
+ * 타임존 지정(timezone/utcOffsetMinutes)은 BirthInput에선 XOR 필수지만 여기선 둘 다
+ * optional — 누락 검증(아래 throw)을 위해 "아직 완전하지 않은 입력"도 타입 캐스팅 없이
+ * 이 함수에 넣을 수 있어야 한다.
  */
 export interface ValidatableBirthInput {
   year: number
@@ -54,6 +55,7 @@ export interface ValidatableBirthInput {
   longitude?: number
   timeBasis?: string
   utcOffsetMinutes?: number
+  timezone?: string
 }
 
 /**
@@ -81,16 +83,25 @@ export function assertValidBirthInput(input: ValidatableBirthInput): void {
     throw new RangeError(`timeBasis는 "standard" 또는 "solar"여야 합니다: ${String(input.timeBasis)}`)
   }
 
-  // utcOffsetMinutes는 필수 — 암묵적 타임존 기본값 금지(implicit-timezone 버그류 차단).
+  // 타임존 지정은 timezone(IANA) 또는 utcOffsetMinutes 중 **최소 하나** — 암묵 기본값 금지.
+  // 둘 다 주면 utcOffsetMinutes 우선(수동 명시 > 자동 해석 — bazi()에서 적용).
   // 날짜·hour·minute·longitude·timeBasis 검증 뒤에 두어, 기존 invalid-date/hour 테스트가
   // 각자의 이유로 먼저 throw 하도록 한다.
-  if (input.utcOffsetMinutes === undefined) {
+  const hasOffset = input.utcOffsetMinutes !== undefined
+  const hasTimezone = input.timezone !== undefined
+  if (!hasOffset && !hasTimezone) {
     throw new Error(
-      "utcOffsetMinutes는 필수입니다 — 이 사주의 타임존(UTC 오프셋, 분, DST·역사변경 포함)을 명시하세요. KST 등 암묵 가정 금지.",
+      "timezone(IANA, 예: 'Asia/Seoul') 또는 utcOffsetMinutes(분, DST·역사변경 포함) 중 하나는 필수입니다. KST 등 암묵 가정 금지.",
     )
   }
-  assertFiniteInt(input.utcOffsetMinutes, "utcOffsetMinutes")
-  if (input.utcOffsetMinutes < -720 || input.utcOffsetMinutes > 840) {
-    throw new RangeError(`utcOffsetMinutes는 −720~840 사이여야 합니다: ${input.utcOffsetMinutes}`)
+  if (hasTimezone && !hasOffset && (typeof input.timezone !== "string" || input.timezone.length === 0)) {
+    throw new RangeError(`timezone은 비어있지 않은 IANA 문자열이어야 합니다: ${String(input.timezone)}`)
+  }
+  const off = input.utcOffsetMinutes
+  if (off !== undefined) {
+    assertFiniteInt(off, "utcOffsetMinutes")
+    if (off < -720 || off > 840) {
+      throw new RangeError(`utcOffsetMinutes는 −720~840 사이여야 합니다: ${off}`)
+    }
   }
 }

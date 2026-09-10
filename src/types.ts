@@ -51,7 +51,8 @@ export interface CatalogResult {
   branches: Int8Array
 }
 
-export interface BirthInput {
+/** 출생 입력의 공통부. */
+interface BirthInputBase {
   year: number
   month: number
   day: number
@@ -68,10 +69,22 @@ export interface BirthInput {
   /** 출생지 경도(동경 양수). 미지정이면 전역 기본값(getSolarConfig().defaultLongitude). 진태양시(시주) 보정용. */
   longitude?: number
   /**
-   * 출생 시각의 UTC 오프셋(분, 동쪽 +). 절기(월·연주)용 절대순간 변환에 쓴다. **필수**.
-   * **DST·역사적 표준시 변경을 여기에 반영한다**(예: 한국 1954–61은 +510, 1987 여름 DST는 +600).
-   * 암묵적 기본값(KST 등)은 없다 — 모든 호출자가 이 사주의 타임존을 명시해야 한다.
-   * (시간 미상이어도 연·월주 절기 판정에 절대순간이 필요하므로 필수.)
+   * IANA 타임존 이름(예: 'Asia/Seoul'). **권장 입력** — 오프셋을 플랫폼 tzdata로 자동 해석한다
+   * (DST·역사 표준시 포함: 서울 1954~61 +8:30, 1987~88 서머타임 등).
    */
-  utcOffsetMinutes: number
+  timezone?: string
+  /**
+   * UTC 오프셋(분, 동쪽 +) 수동 지정(예: KST=540). DST·역사 변경을 호출자가 직접 반영해야 한다.
+   * **timezone과 같이 주면 이 값이 우선한다**(수동 명시가 자동 해석을 오버라이드).
+   */
+  utcOffsetMinutes?: number
 }
+
+/**
+ * 출생 입력. `timezone`(IANA, 권장) 또는 `utcOffsetMinutes` 중 **최소 하나**는 필수
+ * (절기 판정에 절대순간이 필요 — 암묵 기본값 없음). 둘 다 주면 utcOffsetMinutes 우선.
+ */
+export type BirthInput = BirthInputBase & (
+  | { utcOffsetMinutes: number }
+  | { timezone: string }
+)

@@ -5,6 +5,7 @@
 根据出生日期时间排出四柱八字(年·月·日·时的天干地支)的 TypeScript 库。npm 包名为 `fate-js`。
 
 - 月柱边界按二十四节气(立春等)计算
+- 支持 IANA 时区 — 传入 `timezone: "Asia/Seoul"` 即自动解析 UTC 偏移(含夏令时·历史标准时变更:首尔 1954~61 为 +8:30,1987~88 有夏令时)
 - 不知出生时辰时,只排三柱(年·月·日)
 - 可将整段年份范围 × 全部时辰一次性计算为 `TypedArray`(`catalog`)— 适合批量运算
 - 纯 TypeScript,零运行时依赖 — 浏览器、Node、React Native 均可运行
@@ -22,17 +23,20 @@ pnpm add github:greyfolk99/fate-js
 
 ### 单个命盘 — `bazi()`
 
-`utcOffsetMinutes`(东经为正,KST=540)为必填 — 节气按绝对时间(UTC)对齐,库不假设任何隐式时区。
+`timezone`(IANA 名称,推荐)或 `utcOffsetMinutes`(东经为正,KST=540)至少必填其一 — 节气按绝对时间(UTC)对齐,库不假设任何隐式时区。传入 `timezone` 时,偏移由平台 tz 数据自动解析(含夏令时·历史标准时)。两者都传时以 `utcOffsetMinutes` 为准(手动覆盖)。
 
 ```ts
 import { bazi } from "fate-js"
 
-const c = bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, utcOffsetMinutes: 540, timeBasis: "standard" })
+const c = bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, timezone: "Asia/Seoul", timeBasis: "standard" })
 // { year: {stem:'庚',branch:'午'}, month: {stem:'辛',branch:'巳'},
 //   day: {stem:'庚',branch:'辰'}, hour: {stem:'辛',branch:'巳'} }
 
+// 手动控制偏移(非标准时区·分钟级精度):
+bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, utcOffsetMinutes: 540, timeBasis: "standard" })
+
 // 时辰不明时省略 hour → 时柱为 null(三柱)
-bazi({ year: 1990, month: 5, day: 15, utcOffsetMinutes: 540 })
+bazi({ year: 1990, month: 5, day: 15, timezone: "Asia/Seoul" })
 ```
 
 默认启用真太阳时校正(经度+均时差),且仅作用于时柱。如上传入 `timeBasis: "standard"` 则按标准时间计算。
@@ -44,8 +48,8 @@ bazi({ year: 1990, month: 5, day: 15, utcOffsetMinutes: 540 })
 ```ts
 import { bazi, baziSheet, matchSheet, formatBaziSheet, formatMatchSheet } from "fate-js"
 
-const a = { bazi: bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, utcOffsetMinutes: 540, gender: "male" }), gender: "male" }
-const b = { bazi: bazi({ year: 1992, month: 11, day: 2, hour: 14, minute: 20, utcOffsetMinutes: 540, gender: "female" }), gender: "female" }
+const a = { bazi: bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, timezone: "Asia/Seoul" }), gender: "male" as const }
+const b = { bazi: bazi({ year: 1992, month: 11, day: 2, hour: 14, minute: 20, timezone: "Asia/Seoul" }), gender: "female" as const }
 
 formatBaziSheet(baziSheet(a), "A")   // 一行汉字摘要
 formatMatchSheet(matchSheet(a, b)) // 三视角汉字文本块
@@ -68,7 +72,8 @@ cat.years      // Int16Array [N]
 
 | 导出 | 说明 |
 |---|---|
-| `bazi(input: BirthInput): Bazi` | 出生日期时间 → 四柱(`utcOffsetMinutes` 必填) |
+| `bazi(input: BirthInput): Bazi` | 出生日期时间 → 四柱(`timezone` 或 `utcOffsetMinutes` 必填) |
+| `resolveUtcOffsetMinutes(tz, y, m, d, h?, min?)` | IANA 时区 + 本地钟表时间 → UTC 偏移(分钟) |
 | `baziSheet(subject): BaziSheet` | 单人原局+分析表(基于事实,不打分) |
 | `matchSheet(a, b): MatchSheet` | 两人合婚表(12 种关系 → 三视角 合/生/沖) |
 | `analyze(subject): BaziAnalysis` | 原局分析(强弱·格局·用神·神煞) |
