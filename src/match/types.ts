@@ -1,6 +1,6 @@
 import type { ELEMENTS } from "../constants.js"
-import type { Bazi } from "../types.js"
-import type { CompatJudgments } from "./judgments-types.js"
+import type { Subject } from "../types.js"
+import type { MatchJudgments } from "./judgments-types.js"
 
 type Element = typeof ELEMENTS[number]
 
@@ -19,7 +19,7 @@ export type FactCategory = "stem" | "branch" | "element" | "hidden"
  * 점수가 아니라 "무엇이 무엇과 어떤 관계인가"를 그대로 구조화한다.
  * 정형이라 LLM 프롬프트·ML 인풋 양쪽에 균일하게 쓰인다.
  */
-export interface CompatEdge {
+export interface MatchEdge {
   subject: { glyph: string; pillar: PillarName }
   object: { glyph: string; pillar: PillarName }
   /** 삼합·방합이 만들어내는 오행 국 등 부가값. */
@@ -32,7 +32,7 @@ export interface CompatEdge {
  * 관계가 없어도 `present:false` 로 항상 한 줄 남긴다(인풋 차원 고정).
  * 종합 점수는 담지 않는다 — 그건 하류 LLM 의 몫.
  */
-export interface CompatFact {
+export interface MatchFact {
   /** 안정적 키(정형 인풋의 컬럼명). 예: "branch_yukhap". */
   id: string
   category: FactCategory
@@ -44,7 +44,7 @@ export interface CompatFact {
   /** 성립한 엣지 수(객관적 사실). */
   count: number
   /** 성립한 관계 엣지들. */
-  edges: CompatEdge[]
+  edges: MatchEdge[]
   /** 관여한 기둥 위치들의 합집합(양쪽 사주 통틀어). */
   pillars: PillarName[]
   /** 문헌 근거 해석 문장 — LLM 입력·UI 노출용. */
@@ -55,12 +55,8 @@ export interface CompatFact {
   detail?: Record<string, string | number | string[]>
 }
 
-/** 궁합 계산 입력 — 사주 하나 + 부가 정보. */
-export interface CompatSubject {
-  bazi: Bazi
-  /** 배우자성(재/관) 판정에 필요. v1 룰에는 아직 미사용. */
-  gender?: "male" | "female"
-}
+/** 궁합 계산 입력 — 코어 Subject 별칭(사주 한 벌 + 성별 선택). */
+export type MatchSubject = Subject
 
 /** 관계 3렌즈(만나보살 확정): 合=끌림·정, 生=보완·상생, 沖=관계온도(방향X). */
 export type Lens = "合" | "生" | "沖"
@@ -69,7 +65,7 @@ export type Lens = "合" | "生" | "沖"
 export interface LensGroup {
   lens: Lens
   /** 이 렌즈에 속하는 관계 facts 전체(차원 고정 — present:false 포함). */
-  facts: CompatFact[]
+  facts: MatchFact[]
   /** 성립한(present) 관계 수 합. */
   activeCount: number
   /** 성립한 엣지 총수. */
@@ -84,17 +80,17 @@ export interface LensGroup {
  * 십성교차는 judgments(rationale 재료)로 별도. 소비자(LLM 프롬프트/ML 인풋)가
  * 그대로 읽는다. 원국 사실은 baziSheet(개인 시트)에 있다.
  */
-export interface CompatSheet {
+export interface MatchSheet {
   schemaVersion: string
-  subject: CompatSubject
-  candidate: CompatSubject
+  subject: MatchSubject
+  candidate: MatchSubject
   /** 관계 fact 전체(차원 고정 — present:false 포함). */
-  facts: CompatFact[]
+  facts: MatchFact[]
   /** 관계 3렌즈. 항상 3개(合/生/沖) 고정 순서 — facts 를 렌즈로 묶은 뷰. */
   lenses: LensGroup[]
   /**
    * 결정론 판단 파생값 — 십성·납음·신살·겉속궁합 분류.
    * 12관계(facts)와 별개 섹션. 종합 점수는 담지 않는다.
    */
-  judgments: CompatJudgments
+  judgments: MatchJudgments
 }

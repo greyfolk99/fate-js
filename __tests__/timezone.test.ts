@@ -5,7 +5,7 @@
  */
 import { describe, test, expect } from "vitest"
 import { bazi } from "../src/bazi.js"
-import type { Bazi } from "../src/types.js"
+import type { Bazi, BirthInput } from "../src/types.js"
 
 const p = (c: Bazi) =>
   `${c.year.stem}${c.year.branch} ${c.month.stem}${c.month.branch} ${c.day.stem}${c.day.branch} ` +
@@ -45,20 +45,19 @@ describe("절기 경계: KST vs CST 프레임 분기 (입춘 2025)", () => {
   })
 })
 
-describe("utcOffsetMinutes 필수 + timezone(IANA) 미구현 가드", () => {
+describe("utcOffsetMinutes 필수 (timezone 필드는 제거됨 — IANA 리졸버는 v2에서)", () => {
   test("utcOffsetMinutes를 아예 생략하면 throw(암묵 타임존 기본값 금지)", () => {
-    // @ts-expect-error utcOffsetMinutes는 이제 필수 — 생략 시 타입에러 + 런타임 throw.
+    // @ts-expect-error utcOffsetMinutes는 필수 — 생략 시 타입에러 + 런타임 throw.
     expect(() => bazi({ year: 2000, month: 1, day: 1, hour: 12 })).toThrow()
   })
-  test("timezone만 주고 utcOffsetMinutes 없으면 여전히 throw(조용히 무시 금지)", () => {
+  test("timezone 같은 여분 키만 주고 utcOffsetMinutes 없으면 여전히 throw(조용히 무시 금지)", () => {
     expect(() =>
-      // @ts-expect-error utcOffsetMinutes 필수 — timezone만으론 통과 못 함.
+      // @ts-expect-error utcOffsetMinutes 필수 + timezone은 BirthInput에 없는 키.
       bazi({ year: 2000, month: 1, day: 1, hour: 12, timezone: "Asia/Seoul" }),
     ).toThrow()
   })
-  test("utcOffsetMinutes와 함께면 통과(timezone 동반 여부 무관)", () => {
-    expect(() =>
-      bazi({ year: 2000, month: 1, day: 1, hour: 12, timezone: "Asia/Seoul", utcOffsetMinutes: 540 }),
-    ).not.toThrow()
+  test("utcOffsetMinutes가 있으면 통과(런타임은 여분 키를 무시)", () => {
+    const input = { year: 2000, month: 1, day: 1, hour: 12, timezone: "Asia/Seoul", utcOffsetMinutes: 540 }
+    expect(() => bazi(input as BirthInput)).not.toThrow()
   })
 })

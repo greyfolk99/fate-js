@@ -12,7 +12,7 @@
 
 import { analyze } from "./analyze.js"
 import type { BaziAnalysis } from "./analyze.js"
-import type { CompatSubject } from "../compat/types.js"
+import type { SheetSubject } from "../types.js"
 
 export const BAZISHEET_SCHEMA_VERSION = "bazi-sheet-v2" as const
 export const BAZISHEET_POLICY_VERSION = "bazi-sheet/2026-09" as const
@@ -223,8 +223,8 @@ export function toBaziSheet(n: BaziAnalysis): BaziSheet {
   }
 }
 
-/** 사주 한 벌 → baziSheet(원국+분석 시트). */
-export function baziSheet(subject: CompatSubject): BaziSheet {
+/** 사주 한 벌 → baziSheet(원국+분석 시트). 4기둥·성별 필수(타입이 런타임 전제조건과 일치). */
+export function baziSheet(subject: SheetSubject): BaziSheet {
   return toBaziSheet(analyze(subject))
 }
 

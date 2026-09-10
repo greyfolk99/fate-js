@@ -16,13 +16,26 @@ export interface Bazi {
   hour: Pillar | null
 }
 
+/** 분석 입력 — 사주 한 벌 + 성별(선택). */
+export interface Subject {
+  bazi: Bazi
+  /** 배우자성(재/관) 판정에 필요. */
+  gender?: "male" | "female"
+}
+
+/** 시트 입력 — 시주까지 갖춘 사주(4기둥 필수) + 성별 필수. */
+export interface SheetSubject {
+  bazi: Bazi & { hour: Pillar }
+  gender: "male" | "female"
+}
+
 /**
  * catalog() 반환값.
  *
  * 메모리 레이아웃:
  *   N = 행 수 (연·월·일·시 조합)
  *   years / months / days / hours — 각 행의 날짜 구성 요소
- *   slotIndex — 0=year 1=month 2=day 3=hour
+ *   slotIndex — 각 행이 hours 인자 배열의 몇 번째 원소인지(시간 슬롯 인덱스)
  *   stems     — [N*4] row-major (year/month/day/hour 순)
  *   branches  — [N*4] row-major (year/month/day/hour 순)
  */
@@ -31,7 +44,7 @@ export interface CatalogResult {
   months: Int8Array
   days: Int8Array
   hours: Int8Array
-  slotIndex: Int8Array
+  slotIndex: Int16Array
   /** 천간 인덱스 배열 [N*4], row-major — year/month/day/hour 순. */
   stems: Int8Array
   /** 지지 인덱스 배열 [N*4], row-major — year/month/day/hour 순. */
@@ -61,9 +74,4 @@ export interface BirthInput {
    * (시간 미상이어도 연·월주 절기 판정에 절대순간이 필요하므로 필수.)
    */
   utcOffsetMinutes: number
-  /**
-   * IANA timezone 문자열 (예: 'Asia/Seoul'). **아직 미구현** — 지정 시 utcOffsetMinutes를 함께 줘야 한다.
-   * (v2에서 이 필드로 DST·역사 오프셋을 자동 해석하는 리졸버를 붙일 예정.)
-   */
-  timezone?: string
 }

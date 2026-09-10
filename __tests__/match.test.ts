@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest"
-import { compatSheet } from "../src/compat/index.js"
+import { matchSheet } from "../src/match/index.js"
 import type { Bazi, Pillar, Stem, Branch } from "../src/index.js"
-import type { CompatFact } from "../src/compat/index.js"
+import type { MatchFact } from "../src/match/index.js"
 
 // ── 테스트용 사주 조립기 ────────────────────────────────────────────
 // 사주 계산은 별도 테스트에서 검증되므로, 여기선 룰 로직만 보려고
@@ -28,8 +28,8 @@ function bz(
 
 const NEUTRAL = bz(["戊", "戌"], ["戊", "戌"], ["戊", "戌"], ["戊", "戌"])
 
-function fact(a: Bazi, b: Bazi, id: string): CompatFact {
-  const table = compatSheet({ bazi: a }, { bazi: b })
+function fact(a: Bazi, b: Bazi, id: string): MatchFact {
+  const table = matchSheet({ bazi: a }, { bazi: b })
   const f = table.facts.find((x) => x.id === id)
   if (!f) throw new Error(`fact ${id} 없음`)
   return f
@@ -37,9 +37,9 @@ function fact(a: Bazi, b: Bazi, id: string): CompatFact {
 
 // ── 스키마 불변식 ───────────────────────────────────────────────────
 
-describe("compatSheet 스키마", () => {
+describe("matchSheet 스키마", () => {
   it("관계가 없어도 모든 룰이 present:false 로 항상 포함 (차원 고정)", () => {
-    const table = compatSheet({ bazi: NEUTRAL }, { bazi: NEUTRAL })
+    const table = matchSheet({ bazi: NEUTRAL }, { bazi: NEUTRAL })
     const ids = table.facts.map((f) => f.id)
     for (const id of [
       "stem_hap",
@@ -60,14 +60,14 @@ describe("compatSheet 스키마", () => {
   })
 
   it("schemaVersion 이 붙는다", () => {
-    const table = compatSheet({ bazi: NEUTRAL }, { bazi: NEUTRAL })
-    expect(table.schemaVersion).toBe("compat-sheet-v2")
+    const table = matchSheet({ bazi: NEUTRAL }, { bazi: NEUTRAL })
+    expect(table.schemaVersion).toBe("match-sheet-v2")
   })
 
   it("종합 점수(value 같은 스칼라)를 만들지 않는다 — 관계·개수만", () => {
     const a = bz(["甲", "子"], ["甲", "子"], ["甲", "子"], ["甲", "子"])
     const b = bz(["己", "丑"], ["己", "丑"], ["己", "丑"], ["己", "丑"])
-    const table = compatSheet({ bazi: a }, { bazi: b })
+    const table = matchSheet({ bazi: a }, { bazi: b })
     for (const f of table.facts) {
       expect(f).not.toHaveProperty("value")
       expect(f.count).toBe(f.present ? f.count : 0)
@@ -76,7 +76,7 @@ describe("compatSheet 스키마", () => {
   })
 
   it("성립한 엣지는 주체·후보 글자와 궁을 담는다 (정형 포맷)", () => {
-    const table = compatSheet(
+    const table = matchSheet(
       { bazi: bz(["戊", "戌"], ["戊", "戌"], ["戊", "子"]) },
       { bazi: bz(["戊", "戌"], ["戊", "戌"], ["戊", "丑"]) },
     )

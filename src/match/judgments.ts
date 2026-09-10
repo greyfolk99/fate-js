@@ -20,7 +20,7 @@ import type { STEMS, BRANCHES, ELEMENTS } from "../constants.js"
 import type { Bazi } from "../types.js"
 import { cells } from "./rules.js"
 import type { PillarName } from "./types.js"
-import type { CompatSubject } from "./types.js"
+import type { MatchSubject } from "./types.js"
 import { crossJudgments } from "./crosses.js"
 import { NAYIN_PAIRS } from "./judgments-constants.js"
 import {
@@ -38,7 +38,7 @@ import type {
   TenGod,
   TenGodCount,
   NayinCell,
-  CompatJudgments,
+  MatchJudgments,
 } from "./judgments-types.js"
 
 type Stem = typeof STEMS[number]
@@ -170,7 +170,7 @@ function spouseStar(
   id: string,
   subjectLabel: string,
   partnerLabel: string,
-  subject: CompatSubject,
+  subject: MatchSubject,
   partner: Bazi,
 ): Judgment {
   const gender = subject.gender
@@ -568,13 +568,13 @@ function sinsalFor(refBazi: Bazi, targetBazi: Bazi): Judgment[] {
 
 /**
  * 두 사주의 판단 파생값을 뽑는다. subject 관점을 1차로 기술한다.
- * `facts` 는 compatSheet 의 12관계 결과 — 겉속궁합 집계에 재활용.
+ * `facts` 는 matchSheet 의 12관계 결과 — 겉속궁합 집계에 재활용.
  */
-export function judgeCompat(
-  subject: CompatSubject,
-  candidate: CompatSubject,
-  facts: import("./types.js").CompatFact[],
-): Omit<CompatJudgments, "yongsinSupply"> {
+export function judgeMatch(
+  subject: MatchSubject,
+  candidate: MatchSubject,
+  facts: import("./types.js").MatchFact[],
+): Omit<MatchJudgments, "yongsinSupply"> {
   const sb = subject.bazi
   const cb = candidate.bazi
 
@@ -638,9 +638,9 @@ function wangsweGrade(el: (typeof ELEMENTS)[number], seasonEl: (typeof ELEMENTS)
  * 적용은 외래 글자 충과의 동형 유추 확장이다(source 에 명시).
  */
 function buildChungWangswe(
-  subject: CompatSubject,
-  candidate: CompatSubject,
-  facts: import("./types.js").CompatFact[],
+  subject: MatchSubject,
+  candidate: MatchSubject,
+  facts: import("./types.js").MatchFact[],
 ): Judgment {
   const clash = facts.find((f) => f.id === "branch_clash")
   const seasonA = BRANCH_ELEMENTS[subject.bazi.month.branch]
@@ -675,7 +675,7 @@ function buildChungWangswe(
  * (二者爭合·妒合則合而不專)이나, 여기서는 판정 없이 사실만 남긴다.
  * 삼합·방합은 본질이 다자 결합이라 제외, 암합은 장간 급이라 논외.
  */
-function buildJaenghap(facts: import("./types.js").CompatFact[]): Judgment {
+function buildJaenghap(facts: import("./types.js").MatchFact[]): Judgment {
   const KINDS = new Set(["stem_hap", "branch_yukhap"])
   const seen = new Map<string, { who: string; pillar: PillarName; glyph: string; label: string; n: number }>()
   for (const f of facts) {
@@ -715,7 +715,7 @@ function buildJaenghap(facts: import("./types.js").CompatFact[]): Judgment {
  * 근거: 자평진전 論刑沖會合解法 "會合可以解冲" — 단 원전 스스로 조건부
  * ("有解不能解之別")로 두므로 해소 판정은 내리지 않고 병존 사실만 남긴다.
  */
-function buildHapChungOverlap(facts: import("./types.js").CompatFact[]): Judgment {
+function buildHapChungOverlap(facts: import("./types.js").MatchFact[]): Judgment {
   const HAP = new Set(["branch_yukhap", "branch_samhap", "branch_banghap"])
   const CHUNG = new Set(["branch_clash", "branch_hyung", "branch_hae", "branch_pa", "branch_wonjin"])
   // 셀 키 = 어느 사주(주체/후보)·기둥·글자. 관계군별로 어떤 관계명에 걸렸는지 수집.
@@ -761,7 +761,7 @@ function buildHapChungOverlap(facts: import("./types.js").CompatFact[]): Judgmen
  * - 속궁합: 두 사람의 일지끼리(A.日支 ↔ B.日支) 만난 엣지. 양쪽 끝이 모두 일지.
  * 한쪽만 연주/일지인 엣지(예: A.年 ↔ B.月)는 겉·속 어디에도 세지 않는다.
  */
-function buildPalaceSummary(facts: import("./types.js").CompatFact[]): Judgment {
+function buildPalaceSummary(facts: import("./types.js").MatchFact[]): Judgment {
   let outerHarmony = 0
   let outerClash = 0
   let innerHarmony = 0

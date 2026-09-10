@@ -37,18 +37,18 @@ bazi({ year: 1990, month: 5, day: 15, utcOffsetMinutes: 540 })
 
 기본은 진태양시(경도+균시차) 보정이 켜져 있다(시주에만 적용). 위처럼 `timeBasis: "standard"`면 표준시로 계산한다.
 
-### 시트 — `baziSheet()` · `compatSheet()`
+### 시트 — `baziSheet()` · `matchSheet()`
 
-사실 기반 시트: `baziSheet(subject)`는 한 사람의 **원국+분석**(강약·용신·오행/십성 분포·격국·공망·신살), `compatSheet(a, b)`는 두 사람의 **궁합**(관계 12종을 合/生/沖 3렌즈로) 을 점수 없이 정형 추출한다.
+사실 기반 시트: `baziSheet(subject)`는 한 사람의 **원국+분석**(강약·용신·오행/십성 분포·격국·공망·신살), `matchSheet(a, b)`는 두 사람의 **궁합**(관계 12종을 合/生/沖 3렌즈로) 을 점수 없이 정형 추출한다.
 
 ```ts
-import { bazi, baziSheet, compatSheet, formatBaziSheet, formatCompatSheet } from "fate-js"
+import { bazi, baziSheet, matchSheet, formatBaziSheet, formatMatchSheet } from "fate-js"
 
 const a = { bazi: bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, utcOffsetMinutes: 540, gender: "male" }), gender: "male" }
 const b = { bazi: bazi({ year: 1992, month: 11, day: 2, hour: 14, minute: 20, utcOffsetMinutes: 540, gender: "female" }), gender: "female" }
 
 formatBaziSheet(baziSheet(a), "A")   // 한자 한 줄 요약
-formatCompatSheet(compatSheet(a, b)) // 3렌즈 한자 텍스트 블록
+formatMatchSheet(matchSheet(a, b)) // 3렌즈 한자 텍스트 블록
 ```
 
 ### 대량 — `catalog()`
@@ -70,12 +70,12 @@ cat.years      // Int16Array [N]
 |---|---|
 | `bazi(input: BirthInput): Bazi` | 생년월일시 → 사주 4주 (`utcOffsetMinutes` 필수) |
 | `baziSheet(subject): BaziSheet` | 한 사람 원국+분석 시트 (팩트 기반, 점수 없음) |
-| `compatSheet(a, b): CompatSheet` | 두 사람 궁합 시트 (관계 12종 → 3렌즈 合/生/沖) |
+| `matchSheet(a, b): MatchSheet` | 두 사람 궁합 시트 (관계 12종 → 3렌즈 合/生/沖) |
 | `analyze(subject): BaziAnalysis` | 원국 분석 (강약·격국·용신·신살) |
 | `catalog(yearStart, yearEnd, utcOffsetMinutes, hours?): CatalogResult` | 연도 범위 → 팔자 행렬(TypedArray) |
-| `formatBaziSheet` · `formatCompatSheet` | 시트 → LLM 프롬프트/UI용 한자 텍스트 |
+| `formatBaziSheet` · `formatMatchSheet` | 시트 → LLM 프롬프트/UI용 한자 텍스트 |
 | `STEMS`, `BRANCHES` | 천간·지지 상수 배열 |
-| 타입 | `BirthInput`, `Bazi`, `BaziSheet`, `CompatSheet`, `Pillar`, `CatalogResult`, `Stem`, `Branch` |
+| 타입 | `BirthInput`, `Bazi`, `BaziSheet`, `MatchSheet`, `Pillar`, `CatalogResult`, `Stem`, `Branch` |
 
 ## 라이선스
 

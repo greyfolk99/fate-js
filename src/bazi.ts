@@ -4,7 +4,7 @@ import { STEMS, BRANCHES } from "./constants.js"
 import { getSolarConfig } from "./config.js"
 import { solarCorrectionMinutes } from "./solar-time.js"
 import { assertValidBirthInput } from "./validate.js"
-import type { Bazi, BirthInput } from "./types.js"
+import type { Bazi, BirthInput, Pillar } from "./types.js"
 
 /**
  * 생년월일시로 사주팔자 사주(四柱)를 계산한다.
@@ -19,6 +19,8 @@ import type { Bazi, BirthInput } from "./types.js"
  * @param input - 날짜·시간·오프셋·보정 옵션
  * @returns 연·월·일·시 사주(四柱) 객체
  */
+export function bazi(input: BirthInput & { hour: number }): Bazi & { hour: Pillar }
+export function bazi(input: BirthInput): Bazi
 export function bazi(input: BirthInput): Bazi {
   assertValidBirthInput(input)
   const { year, month, day, hour, minute } = input

@@ -110,7 +110,7 @@ function sinsalCross(
 }
 
 /** 궁합 교차 판단 묶음. */
-export interface CompatCrosses {
+export interface MatchCrosses {
   /** 상대 일간을 주체 배우자궁(일지)에 놓은 십이운성. */
   spouseGungStageForSubject: Judgment
   /** 주체 일간을 후보 배우자궁(일지)에 놓은 십이운성. */
@@ -127,7 +127,7 @@ export interface CompatCrosses {
   sinsalCrossForCandidate: Judgment
 }
 
-export function crossJudgments(subject: Bazi, candidate: Bazi): CompatCrosses {
+export function crossJudgments(subject: Bazi, candidate: Bazi): MatchCrosses {
   return {
     spouseGungStageForSubject: spouseGungStage("spouse_gung_stage_subject", "주체", "후보", subject, candidate),
     spouseGungStageForCandidate: spouseGungStage("spouse_gung_stage_candidate", "후보", "주체", candidate, subject),

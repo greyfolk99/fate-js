@@ -37,18 +37,18 @@ bazi({ year: 1990, month: 5, day: 15, utcOffsetMinutes: 540 })
 
 默认启用真太阳时校正(经度+均时差),且仅作用于时柱。如上传入 `timeBasis: "standard"` 则按标准时间计算。
 
-### 命盘表 — `baziSheet()` · `compatSheet()`
+### 命盘表 — `baziSheet()` · `matchSheet()`
 
-基于事实的结构化表:`baziSheet(subject)` 提取一个人的**原局+分析**(身强身弱、用神、五行/十神分布、格局、空亡、神煞);`compatSheet(a, b)` 提取两人**合婚**信息(12 种关系,经 合/生/沖 三个视角)— 只输出结构化事实,不打分。
+基于事实的结构化表:`baziSheet(subject)` 提取一个人的**原局+分析**(身强身弱、用神、五行/十神分布、格局、空亡、神煞);`matchSheet(a, b)` 提取两人**合婚**信息(12 种关系,经 合/生/沖 三个视角)— 只输出结构化事实,不打分。
 
 ```ts
-import { bazi, baziSheet, compatSheet, formatBaziSheet, formatCompatSheet } from "fate-js"
+import { bazi, baziSheet, matchSheet, formatBaziSheet, formatMatchSheet } from "fate-js"
 
 const a = { bazi: bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, utcOffsetMinutes: 540, gender: "male" }), gender: "male" }
 const b = { bazi: bazi({ year: 1992, month: 11, day: 2, hour: 14, minute: 20, utcOffsetMinutes: 540, gender: "female" }), gender: "female" }
 
 formatBaziSheet(baziSheet(a), "A")   // 一行汉字摘要
-formatCompatSheet(compatSheet(a, b)) // 三视角汉字文本块
+formatMatchSheet(matchSheet(a, b)) // 三视角汉字文本块
 ```
 
 ### 批量 — `catalog()`
@@ -70,12 +70,12 @@ cat.years      // Int16Array [N]
 |---|---|
 | `bazi(input: BirthInput): Bazi` | 出生日期时间 → 四柱(`utcOffsetMinutes` 必填) |
 | `baziSheet(subject): BaziSheet` | 单人原局+分析表(基于事实,不打分) |
-| `compatSheet(a, b): CompatSheet` | 两人合婚表(12 种关系 → 三视角 合/生/沖) |
+| `matchSheet(a, b): MatchSheet` | 两人合婚表(12 种关系 → 三视角 合/生/沖) |
 | `analyze(subject): BaziAnalysis` | 原局分析(强弱·格局·用神·神煞) |
 | `catalog(yearStart, yearEnd, utcOffsetMinutes, hours?): CatalogResult` | 年份范围 → 八字矩阵(`TypedArray`) |
-| `formatBaziSheet` · `formatCompatSheet` | 表 → 供 LLM 提示词/UI 使用的汉字文本 |
+| `formatBaziSheet` · `formatMatchSheet` | 表 → 供 LLM 提示词/UI 使用的汉字文本 |
 | `STEMS`, `BRANCHES` | 天干·地支常量数组 |
-| 类型 | `BirthInput`, `Bazi`, `BaziSheet`, `CompatSheet`, `Pillar`, `CatalogResult`, `Stem`, `Branch` |
+| 类型 | `BirthInput`, `Bazi`, `BaziSheet`, `MatchSheet`, `Pillar`, `CatalogResult`, `Stem`, `Branch` |
 
 ## 许可证
 

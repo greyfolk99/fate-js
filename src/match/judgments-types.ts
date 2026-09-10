@@ -67,11 +67,11 @@ export interface NayinCell {
 }
 
 /**
- * 궁합 판단 묶음 — CompatSheet 에 별도 섹션으로 실린다.
+ * 궁합 판단 묶음 — MatchSheet 에 별도 섹션으로 실린다.
  * 12관계와 섞지 않는다. 신살 판정은 각각 Judgment 로 담고,
  * 걸린 기둥 위치는 Judgment.detail.pillars 에 둔다.
  */
-export interface CompatJudgments {
+export interface MatchJudgments {
   /** 십성 파트. */
   tenGod: {
     /** 주체 사주의 십성 분포(일간 기준, 천간 4자). */
@@ -112,7 +112,7 @@ export interface CompatJudgments {
   /** 충 왕쇠 — 六沖 각각의 월령 왕상휴수 비교(旺者沖衰, 뽑히는 쪽 판정). */
   chungWangswe: Judgment
   /** 교차 판단 — 배우자궁 십이운성·공망·일주대조·십이신살 교차. */
-  cross: import("./crosses.js").CompatCrosses
+  cross: import("./crosses.js").MatchCrosses
   /** 용신 공급 — 상대가 내 억부용신·조후용신 오행을 원국으로 공급하는가. */
   yongsinSupply: import("./yongsin-supply.js").YongsinSupply
 }

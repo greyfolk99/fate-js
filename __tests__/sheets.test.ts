@@ -1,20 +1,20 @@
 /**
- * 시트(팩트 기반) 테스트 — baziSheet(개인 원국+분석) · compatSheet(궁합).
+ * 시트(팩트 기반) 테스트 — baziSheet(개인 원국+분석) · matchSheet(궁합).
  * 렌즈 매핑·차원 고정·present-only·점수부재를 확인한다.
  */
 import { describe, test, expect } from "vitest"
 import { bazi } from "../src/bazi.js"
 import { baziSheet, formatBaziSheet } from "../src/bazi/bazisheet.js"
-import { compatSheet, formatCompatSheet } from "../src/compat/compatsheet.js"
+import { matchSheet, formatMatchSheet } from "../src/match/matchsheet.js"
 import { twelveStage } from "../src/bazi/constants.js"
-import type { CompatSubject } from "../src/compat/types.js"
+import type { SheetSubject } from "../src/types.js"
 
-const A: CompatSubject = {
-  bazi: bazi({ year: 1992, month: 8, day: 4, hour: 1, minute: 55, longitude: 127, utcOffsetMinutes: 540, gender: "male" }),
+const A: SheetSubject = {
+  bazi: bazi({ year: 1992, month: 8, day: 4, hour: 1, minute: 55, longitude: 127, utcOffsetMinutes: 540 }),
   gender: "male",
 }
-const B: CompatSubject = {
-  bazi: bazi({ year: 1994, month: 3, day: 15, hour: 14, minute: 20, longitude: 127, utcOffsetMinutes: 540, gender: "female" }),
+const B: SheetSubject = {
+  bazi: bazi({ year: 1994, month: 3, day: 15, hour: 14, minute: 20, longitude: 127, utcOffsetMinutes: 540 }),
   gender: "female",
 }
 
@@ -38,8 +38,8 @@ describe("baziSheet (개인 원국+분석)", () => {
   })
 })
 
-describe("compatSheet (궁합)", () => {
-  const cs = compatSheet(A, B)
+describe("matchSheet (궁합)", () => {
+  const cs = matchSheet(A, B)
 
   test("렌즈는 항상 3개(合/生/沖) 고정 순서", () => {
     expect(cs.lenses.map((g) => g.lens)).toEqual(["合", "生", "沖"])
@@ -67,8 +67,8 @@ describe("compatSheet (궁합)", () => {
     expect(JSON.stringify(cs)).not.toMatch(/"score"|"rating"|점수/i)
   })
 
-  test("formatCompatSheet은 3렌즈를 한자로 낸다", () => {
-    const txt = formatCompatSheet(cs)
+  test("formatMatchSheet은 3렌즈를 한자로 낸다", () => {
+    const txt = formatMatchSheet(cs)
     expect(txt).toContain("合(끌림·정)")
     expect(txt).toContain("生(보완·상생)")
     expect(txt).toContain("沖(관계온도)")
@@ -77,7 +77,7 @@ describe("compatSheet (궁합)", () => {
   test("관계는 present(있다)로만 — 쌍 개수(count) 숫자를 붙이지 않는다", () => {
     // 명리적으로 쌍 개수는 위치별 조합 아티팩트라 강도와 무관 → 存在+궁위만 준다.
     // (【보조】의 궁위 집계 '和1沖0'은 위치 신호라 예외 — 렌즈 라인만 검사.)
-    const lensLines = formatCompatSheet(cs)
+    const lensLines = formatMatchSheet(cs)
       .split("\n")
       .filter((l) => !l.startsWith("【보조】"))
       .join("\n")
@@ -86,7 +86,7 @@ describe("compatSheet (궁합)", () => {
   })
 
   test("합·충 엣지는 궁위를 그대로 찍는다 — [A日子-B日丑] 표기", () => {
-    const txt = formatCompatSheet(cs)
+    const txt = formatMatchSheet(cs)
     const pillarHanja = { year: "年", month: "月", day: "日", hour: "時" } as const
     for (const f of cs.facts) {
       if (!f.present || f.id === "element_complement") continue
@@ -97,7 +97,7 @@ describe("compatSheet (궁합)", () => {
   })
 
   test("삼합·방합은 국별 관여 글자 종수(三字/二字)를 부기한다", () => {
-    const txt = formatCompatSheet(cs)
+    const txt = formatMatchSheet(cs)
     for (const id of ["branch_samhap", "branch_banghap"]) {
       const f = cs.facts.find((x) => x.id === id)!
       if (!f.present) continue
@@ -109,7 +109,7 @@ describe("compatSheet (궁합)", () => {
     const f = cs.facts.find((x) => x.id === "branch_hyung")!
     if (!f.present) return
     const kinds = f.detail?.hyung as string[]
-    const printed = formatCompatSheet(cs).match(/刑\(([^[]*)\)\[/)?.[1] ?? ""
+    const printed = formatMatchSheet(cs).match(/刑\(([^[]*)\)\[/)?.[1] ?? ""
     // 종류 이름은 전부 나오고, 삼형계(無恩·恃勢)에는 글자수 부기가 붙는다.
     for (const k of kinds) expect(printed).toContain(k)
     for (const k of kinds) {
@@ -118,13 +118,13 @@ describe("compatSheet (궁합)", () => {
   })
 
   test("【교차】에 일간 생극비(相生·相剋·比和) 사실이 찍힌다", () => {
-    const txt = formatCompatSheet(cs)
+    const txt = formatMatchSheet(cs)
     expect(txt).toMatch(/【교차】 日干:(比和\(.·.\)|[AB].[生剋][AB].)/)
   })
 })
 
-describe("compatSheet 교차 판단(cross) — 사실만", () => {
-  const cs = compatSheet(A, B)
+describe("matchSheet 교차 판단(cross) — 사실만", () => {
+  const cs = matchSheet(A, B)
   const cr = cs.judgments.cross
 
   test("교차 7종이 모두 존재한다", () => {
@@ -147,7 +147,7 @@ describe("compatSheet 교차 판단(cross) — 사실만", () => {
   })
 
   test("일주 대조 — 동일 일주는 '동일일주'로 잡힌다", () => {
-    const self = compatSheet(A, A).judgments.cross.dayPillarMatch
+    const self = matchSheet(A, A).judgments.cross.dayPillarMatch
     expect(self.category).toBe("동일일주")
     expect(self.present).toBe(true)
     // 서로 다른 일주면 '무' 또는 부분일치
@@ -165,7 +165,7 @@ describe("compatSheet 교차 판단(cross) — 사실만", () => {
   })
 
   test("시트에 【교차】 줄이 사실로 렌더된다(점수·등급 없음)", () => {
-    const txt = formatCompatSheet(cs)
+    const txt = formatMatchSheet(cs)
     expect(txt).toContain("【교차】")
     expect(txt).toContain("배우자궁운성")
     expect(txt).not.toMatch(/score|점수|weight|가중|통속|folk/i)
@@ -178,10 +178,10 @@ describe("조후용신표(JOHU_TABLE) — 궁통보감 edition-lock 수렴본", 
     const stems = Object.keys(JOHU_TABLE)
     expect(stems.length).toBe(10)
     for (const s of stems) {
-      const months = Object.keys(JOHU_TABLE[s as keyof typeof JOHU_TABLE])
-      expect(months.length).toBe(12)
-      for (const m of months) {
-        expect(JOHU_TABLE[s as keyof typeof JOHU_TABLE][m as never].main.length).toBeGreaterThan(0)
+      const row = JOHU_TABLE[s as keyof typeof JOHU_TABLE]
+      expect(Object.keys(row).length).toBe(12)
+      for (const cell of Object.values(row) as { main: readonly string[] }[]) {
+        expect(cell.main.length).toBeGreaterThan(0)
       }
     }
   })
@@ -239,8 +239,8 @@ describe("조후용신표(JOHU_TABLE) — 궁통보감 edition-lock 수렴본", 
   })
 })
 
-describe("compatSheet 합충 병존 — 같은 글자의 합·충 동시 성립(사실만)", () => {
-  const cs = compatSheet(A, B)
+describe("matchSheet 합충 병존 — 같은 글자의 합·충 동시 성립(사실만)", () => {
+  const cs = matchSheet(A, B)
   const ov = cs.judgments.hapChungOverlap
 
   test("병존 judgment 가 존재하고 present 는 boolean", () => {
@@ -262,8 +262,8 @@ describe("compatSheet 합충 병존 — 같은 글자의 합·충 동시 성립(
   })
 })
 
-describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크로스", () => {
-  const cs = compatSheet(A, B)
+describe("matchSheet 용신 공급(yongsinSupply) — 억부용신·조후 크로스", () => {
+  const cs = matchSheet(A, B)
   const ys = cs.judgments.yongsinSupply
 
   test("억부용신·조후 공급 4종이 존재하고 present 는 boolean", () => {
@@ -287,7 +287,7 @@ describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크�
   })
 
   test("生 렌즈에 用神 공급 신호가 사실로 붙는다", () => {
-    const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    const line = formatMatchSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
     // 用神 공급이 성립하면 用神A←B / 用神B←A 표기가 나온다(성립 시에만).
     if (ys.eokbuToSubject.present) expect(line).toContain("用神A←B")
   })
@@ -307,8 +307,8 @@ describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크�
 
   test("忌神·剋用神 줄은 기본 꺼짐, includeHarm 옵션에서만 찍힌다", () => {
     // 발화율 99%라 기본 시트에서 v2.1 보완 일관성을 91→65%로 무너뜨림(실측) — 옵션 분리.
-    const off = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
-    const on = formatCompatSheet(cs, { includeHarm: true }).split("\n").find((l) => l.includes("生(보완"))!
+    const off = formatMatchSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    const on = formatMatchSheet(cs, { includeHarm: true }).split("\n").find((l) => l.includes("生(보완"))!
     for (const tag of ["忌神A←B", "忌神B←A", "剋用神A←B", "剋用神B←A"]) {
       expect(off).not.toContain(tag)
       expect(on).toContain(tag)
@@ -317,7 +317,7 @@ describe("compatSheet 용신 공급(yongsinSupply) — 억부용신·조후 크�
 })
 
 describe("배우자성(配星) 등급 사실 — 유무가 아니라 투/장·궁 안착·正偏", () => {
-  const cs = compatSheet(A, B)
+  const cs = matchSheet(A, B)
   const tg = cs.judgments.tenGod
 
   test("등급 detail 불변식: 투·장 기둥은 서로소이고 공급 기둥의 부분집합", () => {
@@ -337,14 +337,14 @@ describe("배우자성(配星) 등급 사실 — 유무가 아니라 투/장·�
   })
 
   test("시트에 配星 등급 표기가 항상 찍힌다(없으면 無)", () => {
-    const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    const line = formatMatchSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
     expect(line).toMatch(/配星A←B\((無|[^)]*正\d+偏\d+[^)]*)\)/)
     expect(line).toMatch(/配星B←A\((無|[^)]*正\d+偏\d+[^)]*)\)/)
   })
 
   test("調候 표기 — 主 투/장에 더해 次佐(佐)가 유실되지 않는다", () => {
     const ys = cs.judgments.yongsinSupply
-    const line = formatCompatSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
+    const line = formatMatchSheet(cs).split("\n").find((l) => l.includes("生(보완"))!
     for (const [jd, tag] of [[ys.johuToSubject, "調候A←B"], [ys.johuToCandidate, "調候B←A"]] as const) {
       const d = jd.detail as { mainRevealed: string[]; mainHidden: string[]; subHit: string[] }
       // 主가 없으면 無 토큰은 유지하고(앵커 호환), 次佐는 덧붙는다.
@@ -357,7 +357,7 @@ describe("배우자성(配星) 등급 사실 — 유무가 아니라 투/장·�
 })
 
 describe("쟁합·투합(jaenghap) — 같은 종류 합 다중 성립(사실만)", () => {
-  const cs = compatSheet(A, B)
+  const cs = matchSheet(A, B)
 
   test("쟁합 판정은 렌즈 엣지 집계와 일치한다", () => {
     const counts = new Map<string, number>()
@@ -379,13 +379,13 @@ describe("쟁합·투합(jaenghap) — 같은 종류 합 다중 성립(사실만
   })
 
   test("쟁합 성립 시 【쟁합】 줄이 찍힌다", () => {
-    const txt = formatCompatSheet(cs)
+    const txt = formatMatchSheet(cs)
     expect(txt.includes("【쟁합】")).toBe(cs.judgments.jaenghap.present)
   })
 })
 
 describe("충 왕쇠(chungWangswe) — 旺者沖衰 방향(사실만)", () => {
-  const cs = compatSheet(A, B)
+  const cs = matchSheet(A, B)
   const j = cs.judgments.chungWangswe
   const entries = (j.detail?.entries as string[]) ?? []
 
@@ -409,10 +409,10 @@ describe("충 왕쇠(chungWangswe) — 旺者沖衰 방향(사실만)", () => {
   })
 
   test("【沖旺衰】 줄은 기본 꺼짐, includeWangswe 옵션에서만 찍힌다", () => {
-    expect(formatCompatSheet(cs).includes("【沖旺衰】")).toBe(false)
-    expect(formatCompatSheet(cs, { includeWangswe: true }).includes("【沖旺衰】")).toBe(true)
+    expect(formatMatchSheet(cs).includes("【沖旺衰】")).toBe(false)
+    expect(formatMatchSheet(cs, { includeWangswe: true }).includes("【沖旺衰】")).toBe(true)
     // 기존 六沖 토큰은 그대로 보존(앵커 토큰 보존 원칙).
-    const on = formatCompatSheet(cs, { includeWangswe: true })
+    const on = formatMatchSheet(cs, { includeWangswe: true })
     expect(on).toMatch(/六沖\[A[年月日時].-B[年月日時].\]/)
   })
 })

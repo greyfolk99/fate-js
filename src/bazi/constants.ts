@@ -9,7 +9,7 @@ import {
   BRANCH_INDEX,
   STEM_YINYANG,
 } from "../constants.js"
-import { BRANCH_SAMHAP } from "../compat/constants.js"
+import { BRANCH_SAMHAP } from "../match/constants.js"
 
 type Stem = typeof STEMS[number]
 type Branch = typeof BRANCHES[number]

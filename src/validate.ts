@@ -40,7 +40,11 @@ export function assertValidDate(year: number, month: number, day: number): void 
   }
 }
 
-/** 검증 대상 입력의 최소 형태(BirthInput 부분집합). */
+/**
+ * 검증 대상 입력의 최소 형태(BirthInput 부분집합).
+ * utcOffsetMinutes는 BirthInput에선 필수지만 여기선 optional — 누락 검증(아래 throw)을
+ * 위해 "아직 완전하지 않은 입력"도 타입 캐스팅 없이 이 함수에 넣을 수 있어야 한다.
+ */
 export interface ValidatableBirthInput {
   year: number
   month: number
@@ -49,8 +53,7 @@ export interface ValidatableBirthInput {
   minute?: number
   longitude?: number
   timeBasis?: string
-  utcOffsetMinutes: number
-  timezone?: string
+  utcOffsetMinutes?: number
 }
 
 /**
@@ -90,6 +93,4 @@ export function assertValidBirthInput(input: ValidatableBirthInput): void {
   if (input.utcOffsetMinutes < -720 || input.utcOffsetMinutes > 840) {
     throw new RangeError(`utcOffsetMinutes는 −720~840 사이여야 합니다: ${input.utcOffsetMinutes}`)
   }
-  // NOTE: IANA timezone 리졸버는 여전히 미구현. utcOffsetMinutes가 필수가 되면서
-  // "timezone만 주고 오프셋 없음"은 위 필수 검증에서 이미 throw 된다(별도 가드 불필요).
 }

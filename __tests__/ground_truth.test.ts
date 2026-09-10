@@ -5,7 +5,7 @@
  * bazi() 계산 결과를 비교한다.
  */
 import { describe, test, expect } from "vitest"
-import samples from "./fixtures/ground_truth_samples.json"
+import samples from "./fixtures/ground_truth_samples.json" with { type: "json" }
 import { bazi } from "../src/bazi.js"
 import { STEM_INDEX, BRANCH_INDEX } from "../src/constants.js"
 

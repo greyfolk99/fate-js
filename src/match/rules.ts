@@ -20,8 +20,8 @@ import {
   type BranchGroup,
 } from "./constants.js"
 import type {
-  CompatEdge,
-  CompatFact,
+  MatchEdge,
+  MatchFact,
   PillarName,
   Polarity,
 } from "./types.js"
@@ -77,7 +77,7 @@ function pairedInSets<T>(
 }
 
 /** 관여한 모든 기둥(양쪽 사주)의 합집합. */
-function pillarsOf(edges: CompatEdge[]): PillarName[] {
+function pillarsOf(edges: MatchEdge[]): PillarName[] {
   const set = new Set<PillarName>()
   for (const e of edges) {
     set.add(e.subject.pillar)
@@ -87,7 +87,7 @@ function pillarsOf(edges: CompatEdge[]): PillarName[] {
 }
 
 /** 일지↔일지 엣지가 있으면 "속궁합" 문구를 덧붙인다. */
-function palaceNote(edges: CompatEdge[]): string {
+function palaceNote(edges: MatchEdge[]): string {
   const dayDay = edges.some(
     (e) => e.subject.pillar === "day" && e.object.pillar === "day",
   )
@@ -117,8 +117,8 @@ function pairRule(
   subject: Cell[],
   candidate: Cell[],
   spec: PairRuleSpec,
-): CompatFact {
-  const edges: CompatEdge[] = []
+): MatchFact {
+  const edges: MatchEdge[] = []
   for (const s of subject) {
     for (const c of candidate) {
       const sg = spec.accessor === "stem" ? s.stem : s.branch
@@ -217,7 +217,7 @@ const PAIR_SPECS: PairRuleSpec[] = [
 ]
 
 /** pairwise 교차 룰 전체 실행. */
-export function pairwiseRules(subject: Cell[], candidate: Cell[]): CompatFact[] {
+export function pairwiseRules(subject: Cell[], candidate: Cell[]): MatchFact[] {
   return PAIR_SPECS.map((spec) => pairRule(subject, candidate, spec))
 }
 
@@ -247,8 +247,8 @@ function hyungHanja(name: string): string {
   return name.match(/[(（]([^)）]+)[)）]/)?.[1] ?? name
 }
 
-export function hyungRule(subject: Cell[], candidate: Cell[]): CompatFact {
-  const edges: CompatEdge[] = []
+export function hyungRule(subject: Cell[], candidate: Cell[]): MatchFact {
+  const edges: MatchEdge[] = []
   // 성립한 형의 종류(한자 코드) — 無恩之刑·恃勢之刑·자형별 코드를 보존.
   // baziSheet.ts 의 형 detail 방출 방식과 맞춘다(괄호 안 한자 코드).
   const kinds: string[] = []
@@ -293,8 +293,8 @@ function groupRule(
   id: string,
   label: string,
   source: string,
-): CompatFact {
-  const edges: CompatEdge[] = []
+): MatchFact {
+  const edges: MatchEdge[] = []
   for (const g of groups) {
     const memberSet = new Set<Branch>(g.branches)
     const subjMembers = subject.filter((s) => memberSet.has(s.branch))
@@ -342,7 +342,7 @@ function groupRule(
   }
 }
 
-export function samhapRule(subject: Cell[], candidate: Cell[]): CompatFact {
+export function samhapRule(subject: Cell[], candidate: Cell[]): MatchFact {
   return groupRule(
     subject,
     candidate,
@@ -353,7 +353,7 @@ export function samhapRule(subject: Cell[], candidate: Cell[]): CompatFact {
   )
 }
 
-export function banghapRule(subject: Cell[], candidate: Cell[]): CompatFact {
+export function banghapRule(subject: Cell[], candidate: Cell[]): MatchFact {
   return groupRule(
     subject,
     candidate,
@@ -369,8 +369,8 @@ export function banghapRule(subject: Cell[], candidate: Cell[]): CompatFact {
 export function hiddenAmhapRule(
   subject: Cell[],
   candidate: Cell[],
-): CompatFact {
-  const edges: CompatEdge[] = []
+): MatchFact {
+  const edges: MatchEdge[] = []
   for (const s of subject) {
     for (const c of candidate) {
       for (const hs of HIDDEN_STEMS[s.branch]) {
@@ -421,7 +421,7 @@ function elementsPresent(cs: Cell[]): Set<Element> {
 export function elementComplementRule(
   subject: Cell[],
   candidate: Cell[],
-): CompatFact {
+): MatchFact {
   const subjEl = elementsPresent(subject)
   const candEl = elementsPresent(candidate)
   const subjectReceives = ELEMENTS.filter((e) => !subjEl.has(e) && candEl.has(e))
@@ -465,7 +465,7 @@ export function elementComplementRule(
 // ── 정형 텍스트 렌더 — LLM 프롬프트에 그대로 넣을 블록 ───────────────
 
 /** 엣지 하나를 `壬(일간) —관계— 丙(년간)` 형태로 렌더. */
-export function renderEdge(label: string, edge: CompatEdge): string {
+export function renderEdge(label: string, edge: MatchEdge): string {
   const s = `${edge.subject.glyph}(${PILLAR_KO[edge.subject.pillar]})`
   const o = `${edge.object.glyph}(${PILLAR_KO[edge.object.pillar]})`
   const el = edge.element ? ` ⇒ ${ELEMENT_KO[edge.element]}` : ""

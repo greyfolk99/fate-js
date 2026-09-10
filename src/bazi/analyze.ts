@@ -1,7 +1,7 @@
 /**
  * 1인 원국(原局) FactSheet — 사주 여덟 글자에서 결정론으로 나오는 명리
  * 요소를 전부 구조화해 뽑는다. 해석 문장(prose)이 아니라 사실(fact)만 담아
- * 뒤에 LLM 라벨·궁합(compatSheet) 재료로 쓴다.
+ * 뒤에 LLM 라벨·궁합(matchSheet) 재료로 쓴다.
  *
  * 1단계: 기둥별 십성·지장간·십이운성·십이신살·납음·공망·오행분포·
  *        원국 내부 관계(합충형파해)·원국 신살(길흉신).
@@ -30,7 +30,7 @@ import {
   BRANCH_SAMHAP,
   BRANCH_BANGHAP,
   BRANCH_HYUNG,
-} from "../compat/constants.js"
+} from "../match/constants.js"
 import {
   CHEONEUL_BY_STEM,
   MUNCHANG_BY_STEM,
@@ -39,11 +39,12 @@ import {
   BAEKHO_PILLARS,
   GWAEGANG_PILLARS,
   GWIMUN_PAIRS,
-} from "../compat/judgments-constants.js"
-import { cells } from "../compat/rules.js"
-import { tenGod, tenGodDistribution, nayinOf } from "../compat/judgments.js"
-import type { TenGod, TenGodCount } from "../compat/judgments-types.js"
-import type { CompatSubject, PillarName, Polarity } from "../compat/types.js"
+} from "../match/judgments-constants.js"
+import { cells } from "../match/rules.js"
+import { tenGod, tenGodDistribution, nayinOf } from "../match/judgments.js"
+import type { TenGod, TenGodCount } from "../match/judgments-types.js"
+import type { PillarName, Polarity } from "../match/types.js"
+import type { Subject } from "../types.js"
 import { twelveStage, twelveSinsal } from "./constants.js"
 import { analysisFacts } from "./analysis.js"
 import type { AnalysisFacts } from "./analysis.js"
@@ -357,7 +358,7 @@ function elementDistribution(bazi: Bazi): {
 /**
  * 사주 한 벌의 1인 원국 FactSheet 를 만든다.
  */
-export function analyze(subject: CompatSubject): BaziAnalysis {
+export function analyze(subject: Subject): BaziAnalysis {
   const bazi = subject.bazi
   const dm = bazi.day.stem
   const yearBranch = bazi.year.branch

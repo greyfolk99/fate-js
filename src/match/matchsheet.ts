@@ -7,15 +7,15 @@ import {
   hiddenAmhapRule,
   elementComplementRule,
 } from "./rules.js"
-import { judgeCompat } from "./judgments.js"
+import { judgeMatch } from "./judgments.js"
 import { yongsinSupply } from "./yongsin-supply.js"
 import { STEM_ELEMENTS, GENERATES, CONTROLS } from "../constants.js"
 import type { Judgment } from "./judgments-types.js"
-import type { CompatEdge, CompatSubject, CompatSheet, Lens, LensGroup } from "./types.js"
+import type { MatchEdge, MatchSubject, MatchSheet, Lens, LensGroup } from "./types.js"
 
-export const COMPATSHEET_SCHEMA_VERSION = "compat-sheet-v2"
+export const MATCHSHEET_SCHEMA_VERSION = "match-sheet-v2"
 
-/** compat fact id → 렌즈 매핑. 관계 12종+오행보완만 렌즈를 만든다. */
+/** match fact id → 렌즈 매핑. 관계 12종+오행보완만 렌즈를 만든다. */
 const FACT_LENS: Record<string, Lens> = {
   // 合(끌림·정) — 서로 당기고 정드는가
   stem_hap: "合",
@@ -47,10 +47,10 @@ const LENS_ORDER: Lens[] = ["合", "生", "沖"]
  * 종합 점수는 만들지 않는다(하류 LLM 의 몫). 관계가 없어도 `present:false`
  * 로 항상 한 줄 남겨 인풋 차원을 고정한다.
  */
-export function compatSheet(
-  subject: CompatSubject,
-  candidate: CompatSubject,
-): CompatSheet {
+export function matchSheet(
+  subject: MatchSubject,
+  candidate: MatchSubject,
+): MatchSheet {
   const s = cells(subject.bazi)
   const c = cells(candidate.bazi)
 
@@ -64,7 +64,7 @@ export function compatSheet(
   ]
 
   const judgments = {
-    ...judgeCompat(subject, candidate, facts),
+    ...judgeMatch(subject, candidate, facts),
     yongsinSupply: yongsinSupply(subject, candidate),
   }
 
@@ -79,7 +79,7 @@ export function compatSheet(
   })
 
   return {
-    schemaVersion: COMPATSHEET_SCHEMA_VERSION,
+    schemaVersion: MATCHSHEET_SCHEMA_VERSION,
     subject,
     candidate,
     facts,
@@ -88,7 +88,7 @@ export function compatSheet(
   }
 }
 
-/** compat 엣지의 오행 enum(영문) → 한자. */
+/** match 엣지의 오행 enum(영문) → 한자. */
 const ELEMENT_HANJA: Record<string, string> = {
   wood: "木", fire: "火", earth: "土", metal: "金", water: "水",
 }
@@ -104,7 +104,23 @@ const NAYIN_RELATION_HANJA: Record<string, string> = {
   same: "比和", generates: "相生", controls: "相剋",
 }
 
-/** 라벨의 괄호 속 한자 코드를 뽑는다(GLM 한자 native). 예: "천간합(天干合)" → "天干合". */
+/**
+ * fact/신살의 **안정 id → 렌더용 한자 코드** (GLM 한자 native).
+ * 표시용 label 문구를 파싱하지 않는다 — label 을 고쳐도 GLM 입력 텍스트가 안 바뀌게(재라벨 방지).
+ */
+const FACT_HANJA: Record<string, string> = {
+  stem_hap: "天干合", stem_clash: "天干沖",
+  branch_yukhap: "六合", branch_clash: "六沖", branch_hae: "六害", branch_pa: "六破",
+  branch_wonjin: "怨嗔", branch_hyung: "刑", branch_samhap: "三合", branch_banghap: "方合",
+  hidden_amhap: "暗合", element_complement: "五行相補",
+}
+const SINSAL_HANJA: Record<string, string> = {
+  dohwa: "桃花", yeokma: "驛馬", hwagae: "華蓋", hongyeom: "紅艶",
+  cheoneul: "天乙貴人", munchang: "文昌貴人", yangin: "羊刃",
+  baekho: "白虎", gwaegang: "魁罡", gwimun: "鬼門關殺",
+}
+
+/** 라벨의 괄호 속 한자 — id 매핑에 없는 신규 항목용 폴백. */
 function hanjaOf(label: string): string {
   const m = label.match(/\(([^)]+)\)/)
   return m ? m[1]! : label
@@ -121,7 +137,7 @@ const PILLAR_HANJA: Record<string, string> = {
 }
 
 /** 엣지 → "A日子-B日丑" — 어느 사주·어느 기둥의 글자끼리 성립했는지(궁위 사실). */
-function edgeHanja(e: CompatEdge): string {
+function edgeHanja(e: MatchEdge): string {
   return `A${PILLAR_HANJA[e.subject.pillar]}${e.subject.glyph}-B${PILLAR_HANJA[e.object.pillar]}${e.object.glyph}`
 }
 
@@ -130,8 +146,8 @@ function edgeHanja(e: CompatEdge): string {
  * 국마다 관여 글자 종수(三字=전국, 二字=반합)를 부기 — 글자 수는 국 성립
  * 형태의 사실이지 강도 점수가 아니다.
  */
-function groupSegments(name: string, edges: CompatEdge[]): string[] {
-  const byEl = new Map<string, CompatEdge[]>()
+function groupSegments(name: string, edges: MatchEdge[]): string[] {
+  const byEl = new Map<string, MatchEdge[]>()
   for (const e of edges) {
     const el = ELEMENT_HANJA[e.element as string] ?? String(e.element)
     byEl.set(el, [...(byEl.get(el) ?? []), e])
@@ -157,12 +173,12 @@ function groupSegments(name: string, edges: CompatEdge[]): string[] {
  * includeWangswe: 【沖旺衰】 줄(六沖별 왕쇠·뽑히는 쪽) 노출 여부(기본 꺼짐).
  * 온도 방향 분리(temp_A/B) 재료 — 읽는 규칙을 가진 프롬프트에서만 켤 것.
  */
-export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boolean; includeWangswe?: boolean }): string {
+export function formatMatchSheet(sheet: MatchSheet, opts?: { includeHarm?: boolean; includeWangswe?: boolean }): string {
   const lines: string[] = []
   for (const g of sheet.lenses) {
     const active = g.facts.filter((f) => f.present)
     const parts = active.flatMap((f) => {
-      const name = hanjaOf(f.label) // 天干合, 六合, 五行相補 …
+      const name = FACT_HANJA[f.id] ?? hanjaOf(f.label) // 天干合, 六合, 五行相補 …
       // 오행보완(生)은 엣지가 아니라 수수(受) 오행 detail 로 렌더.
       if (f.id === "element_complement") {
         let extra = ""
@@ -280,8 +296,8 @@ export function formatCompatSheet(sheet: CompatSheet, opts?: { includeHarm?: boo
       `속(和${d.innerHarmony ?? 0}沖${d.innerClash ?? 0})`,
     )
   }
-  const s2 = j.sinsal.candidateForSubject.filter((s) => s.present).map((s) => hanjaOf(s.label))
-  const s1 = j.sinsal.subjectForCandidate.filter((s) => s.present).map((s) => hanjaOf(s.label))
+  const s2 = j.sinsal.candidateForSubject.filter((s) => s.present).map((s) => SINSAL_HANJA[s.id] ?? hanjaOf(s.label))
+  const s1 = j.sinsal.subjectForCandidate.filter((s) => s.present).map((s) => SINSAL_HANJA[s.id] ?? hanjaOf(s.label))
   if (s2.length) aux.push(`神殺(B→A):${s2.join("·")}`)
   if (s1.length) aux.push(`神殺(A→B):${s1.join("·")}`)
   if (aux.length) lines.push(`【보조】 ${aux.join(" · ")}`)

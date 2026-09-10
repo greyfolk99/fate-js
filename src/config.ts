@@ -53,9 +53,28 @@ export function getSolarConfig(): SolarConfig {
   return { ..._cfg }
 }
 
-/** 전역 진태양시 설정 갱신(부분 갱신). 비유한 경도·자오선은 거부(무한 루프·오답 방지). */
+/**
+ * 전역 진태양시 설정 갱신(부분 갱신). 비유한 경도·자오선은 거부(무한 루프·오답 방지).
+ * 값이 undefined인 키는 무시한다 — JS에서 { defaultLongitude: undefined } 같은 패치가
+ * 스프레드로 전역 설정을 오염시키는 것을 막는다(오염되면 bazi()가 빈 시주를 만든다).
+ */
 export function setSolarConfig(patch: Partial<SolarConfig>): void {
-  if (patch.standardMeridian !== undefined) assertLongitude(patch.standardMeridian, "standardMeridian")
-  if (patch.defaultLongitude !== undefined) assertLongitude(patch.defaultLongitude, "defaultLongitude")
-  _cfg = { ..._cfg, ...patch }
+  const clean: Partial<SolarConfig> = {}
+  if (patch.applySolarTime !== undefined) {
+    if (typeof patch.applySolarTime !== "boolean") throw new TypeError(`applySolarTime는 boolean이어야 합니다: ${String(patch.applySolarTime)}`)
+    clean.applySolarTime = patch.applySolarTime
+  }
+  if (patch.applyEot !== undefined) {
+    if (typeof patch.applyEot !== "boolean") throw new TypeError(`applyEot는 boolean이어야 합니다: ${String(patch.applyEot)}`)
+    clean.applyEot = patch.applyEot
+  }
+  if (patch.standardMeridian !== undefined) {
+    assertLongitude(patch.standardMeridian, "standardMeridian")
+    clean.standardMeridian = patch.standardMeridian
+  }
+  if (patch.defaultLongitude !== undefined) {
+    assertLongitude(patch.defaultLongitude, "defaultLongitude")
+    clean.defaultLongitude = patch.defaultLongitude
+  }
+  _cfg = { ..._cfg, ...clean }
 }

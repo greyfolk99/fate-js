@@ -61,7 +61,8 @@ export function catalog(
   const monthsArr  = new Int8Array(N)
   const daysArr    = new Int8Array(N)
   const hoursArr   = new Int8Array(N)
-  const slotIndex  = new Int8Array(N)
+  // Int16 — hours 인자에 중복 포함 128개 이상이 와도 인덱스가 음수로 래핑되지 않게.
+  const slotIndex  = new Int16Array(N)
   const stemsArr   = new Int8Array(N * 4)
   const branchesArr = new Int8Array(N * 4)
 

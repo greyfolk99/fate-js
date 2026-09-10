@@ -10,10 +10,10 @@
  * 억부용신 원리 = 滴天髓 衰旺篇. 점수·판정 없음 — "무엇 중 무엇이 공급되고
  * 무엇이 투출인가"라는 사실만.
  *
- * ⚠️ 순환 import 방지: analysisFacts 를 쓰므로 judgeCompat 이 아니라
- * compatSheet(compatsheet.ts)에서 호출해 붙인다.
+ * ⚠️ 순환 import 방지: analysisFacts 를 쓰므로 judgeMatch 이 아니라
+ * matchSheet(matchsheet.ts)에서 호출해 붙인다.
  */
-import type { CompatSubject } from "./types.js"
+import type { MatchSubject } from "./types.js"
 import type { Bazi } from "../types.js"
 import { analysisFacts } from "../bazi/analysis.js"
 import { STEM_ELEMENTS, BRANCH_ELEMENTS, HIDDEN_STEMS, CONTROLS } from "../constants.js"
@@ -147,7 +147,7 @@ export interface YongsinSupply {
   harmToCandidate: Judgment
 }
 
-export function yongsinSupply(subject: CompatSubject, candidate: CompatSubject): YongsinSupply {
+export function yongsinSupply(subject: MatchSubject, candidate: MatchSubject): YongsinSupply {
   const a = analysisFacts(subject.bazi).yongsin
   const b = analysisFacts(candidate.bazi).yongsin
   return {

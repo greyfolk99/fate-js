@@ -17,11 +17,11 @@ import {
 } from "../constants.js"
 import type { STEMS, BRANCHES, ELEMENTS as ELEMENTS_T } from "../constants.js"
 import type { Bazi } from "../types.js"
-import { cells } from "../compat/rules.js"
-import { tenGod } from "../compat/judgments.js"
+import { cells } from "../match/rules.js"
+import { tenGod } from "../match/judgments.js"
 import { JOHU_TABLE } from "./johu-table.js"
-import type { TenGod } from "../compat/judgments-types.js"
-import type { PillarName } from "../compat/types.js"
+import type { TenGod } from "../match/judgments-types.js"
+import type { PillarName } from "../match/types.js"
 
 type Stem = typeof STEMS[number]
 type Branch = typeof BRANCHES[number]

@@ -49,7 +49,7 @@ describe("assertValidBirthInput 시간·경도", () => {
     expect(() => assertValidBirthInput({ year: 1992, month: 8, day: 4, hour: 1, minute: 55, longitude: 127, utcOffsetMinutes: 540 })).not.toThrow()
   })
   test("utcOffsetMinutes 생략 시 throw (필수 — 암묵 타임존 기본값 금지)", () => {
-    // @ts-expect-error utcOffsetMinutes는 필수 필드 — 생략 시 타입에러 + 런타임 throw.
+    // ValidatableBirthInput은 미완성 입력도 캐스팅 없이 받는다 — 누락 검증은 런타임 throw.
     expect(() => assertValidBirthInput({ year: 2000, month: 1, day: 1, hour: 1 })).toThrow()
   })
   test("utcOffsetMinutes 범위밖(−720~840)은 throw", () => {
@@ -59,8 +59,8 @@ describe("assertValidBirthInput 시간·경도", () => {
 
 describe("bazi 진입점 검증·절기범위", () => {
   test("잘못된 입력은 bazi에서 throw", () => {
-    expect(() => bazi({ year: 2000, month: 2, day: 30 })).toThrow(RangeError)
-    expect(() => bazi({ year: 2000, month: 1, day: 1, hour: 24 })).toThrow(RangeError)
+    expect(() => bazi({ year: 2000, month: 2, day: 30, utcOffsetMinutes: 540 })).toThrow(RangeError)
+    expect(() => bazi({ year: 2000, month: 1, day: 1, hour: 24, utcOffsetMinutes: 540 })).toThrow(RangeError)
   })
   test("절기 데이터 범위 밖 연도는 throw (clamp 아님)", () => {
     expect(() => bazi({ year: 1500, month: 6, day: 15, timeBasis: "standard", utcOffsetMinutes: 540 })).toThrow(RangeError)

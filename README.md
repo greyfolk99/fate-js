@@ -37,18 +37,18 @@ bazi({ year: 1990, month: 5, day: 15, utcOffsetMinutes: 540 })
 
 True solar time correction (longitude + equation of time) is on by default and applies to the hour pillar only. Pass `timeBasis: "standard"` as above to use standard clock time.
 
-### Sheets — `baziSheet()` · `compatSheet()`
+### Sheets — `baziSheet()` · `matchSheet()`
 
-Fact-based sheets: `baziSheet(subject)` extracts one person's natal chart plus analysis (strength, favorable elements, five-element / ten-god distribution, chart structure, void branches, symbolic stars); `compatSheet(a, b)` extracts two people's compatibility (12 relation kinds viewed through the three lenses 合 / 生 / 沖) — structured facts, no scores.
+Fact-based sheets: `baziSheet(subject)` extracts one person's natal chart plus analysis (strength, favorable elements, five-element / ten-god distribution, chart structure, void branches, symbolic stars); `matchSheet(a, b)` extracts two people's compatibility (12 relation kinds viewed through the three lenses 合 / 生 / 沖) — structured facts, no scores.
 
 ```ts
-import { bazi, baziSheet, compatSheet, formatBaziSheet, formatCompatSheet } from "fate-js"
+import { bazi, baziSheet, matchSheet, formatBaziSheet, formatMatchSheet } from "fate-js"
 
 const a = { bazi: bazi({ year: 1990, month: 5, day: 15, hour: 10, minute: 30, utcOffsetMinutes: 540, gender: "male" }), gender: "male" }
 const b = { bazi: bazi({ year: 1992, month: 11, day: 2, hour: 14, minute: 20, utcOffsetMinutes: 540, gender: "female" }), gender: "female" }
 
 formatBaziSheet(baziSheet(a), "A")   // one-line hanzi summary
-formatCompatSheet(compatSheet(a, b)) // 3-lens hanzi text block
+formatMatchSheet(matchSheet(a, b)) // 3-lens hanzi text block
 ```
 
 ### Bulk — `catalog()`
@@ -70,12 +70,12 @@ cat.years      // Int16Array [N]
 |---|---|
 | `bazi(input: BirthInput): Bazi` | birth date/time → four pillars (`utcOffsetMinutes` required) |
 | `baziSheet(subject): BaziSheet` | one person's natal chart + analysis sheet (facts, no scores) |
-| `compatSheet(a, b): CompatSheet` | two-person compatibility sheet (12 relations → 3 lenses 合/生/沖) |
+| `matchSheet(a, b): MatchSheet` | two-person compatibility sheet (12 relations → 3 lenses 合/生/沖) |
 | `analyze(subject): BaziAnalysis` | natal analysis (strength · structure · favorable elements · stars) |
 | `catalog(yearStart, yearEnd, utcOffsetMinutes, hours?): CatalogResult` | year range → pillar matrices (`TypedArray`) |
-| `formatBaziSheet` · `formatCompatSheet` | sheet → hanzi text for LLM prompts / UI |
+| `formatBaziSheet` · `formatMatchSheet` | sheet → hanzi text for LLM prompts / UI |
 | `STEMS`, `BRANCHES` | stem / branch constant arrays |
-| types | `BirthInput`, `Bazi`, `BaziSheet`, `CompatSheet`, `Pillar`, `CatalogResult`, `Stem`, `Branch` |
+| types | `BirthInput`, `Bazi`, `BaziSheet`, `MatchSheet`, `Pillar`, `CatalogResult`, `Stem`, `Branch` |
 
 ## License
 
