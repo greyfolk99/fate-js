@@ -1,6 +1,6 @@
 {
   "name": "fate-js",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "description": "사주팔자(四柱) 계산 라이브러리.",
   "license": "MIT",
@@ -8,7 +8,15 @@
     "type": "git",
     "url": "git+https://github.com/greyfolk99/fate-js.git"
   },
-  "keywords": ["bazi", "saju", "사주", "팔자", "만세력", "절기", "fortune"],
+  "keywords": [
+    "bazi",
+    "saju",
+    "사주",
+    "팔자",
+    "만세력",
+    "절기",
+    "fortune"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -18,7 +26,10 @@
       "default": "./dist/index.js"
     }
   },
-  "files": ["src", "dist"],
+  "files": [
+    "src",
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "prepare": "tsc -p tsconfig.json",

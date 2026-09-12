@@ -5,6 +5,7 @@ export * from "./solar-time.js";
 export * from "./timezone.js";
 export * from "./validate.js";
 export * from "./bazi.js";
+export * from "./daeun.js";
 export * from "./catalog.js";
 export * from "./match/index.js";
 export * from "./bazi/analyze.js";
